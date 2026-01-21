@@ -194,3 +194,54 @@ def get_related_terms(term: str) -> List[str]:
 def get_all_terms() -> List[str]:
     """Get list of all Owen terms in the glossary."""
     return list(OWEN_GLOSSARY.keys())
+
+
+def format_glossary_for_prompt(max_terms: int = 16) -> str:
+    """
+    Format glossary for inclusion in system prompt.
+
+    Formats the most important Owen terms with definitions and examples
+    in a compact format suitable for LLM prompts.
+
+    Args:
+        max_terms: Maximum number of terms to include (default: 16)
+
+    Returns:
+        Formatted glossary string
+    """
+    # Priority ordering - most fundamental concepts first
+    priority_terms = [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication",
+        "Information Structure",
+        "Function Structure",
+        "Abstraction Ladder",
+        "Action Analysis",
+        "Structured Planning",
+        "Mode",
+        "Activity",
+        "Cluster",
+        "VTCON",
+        "RELATN",
+        "Means/Ends Analysis",
+        "Abstraction Structure",
+    ]
+
+    formatted_parts = []
+
+    for term in priority_terms[:max_terms]:
+        if term in OWEN_GLOSSARY:
+            info = OWEN_GLOSSARY[term]
+            definition = info["definition"]
+
+            # Format examples if available
+            examples_str = ""
+            if info.get("examples"):
+                examples_list = info["examples"][:2]  # Max 2 examples
+                examples_str = f" (e.g., {', '.join(examples_list)})"
+
+            formatted_parts.append(f"- **{term}**: {definition}{examples_str}")
+
+    return "\n".join(formatted_parts)
