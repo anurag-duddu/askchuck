@@ -325,4 +325,48 @@ MIT License - see LICENSE file for details
 
 ---
 
+## Quick Start (New Implementation)
+
+The project has been rebuilt following PRD-01 through PRD-07:
+
+### Run Streamlit UI
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Set up .env file with API keys
+cp .env.example .env
+# Edit .env with your keys
+
+# Run Streamlit app
+bash scripts/run_streamlit.sh
+# Or: streamlit run streamlit_app.py
+```
+
+### Run FastAPI Server
+```bash
+# Start the API server
+bash scripts/run_api.sh
+# Or: python -m uvicorn src.api.server:app --reload
+
+# API docs available at: http://localhost:8000/docs
+```
+
+### Run the Full Pipeline
+```bash
+# 1. Ingest documents
+python scripts/ingest_documents.py --all
+
+# 2. Chunk and enrich
+python scripts/chunk_documents.py --all
+
+# 3. Build index
+python scripts/build_index.py --all
+
+# 4. Run Streamlit UI
+streamlit run streamlit_app.py
+```
+
+---
+
 **Built with ❤️ for learning production-quality RAG systems**

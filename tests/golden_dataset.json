@@ -1,0 +1,537 @@
+{
+  "version": "1.0",
+  "created_at": "2026-01-20",
+  "description": "AskChuck evaluation dataset for Owen's Structured Planning methodology",
+  "total_questions": 52,
+  "category_distribution": {
+    "definition": 15,
+    "procedural": 13,
+    "example": 10,
+    "relationship": 8,
+    "visual": 5,
+    "out_of_scope": 1
+  },
+  "questions": [
+    {
+      "id": "def_001",
+      "question": "What is a Design Factor?",
+      "category": "definition",
+      "difficulty": "easy",
+      "expected_answer": "A Design Factor is a document that captures insight about a Function in Structured Planning. It has four main parts: an Observation that states the essence of the insight, an Extension that explores causes and effects, Design Implications that suggest strategic directions, and Speculations that propose concrete ideas as evocative adjective-noun phrases.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Design Factor", "Observation", "Extension", "Speculation", "Design Implication"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_002",
+      "question": "What is an Abstraction Ladder?",
+      "category": "definition",
+      "difficulty": "easy",
+      "expected_answer": "An Abstraction Ladder is a tool for categorizing items from specific to general. Moving up the ladder reveals increasingly abstract categories; moving down reveals more specific instances. It was conceptualized by semanticists Korzybski and Hayakawa and is used in Structured Planning to find fresh perspectives for innovation.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Abstraction Ladder", "categorization", "abstraction", "Korzybski", "Hayakawa"],
+      "requires_figure": true
+    },
+    {
+      "id": "def_003",
+      "question": "What is a Function in Owen's methodology?",
+      "category": "definition",
+      "difficulty": "easy",
+      "expected_answer": "In Owen's Structured Planning, a Function is an action performed by a system or user, written as a verb phrase. Functions are the atomic units of analysis and represent what the system must do. They can be System Functions (performed by the system) or User Functions (performed by the user operating the system).",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Function", "System Function", "User Function", "verb phrase"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_004",
+      "question": "What is an Information Structure?",
+      "category": "definition",
+      "difficulty": "medium",
+      "expected_answer": "An Information Structure is a hierarchical organization of Functions based on their likelihood of sharing solutions. It is created by the VTCON computer program, which groups Functions that should be considered together for design regardless of their conventional classification. The structure supports inventive design by clustering Functions with potential solutions in common.",
+      "expected_sources": ["Context for Creativity", "The Power of Abstraction"],
+      "expected_terms": ["Information Structure", "VTCON", "Function", "cluster"],
+      "requires_figure": true
+    },
+    {
+      "id": "def_005",
+      "question": "What is a Speculation in Structured Planning?",
+      "category": "definition",
+      "difficulty": "easy",
+      "expected_answer": "A Speculation is a tactical, concrete idea for fulfilling a Function, formatted as an evocative adjective-noun phrase. Speculations are generated from Design Implications and represent specific concepts that could be used in the final design. Examples include 'Feedback-Controlled Heating' and 'Micro Sampler'.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Speculation", "Design Factor", "adjective-noun"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_006",
+      "question": "What is VTCON?",
+      "category": "definition",
+      "difficulty": "medium",
+      "expected_answer": "VTCON is a computer program created by Owen that constructs Information Structures. It groups Functions based on their shared Speculations, creating a hierarchical organization that reveals which Functions should be considered together for design. The name stands for the Value Transformation Concept.",
+      "expected_sources": ["Context for Creativity", "The Power of Abstraction"],
+      "expected_terms": ["VTCON", "Information Structure", "Function", "Speculation"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_007",
+      "question": "What is RELATN?",
+      "category": "definition",
+      "difficulty": "medium",
+      "expected_answer": "RELATN is a computer program that processes the matrix of Functions and Speculations. It identifies which Functions share which Speculations, creating a data structure that VTCON uses to build the Information Structure. RELATN analyzes the relationships between design elements.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["RELATN", "Function", "Speculation", "VTCON"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_008",
+      "question": "What is a Mode in Action Analysis?",
+      "category": "definition",
+      "difficulty": "easy",
+      "expected_answer": "A Mode is the top level of Action Analysis, representing a distinct state or condition of operation. Examples include Use, Maintenance, Transport, Storage, and Emergency. Modes partition the system's lifecycle into major operational contexts.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Mode", "Action Analysis", "Use", "Maintenance"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_009",
+      "question": "What is an Activity in Action Analysis?",
+      "category": "definition",
+      "difficulty": "easy",
+      "expected_answer": "An Activity is the middle level of Action Analysis, representing a purposeful performance within a Mode. Activities are like theatrical scenes that describe what happens. They break down Modes into coherent segments of action.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Activity", "Action Analysis", "Mode"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_010",
+      "question": "What is a Problem Element?",
+      "category": "definition",
+      "difficulty": "medium",
+      "expected_answer": "A Problem Element is an atomic insight or constraint in bottom-up innovation. Problem Elements are gathered during analysis and then organized into an Information Structure. They represent the raw material for synthesis, like Functions but focused on problems rather than actions.",
+      "expected_sources": ["Bottom-up, Top-down"],
+      "expected_terms": ["Problem Element", "bottom-up", "Information Structure"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_011",
+      "question": "What is Structured Planning?",
+      "category": "definition",
+      "difficulty": "easy",
+      "expected_answer": "Structured Planning is Charles Owen's systematic methodology for inventive design. It uses computer-aided processes to organize design insights, create hierarchical structures that reveal design opportunities, and support both bottom-up and top-down innovation. The methodology emphasizes abstraction and relationships between design elements.",
+      "expected_sources": ["Context for Creativity", "The Power of Abstraction"],
+      "expected_terms": ["Structured Planning", "Information Structure", "abstraction"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_012",
+      "question": "What is a Design Implication?",
+      "category": "definition",
+      "difficulty": "medium",
+      "expected_answer": "A Design Implication is a strategic direction suggested in a Design Factor. It bridges the Extension (analysis of causes and effects) and Speculations (concrete ideas). Design Implications point toward solution approaches without being as specific as Speculations.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Design Implication", "Design Factor", "Extension", "Speculation"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_013",
+      "question": "What is Means/Ends Analysis?",
+      "category": "definition",
+      "difficulty": "medium",
+      "expected_answer": "Means/Ends Analysis is the process of naming unnamed nodes in an Information Structure by establishing what end the elements below are means to. It creates abstraction by finding insightful category names that capture functionality, helping designers see Functions from fresh perspectives.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Means/Ends Analysis", "Information Structure", "abstraction", "Function"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_014",
+      "question": "What is a Function Structure?",
+      "category": "definition",
+      "difficulty": "medium",
+      "expected_answer": "A Function Structure is a hierarchical organization of Functions based on conventional relationships or task sequences. It differs from an Information Structure, which organizes Functions based on shared solutions. Function Structures follow logical or chronological order.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Function Structure", "Information Structure", "Function"],
+      "requires_figure": false
+    },
+    {
+      "id": "def_015",
+      "question": "What is an Observation in a Design Factor?",
+      "category": "definition",
+      "difficulty": "easy",
+      "expected_answer": "An Observation is the first part of a Design Factor, stating the essence of an insight about a Function in a concise sentence. It captures what was learned or discovered, forming the foundation for the Extension and Design Implications that follow.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Observation", "Design Factor", "Function"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_001",
+      "question": "How do you conduct Action Analysis?",
+      "category": "procedural",
+      "difficulty": "medium",
+      "expected_answer": "Action Analysis is conducted by creating a three-level top-down hierarchy. First, identify Modes of operation (distinct states like Use, Maintenance, Transport). Then, for each Mode, describe Activities (purposeful performances like theatrical scenes). Finally, identify Functions (specific actions) for each Activity. Throughout, capture Design Factors documenting insights about what goes wrong or right.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Action Analysis", "Mode", "Activity", "Function", "Design Factor"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_002",
+      "question": "What are the steps in Means/Ends Analysis?",
+      "category": "procedural",
+      "difficulty": "hard",
+      "expected_answer": "Means/Ends Analysis is the process of naming unnamed nodes in an Information Structure. For each cluster, you establish what end the elements below are means to. You move up the structure finding insightful category names that capture the functionality of grouped elements. The goal is to establish fresh perspectives from which to generate solutions.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Means/Ends Analysis", "Information Structure", "abstraction"],
+      "requires_figure": true
+    },
+    {
+      "id": "proc_003",
+      "question": "How do you create an Information Structure?",
+      "category": "procedural",
+      "difficulty": "hard",
+      "expected_answer": "To create an Information Structure: First, identify Functions and capture Design Factors about them. Generate Speculations from Design Implications in the Design Factors. Create a matrix of Functions versus Speculations using RELATN. Feed this matrix to VTCON, which clusters Functions based on shared Speculations. The result is a hierarchical structure showing which Functions should be considered together.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Information Structure", "Function", "Speculation", "VTCON", "RELATN"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_004",
+      "question": "How do you write a Design Factor?",
+      "category": "procedural",
+      "difficulty": "medium",
+      "expected_answer": "To write a Design Factor: Start with an Observation that captures the essence of your insight about a Function. Extend it by exploring causes and effects of the observation. Develop Design Implications that suggest strategic directions. Finally, generate Speculations as concrete adjective-noun phrases representing specific design ideas. Each part builds on the previous one.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Design Factor", "Observation", "Extension", "Design Implication", "Speculation"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_005",
+      "question": "How do you use an Abstraction Ladder in design?",
+      "category": "procedural",
+      "difficulty": "medium",
+      "expected_answer": "To use an Abstraction Ladder: Start with your specific item. Move up by asking 'what broader category does this belong to?' to find more abstract groupings. Move down by asking 'what are specific examples of this?' At different levels, you see the design space differently, revealing opportunities for innovation by shifting perspective.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Abstraction Ladder", "abstraction", "categorization"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_006",
+      "question": "What is the process for bottom-up innovation?",
+      "category": "procedural",
+      "difficulty": "hard",
+      "expected_answer": "Bottom-up innovation begins by gathering insights or Problem Elements without a predetermined concept. These elements are organized into an Information Structure that reveals patterns and relationships. Progressively synthesize clusters into larger systems, moving from parts to whole. The master concept emerges from the organized insights rather than being imposed at the start.",
+      "expected_sources": ["Bottom-up, Top-down"],
+      "expected_terms": ["bottom-up", "Problem Element", "Information Structure", "synthesis"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_007",
+      "question": "What is the process for top-down innovation?",
+      "category": "procedural",
+      "difficulty": "medium",
+      "expected_answer": "Top-down innovation starts with discovering or selecting a master concept or metaphor. This concept is then decomposed into subsystems and components. Details are derived from the overarching idea, ensuring coherence. The master concept provides a clear vision that guides all subsequent design decisions.",
+      "expected_sources": ["Bottom-up, Top-down"],
+      "expected_terms": ["top-down", "master concept", "decomposition"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_008",
+      "question": "How do you generate Speculations from Design Implications?",
+      "category": "procedural",
+      "difficulty": "medium",
+      "expected_answer": "From Design Implications, generate specific concrete ideas formatted as evocative adjective-noun phrases. The adjective suggests a quality or characteristic, while the noun names the concept. Examples: 'Modular Assembly', 'Transparent Housing', 'Feedback-Controlled Heating'. Each Speculation represents a tactical idea that could fulfill the Function being explored.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Speculation", "Design Implication", "adjective-noun"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_009",
+      "question": "How does VTCON build an Information Structure?",
+      "category": "procedural",
+      "difficulty": "hard",
+      "expected_answer": "VTCON receives a matrix from RELATN showing which Functions share which Speculations. It groups Functions with the most shared Speculations into clusters. These clusters become nodes in a hierarchy. The process repeats at higher levels, grouping clusters based on their shared characteristics, until all elements connect to a single root representing the project.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["VTCON", "Information Structure", "Function", "Speculation", "cluster"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_010",
+      "question": "What are the steps in creating a Structured Planning project?",
+      "category": "procedural",
+      "difficulty": "hard",
+      "expected_answer": "A Structured Planning project typically follows these steps: Conduct Action Analysis to identify Functions. Write Design Factors capturing insights. Generate Speculations from Design Implications. Use RELATN to create the Function-Speculation matrix. Run VTCON to build the Information Structure. Perform Means/Ends Analysis to name nodes. Use the structure to guide synthesis and innovation.",
+      "expected_sources": ["Context for Creativity", "The Power of Abstraction"],
+      "expected_terms": ["Structured Planning", "Action Analysis", "Design Factor", "VTCON", "Information Structure"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_011",
+      "question": "How do you identify System Functions versus User Functions?",
+      "category": "procedural",
+      "difficulty": "medium",
+      "expected_answer": "System Functions are actions performed by the system itself (e.g., 'Process Data', 'Display Results'). User Functions are actions performed by the user operating the system (e.g., 'Enter Information', 'Review Output'). During Action Analysis, distinguish them by asking who performs the action: the system or the user.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["System Function", "User Function", "Action Analysis"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_012",
+      "question": "How do you move from Analysis to Synthesis in Structured Planning?",
+      "category": "procedural",
+      "difficulty": "hard",
+      "expected_answer": "Analysis phase produces Functions, Design Factors, and Speculations organized into an Information Structure. Synthesis begins by using this structure to identify solution opportunities. Work at different abstraction levels, generating concepts for clusters of Functions. The Information Structure guides which elements to consider together, supporting creative synthesis.",
+      "expected_sources": ["Context for Creativity", "Bottom-up, Top-down"],
+      "expected_terms": ["analysis", "synthesis", "Information Structure", "Function"],
+      "requires_figure": false
+    },
+    {
+      "id": "proc_013",
+      "question": "How do you use abstraction to find design opportunities?",
+      "category": "procedural",
+      "difficulty": "medium",
+      "expected_answer": "Use abstraction by moving up and down levels in an Information Structure or Abstraction Ladder. At higher levels of abstraction, you see broader patterns and alternative solution domains. At lower levels, you find specific implementations. Shifting between levels reveals opportunities that are hidden when you stay at one level of thinking.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["abstraction", "Information Structure", "Abstraction Ladder"],
+      "requires_figure": false
+    },
+    {
+      "id": "exam_001",
+      "question": "Give me an example of an Abstraction Ladder",
+      "category": "example",
+      "difficulty": "medium",
+      "expected_answer": "Owen provides a chair example: At the bottom are specific designs like Eames Lounge Chair and Barcelona Chair. These group into 'Modern Classic Seating', which joins other styles to form 'Living Room Chairs'. This combines with Dining Room Chairs and others to form 'Chairs'. At the top, Chairs joins Tables, Beds, and Counters under 'Horizontal Surfaces'.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Abstraction Ladder", "Horizontal Surfaces", "Chairs"],
+      "requires_figure": true
+    },
+    {
+      "id": "exam_002",
+      "question": "What was the Hydrospace project?",
+      "category": "example",
+      "difficulty": "medium",
+      "expected_answer": "The Hydrospace project was an IIT Institute of Design project for ARMCO Steel Company exploring future ocean industries. It examined deep-sea oil production, mineral harvesting from the sea bottom, and high-value fish farming. It exemplifies bottom-up innovation, where over 100 Problem Elements were organized into an Information Structure and progressively synthesized into an integrated system solution.",
+      "expected_sources": ["Bottom-up, Top-down"],
+      "expected_terms": ["Hydrospace", "bottom-up", "Problem Element", "Information Structure"],
+      "requires_figure": true
+    },
+    {
+      "id": "exam_003",
+      "question": "Give an example of a Design Factor",
+      "category": "example",
+      "difficulty": "easy",
+      "expected_answer": "An example Design Factor might have: Observation: 'Users frequently forget to save their work.' Extension: 'This occurs because save operations are not integrated into natural workflow, requiring explicit user action. The cognitive load of remembering to save competes with task focus.' Design Implication: 'Automate save operations or make them seamless.' Speculations: 'Autosave Feature', 'Cloud Sync', 'Version Snapshots'.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Design Factor", "Observation", "Extension", "Speculation"],
+      "requires_figure": false
+    },
+    {
+      "id": "exam_004",
+      "question": "What are examples of Speculations?",
+      "category": "example",
+      "difficulty": "easy",
+      "expected_answer": "Speculations are adjective-noun phrases like 'Feedback-Controlled Heating', 'Transparent Housing', 'Modular Assembly', 'Micro Sampler', 'Automated Monitoring', 'Quick-Connect Fitting'. Each combines a quality (adjective) with a concept (noun) to create an evocative, concrete design idea.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Speculation", "adjective-noun"],
+      "requires_figure": false
+    },
+    {
+      "id": "exam_005",
+      "question": "What are examples of Modes in Action Analysis?",
+      "category": "example",
+      "difficulty": "easy",
+      "expected_answer": "Common Modes include Use (normal operation), Maintenance (servicing and repair), Transport (moving the system), Storage (keeping the system when not in use), Emergency (handling unexpected situations), Installation (initial setup), and Decommissioning (end-of-life disposal).",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Mode", "Action Analysis", "Use", "Maintenance"],
+      "requires_figure": false
+    },
+    {
+      "id": "exam_006",
+      "question": "Give an example of a Function in Structured Planning",
+      "category": "example",
+      "difficulty": "easy",
+      "expected_answer": "Functions are verb phrases describing actions, such as 'Process Payment', 'Display Menu', 'Capture User Input', 'Validate Data', 'Generate Report', 'Store Information', 'Retrieve Records'. Each Function represents a specific action the system or user must perform.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Function", "verb phrase"],
+      "requires_figure": false
+    },
+    {
+      "id": "exam_007",
+      "question": "What is an example project that used Information Structures?",
+      "category": "example",
+      "difficulty": "medium",
+      "expected_answer": "The International Design Institute project used Information Structures to organize Functions for a new design school. Functions like 'Define mission of school' and 'Teach design methods' were grouped by VTCON into clusters representing major areas like 'Instruction and Learning', 'Research', and 'Administration', revealing natural organizational patterns.",
+      "expected_sources": ["The Power of Abstraction", "Context for Creativity"],
+      "expected_terms": ["Information Structure", "Function", "VTCON"],
+      "requires_figure": true
+    },
+    {
+      "id": "exam_008",
+      "question": "What are examples of Activities in Action Analysis?",
+      "category": "example",
+      "difficulty": "easy",
+      "expected_answer": "Activities are purposeful performances within Modes. For a coffee maker in Use mode: 'Prepare for brewing', 'Brew coffee', 'Serve coffee', 'Clean after use'. For Maintenance mode: 'Descale system', 'Replace filter', 'Check for leaks'. Each Activity groups related Functions.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Activity", "Action Analysis", "Mode"],
+      "requires_figure": false
+    },
+    {
+      "id": "exam_009",
+      "question": "Give an example of moving up an Abstraction Ladder",
+      "category": "example",
+      "difficulty": "medium",
+      "expected_answer": "Starting with 'iPhone', move up to 'Smartphone', then 'Mobile Communication Device', then 'Personal Electronics', then 'Consumer Technology', finally to 'Tools for Human Activity'. Each level reveals a broader category with different competitors and opportunities.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Abstraction Ladder", "abstraction"],
+      "requires_figure": false
+    },
+    {
+      "id": "exam_010",
+      "question": "What is an example of using both top-down and bottom-up approaches together?",
+      "category": "example",
+      "difficulty": "hard",
+      "expected_answer": "Owen suggests using bottom-up to create the Information Structure from gathered insights, which reveals design patterns and opportunities. Then use top-down to innovate solutions for specific clusters or subsystems identified in the structure. The Information Structure from bottom-up guides where to apply top-down innovation.",
+      "expected_sources": ["Bottom-up, Top-down"],
+      "expected_terms": ["top-down", "bottom-up", "Information Structure"],
+      "requires_figure": false
+    },
+    {
+      "id": "rel_001",
+      "question": "How do Functions relate to Speculations?",
+      "category": "relationship",
+      "difficulty": "medium",
+      "expected_answer": "Functions and Speculations are linked through Design Factors. When a Function is identified during Action Analysis, insights about it are captured in Design Factors. Each Design Factor generates Speculations—concrete ideas for how to fulfill the Function. In the Information Structure, Functions are grouped based on which Speculations they share, indicating they might have common solutions.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Function", "Speculation", "Design Factor"],
+      "requires_figure": false
+    },
+    {
+      "id": "rel_002",
+      "question": "What's the difference between top-down and bottom-up innovation?",
+      "category": "relationship",
+      "difficulty": "medium",
+      "expected_answer": "Top-down innovation discovers a master concept first, then derives details. It offers clarity and simplicity but may force aspects into a mold. Bottom-up innovation gathers insights about parts first, then integrates toward a concept. It enables thorough exploration and creative freedom but has uncertain vision. Owen's Structured Planning uses both: bottom-up to create the Information Structure, then top-down to innovate system elements.",
+      "expected_sources": ["Bottom-up, Top-down"],
+      "expected_terms": ["top-down", "bottom-up", "Information Structure"],
+      "requires_figure": false
+    },
+    {
+      "id": "rel_003",
+      "question": "How does an Information Structure differ from a Function Structure?",
+      "category": "relationship",
+      "difficulty": "medium",
+      "expected_answer": "A Function Structure organizes Functions by conventional relationships or sequential order (what logically follows what). An Information Structure organizes Functions by shared Speculations (what could have common solutions). Function Structures reflect traditional thinking; Information Structures reveal unconventional design opportunities by grouping elements that should be considered together for innovation.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Information Structure", "Function Structure", "Speculation"],
+      "requires_figure": false
+    },
+    {
+      "id": "rel_004",
+      "question": "What is the relationship between VTCON and RELATN?",
+      "category": "relationship",
+      "difficulty": "medium",
+      "expected_answer": "RELATN analyzes the relationship between Functions and Speculations, creating a matrix that shows which Functions share which Speculations. VTCON uses this matrix from RELATN to build the Information Structure by clustering Functions based on shared Speculations. RELATN provides the data; VTCON creates the hierarchy.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["VTCON", "RELATN", "Function", "Speculation"],
+      "requires_figure": false
+    },
+    {
+      "id": "rel_005",
+      "question": "How do Abstraction Ladders relate to Information Structures?",
+      "category": "relationship",
+      "difficulty": "hard",
+      "expected_answer": "Both are hierarchical organizations that support abstraction. Abstraction Ladders move from specific to general by conventional categorization. Information Structures move from specific Functions to abstract clusters based on shared solutions. Both enable designers to see problems from different perspectives, but Information Structures are specifically built to reveal design opportunities.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Abstraction Ladder", "Information Structure", "abstraction"],
+      "requires_figure": false
+    },
+    {
+      "id": "rel_006",
+      "question": "What is the relationship between Observation and Extension in a Design Factor?",
+      "category": "relationship",
+      "difficulty": "easy",
+      "expected_answer": "The Observation states the essence of an insight concisely. The Extension explores the Observation in depth, examining causes, effects, and implications. The Observation is the seed; the Extension is the development. Together they form the analytical foundation before moving to Design Implications and Speculations.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Observation", "Extension", "Design Factor"],
+      "requires_figure": false
+    },
+    {
+      "id": "rel_007",
+      "question": "How does Means/Ends Analysis relate to abstraction?",
+      "category": "relationship",
+      "difficulty": "medium",
+      "expected_answer": "Means/Ends Analysis creates abstraction by asking what end a set of means serves. Moving up an Information Structure through Means/Ends Analysis is moving to higher abstraction. The process of naming what elements below are means to creates abstract categories, revealing broader functional purposes.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Means/Ends Analysis", "abstraction", "Information Structure"],
+      "requires_figure": false
+    },
+    {
+      "id": "rel_008",
+      "question": "What is the relationship between Modes, Activities, and Functions in Action Analysis?",
+      "category": "relationship",
+      "difficulty": "easy",
+      "expected_answer": "Action Analysis is a three-level hierarchy. Modes are the broadest level (states of operation). Activities are the middle level (purposeful performances within Modes). Functions are the finest level (specific actions within Activities). Each level decomposes the one above, creating a structured breakdown of system behavior.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Mode", "Activity", "Function", "Action Analysis"],
+      "requires_figure": false
+    },
+    {
+      "id": "vis_001",
+      "question": "Show me a diagram of an Information Structure",
+      "category": "visual",
+      "difficulty": "easy",
+      "expected_answer": "The Information Structure diagram shows a hierarchical tree with Functions at the bottom and the project name at the top. Nodes in between represent clusters formed by VTCON based on shared Speculations. The International Design Institute example shows Functions like 'Define mission of school' grouped into clusters like 'Instruction and Learning' at progressively higher levels.",
+      "expected_sources": ["The Power of Abstraction", "Context for Creativity"],
+      "expected_terms": ["Information Structure", "Function", "cluster", "VTCON"],
+      "requires_figure": true
+    },
+    {
+      "id": "vis_002",
+      "question": "What does an Abstraction Ladder diagram look like?",
+      "category": "visual",
+      "difficulty": "easy",
+      "expected_answer": "An Abstraction Ladder diagram shows items arranged vertically with specific instances at the bottom and abstract categories at the top. Lines connect items to their parent categories. The ladder visualization makes it easy to see how moving up increases abstraction and moving down increases specificity.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Abstraction Ladder", "abstraction"],
+      "requires_figure": true
+    },
+    {
+      "id": "vis_003",
+      "question": "Show me the Means/Ends worksheet",
+      "category": "visual",
+      "difficulty": "medium",
+      "expected_answer": "The Means/Ends worksheet is used for naming nodes in an Information Structure. It has columns for listing elements (the means) and space to write the category name (the end they serve). The worksheet helps systematically work through each cluster, finding insightful names that capture what the grouped Functions accomplish together.",
+      "expected_sources": ["The Power of Abstraction"],
+      "expected_terms": ["Means/Ends Analysis", "Information Structure"],
+      "requires_figure": true
+    },
+    {
+      "id": "vis_004",
+      "question": "What does a Function-Speculation matrix look like?",
+      "category": "visual",
+      "difficulty": "medium",
+      "expected_answer": "A Function-Speculation matrix has Functions listed in rows and Speculations in columns. Cells are marked where a Speculation applies to a Function. The pattern of marks reveals which Functions share Speculations, providing the data RELATN processes for VTCON to build the Information Structure.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Function", "Speculation", "RELATN", "matrix"],
+      "requires_figure": true
+    },
+    {
+      "id": "vis_005",
+      "question": "Show me an example of Design Factor format",
+      "category": "visual",
+      "difficulty": "easy",
+      "expected_answer": "A Design Factor document has four clearly labeled sections: Observation (one sentence stating the insight), Extension (paragraph exploring causes and effects), Design Implications (strategic directions), and Speculations (list of adjective-noun phrases). The structure guides systematic capture of insights about Functions.",
+      "expected_sources": ["Context for Creativity"],
+      "expected_terms": ["Design Factor", "Observation", "Extension", "Speculation"],
+      "requires_figure": false
+    },
+    {
+      "id": "out_001",
+      "question": "What does Owen say about Agile methodology?",
+      "category": "out_of_scope",
+      "difficulty": "easy",
+      "expected_answer": "Owen's literature does not discuss Agile methodology. His work on Structured Planning predates Agile and focuses on design planning rather than software development processes. While both involve iteration and structured approaches, they address different domains and were developed independently.",
+      "expected_sources": [],
+      "expected_terms": [],
+      "requires_figure": false,
+      "notes": "Tests appropriate handling of out-of-scope queries"
+    }
+  ]
+}
