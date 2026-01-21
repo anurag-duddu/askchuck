@@ -43,7 +43,13 @@ class Settings(BaseSettings):
     cohere_api_key: str
     cohere_rerank_model: str = "rerank-v3.0"
 
-    # Cloudflare R2
+    # Supabase (Storage for figures + future database)
+    supabase_url: str = ""
+    supabase_key: str = ""
+    supabase_anon_key: str = ""
+    supabase_storage_bucket: str = "askchuck-figures"
+
+    # Cloudflare R2 (DEPRECATED - Using Supabase Storage instead)
     cloudflare_account_id: str = ""
     cloudflare_r2_access_key_id: str = ""
     cloudflare_r2_secret_access_key: str = ""
@@ -133,25 +139,25 @@ def verify_api_connections() -> dict:
     except Exception as e:
         results["cohere"] = f"✗ Error: {str(e)[:50]}"
 
-    # Test Cloudflare R2 (S3-compatible) - only if credentials are set
-    if settings.cloudflare_account_id and settings.cloudflare_r2_access_key_id:
+    # Test Supabase Storage - only if credentials are set
+    if settings.supabase_url and settings.supabase_key:
         try:
-            import boto3
+            from supabase import create_client
 
-            s3_client = boto3.client(
-                "s3",
-                endpoint_url=f"https://{settings.cloudflare_account_id}.r2.cloudflarestorage.com",
-                aws_access_key_id=settings.cloudflare_r2_access_key_id,
-                aws_secret_access_key=settings.cloudflare_r2_secret_access_key,
-            )
-            s3_client.list_objects_v2(
-                Bucket=settings.cloudflare_r2_bucket_name, MaxKeys=1
-            )
-            results["cloudflare_r2"] = "✓ Connected"
+            client = create_client(settings.supabase_url, settings.supabase_key)
+            # List buckets to verify connection
+            client.storage.list_buckets()
+            results["supabase"] = "✓ Connected"
         except Exception as e:
-            results["cloudflare_r2"] = f"✗ Error: {str(e)[:50]}"
+            results["supabase"] = f"✗ Error: {str(e)[:50]}"
     else:
-        results["cloudflare_r2"] = "⊘ Not configured (optional for PRD-02+)"
+        results["supabase"] = "⊘ Not configured (needed for figure storage)"
+
+    # Test Cloudflare R2 (DEPRECATED - kept for backwards compatibility)
+    if settings.cloudflare_account_id and settings.cloudflare_r2_access_key_id:
+        results["cloudflare_r2"] = "⊘ DEPRECATED: Using Supabase Storage instead"
+    else:
+        results["cloudflare_r2"] = "⊘ Not used (deprecated)"
 
     # Test LangSmith - only if API key is set
     if settings.langchain_api_key:

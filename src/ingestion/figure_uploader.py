@@ -1,5 +1,5 @@
 """
-Figure upload to Cloudflare R2 storage.
+Figure upload to Supabase Storage.
 Provides public URLs for figures in the RAG system.
 """
 
@@ -7,49 +7,48 @@ import logging
 from pathlib import Path
 from typing import Optional
 
-import boto3
-from botocore.exceptions import ClientError
+from supabase import Client, create_client
 
 from src.utils.config import settings
 
 logger = logging.getLogger(__name__)
 
 
-class R2Uploader:
+class SupabaseFigureUploader:
     """
-    Uploads figures to Cloudflare R2 (S3-compatible) storage.
+    Uploads figures to Supabase Storage.
     """
 
     def __init__(self):
-        """Initialize R2 uploader with boto3 S3 client."""
+        """Initialize Supabase Storage client."""
         # Only initialize if credentials are configured
-        if not settings.cloudflare_account_id or not settings.cloudflare_r2_access_key_id:
-            logger.warning(
-                "Cloudflare R2 credentials not configured - uploader disabled"
-            )
+        if not settings.supabase_url or not settings.supabase_key:
+            logger.warning("Supabase credentials not configured - uploader disabled")
             self.client = None
             self.enabled = False
             return
 
-        # Create S3 client configured for Cloudflare R2
-        endpoint_url = f"https://{settings.cloudflare_account_id}.r2.cloudflarestorage.com"
+        try:
+            # Create Supabase client
+            self.client: Client = create_client(
+                settings.supabase_url, settings.supabase_key
+            )
 
-        self.client = boto3.client(
-            "s3",
-            endpoint_url=endpoint_url,
-            aws_access_key_id=settings.cloudflare_r2_access_key_id,
-            aws_secret_access_key=settings.cloudflare_r2_secret_access_key,
-            region_name="auto",  # R2 uses 'auto' region
-        )
+            self.bucket_name = settings.supabase_storage_bucket
+            self.enabled = True
 
-        self.bucket_name = settings.cloudflare_r2_bucket_name
-        self.enabled = True
+            logger.info(
+                f"Supabase Storage uploader initialized for bucket: {self.bucket_name}"
+            )
 
-        logger.info(f"R2 uploader initialized for bucket: {self.bucket_name}")
+        except Exception as e:
+            logger.error(f"Failed to initialize Supabase client: {e}")
+            self.client = None
+            self.enabled = False
 
     def upload_figure(self, figure_path: Path, figure_id: str) -> Optional[str]:
         """
-        Upload a figure to R2 and return its public URL.
+        Upload a figure to Supabase Storage and return its public URL.
 
         Args:
             figure_path: Path to the figure file
@@ -59,32 +58,32 @@ class R2Uploader:
             Public URL if successful, None otherwise
         """
         if not self.enabled:
-            logger.debug("R2 uploader not enabled, skipping upload")
+            logger.debug("Supabase uploader not enabled, skipping upload")
             return None
 
         try:
-            # Object key (path in bucket)
-            object_key = f"figures/{figure_id}.png"
+            # Object path in bucket
+            object_path = f"figures/{figure_id}.png"
 
-            # Upload file
-            self.client.upload_file(
-                str(figure_path),
-                self.bucket_name,
-                object_key,
-                ExtraArgs={"ContentType": "image/png"},
+            # Read file content
+            with open(figure_path, "rb") as f:
+                file_content = f.read()
+
+            # Upload to Supabase Storage
+            response = self.client.storage.from_(self.bucket_name).upload(
+                path=object_path,
+                file=file_content,
+                file_options={"content-type": "image/png", "upsert": "true"},
             )
 
             # Generate public URL
-            # R2 public URL format: https://pub-<account-id>.r2.dev/<object-key>
-            # Note: Requires public access configuration in R2 dashboard
-            public_url = (
-                f"https://pub-{settings.cloudflare_account_id}.r2.dev/{object_key}"
-            )
+            # Supabase public URL format: https://<project-ref>.supabase.co/storage/v1/object/public/<bucket>/<path>
+            public_url = f"{settings.supabase_url}/storage/v1/object/public/{self.bucket_name}/{object_path}"
 
             logger.info(f"Uploaded: {figure_id}.png")
             return public_url
 
-        except ClientError as e:
+        except Exception as e:
             logger.error(f"Failed to upload {figure_id}: {e}")
             return None
 
@@ -96,13 +95,13 @@ class R2Uploader:
             figures: List of figure metadata dicts
 
         Returns:
-            Updated list with cloudflare_url populated
+            Updated list with supabase_url populated
         """
         if not self.enabled:
-            logger.info("R2 uploader not enabled, using local file paths only")
+            logger.info("Supabase uploader not enabled, using local file paths only")
             return figures
 
-        logger.info(f"Uploading {len(figures)} figures to R2")
+        logger.info(f"Uploading {len(figures)} figures to Supabase Storage")
 
         for figure in figures:
             try:
@@ -112,18 +111,24 @@ class R2Uploader:
                 # Upload and get URL
                 url = self.upload_figure(figure_path, figure_id)
 
-                # Update metadata
+                # Update metadata (keeping cloudflare_url key for backwards compatibility)
                 figure["cloudflare_url"] = url
+                figure["supabase_url"] = url  # Add explicit supabase_url field
 
             except Exception as e:
                 logger.error(f"Failed to upload figure {figure.get('figure_id')}: {e}")
                 figure["cloudflare_url"] = None
+                figure["supabase_url"] = None
                 continue
 
         return figures
 
 
+# Backwards compatibility alias
+R2Uploader = SupabaseFigureUploader
+
+
 def upload_figure(figure_path: str, figure_id: str) -> Optional[str]:
     """Convenience function to upload a single figure."""
-    uploader = R2Uploader()
+    uploader = SupabaseFigureUploader()
     return uploader.upload_figure(Path(figure_path), figure_id)

@@ -3,6 +3,10 @@
     "supabase": {
       "type": "http",
       "url": "https://mcp.supabase.com/mcp?project_ref=yqyekdcgxqpwtrsserla"
+    },
+    "shadcn": {
+      "type": "npx",
+      "command": "@modelcontextprotocol/server-shadcn"
     }
   }
 }

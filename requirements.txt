@@ -27,7 +27,8 @@ pymupdf>=1.23.0
 pillow>=10.0.0
 
 # Storage
-boto3>=1.34.0
+supabase>=2.0.0  # Figure storage and future database
+boto3>=1.34.0  # DEPRECATED: Was for R2, keeping for backwards compatibility
 
 # Utilities
 python-dotenv>=1.0.0
