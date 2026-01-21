@@ -144,6 +144,13 @@ with st.sidebar:
         )
         st.session_state.include_figures = include_figures
 
+        use_streaming = st.checkbox(
+            "Enable streaming",
+            value=True,
+            help="Stream tokens in real-time for faster perceived response",
+        )
+        st.session_state.use_streaming = use_streaming
+
 # Main chat interface
 st.title("💬 Chat with AskChuck")
 st.markdown("Ask me anything about Charles Owen's Structured Planning methodology!")
@@ -176,39 +183,104 @@ if prompt := st.chat_input("Ask a question about Structured Planning..."):
 
     # Generate assistant response
     with st.chat_message("assistant"):
-        with st.spinner("Thinking..."):
-            # Prepare conversation history
-            history = [
-                {"role": msg["role"], "content": msg["content"]}
-                for msg in st.session_state.messages[:-1]  # Exclude current question
-            ]
+        # Prepare conversation history
+        history = [
+            {"role": msg["role"], "content": msg["content"]}
+            for msg in st.session_state.messages[:-1]  # Exclude current question
+        ]
 
-            # Query RAG chain
-            result = st.session_state.rag_chain.query(
-                question=prompt,
-                conversation_history=history,
-                include_figures=st.session_state.get("include_figures", True),
-                top_k=st.session_state.get("top_k", 5),
-            )
+        use_streaming = st.session_state.get("use_streaming", True)
 
-            # Display answer
-            answer = result.get("answer", "")
-            st.markdown(answer)
+        if use_streaming:
+            # Streaming mode with real-time token display
+            with st.spinner("Retrieving..."):
+                pass  # Brief pause to show retrieval
+
+            # Streaming generator
+            def stream_response():
+                """Generator for streaming tokens."""
+                full_answer = ""
+                sources = []
+                figures = []
+                chunk_ids = []
+
+                for chunk in st.session_state.rag_chain.stream_query(
+                    question=prompt,
+                    conversation_history=history,
+                    include_figures=st.session_state.get("include_figures", True),
+                    top_k=st.session_state.get("top_k", 5),
+                ):
+                    chunk_type = chunk.get("type")
+
+                    if chunk_type == "token":
+                        content = chunk.get("content", "")
+                        full_answer += content
+                        yield content
+
+                    elif chunk_type == "sources":
+                        sources.extend(chunk.get("sources", []))
+
+                    elif chunk_type == "figures":
+                        figures.extend(chunk.get("figures", []))
+
+                    elif chunk_type == "chunk_ids":
+                        chunk_ids.extend(chunk.get("chunk_ids", []))
+
+                # Store for later display
+                st.session_state.last_sources = sources
+                st.session_state.last_figures = figures
+                st.session_state.last_answer = full_answer
+
+            # Stream the response
+            st.write_stream(stream_response())
 
             # Display sources
-            sources = result.get("sources", [])
-            display_sources(sources)
+            if hasattr(st.session_state, "last_sources"):
+                display_sources(st.session_state.last_sources)
 
             # Display figures
-            figures = result.get("figures", [])
-            display_figures(figures)
+            if hasattr(st.session_state, "last_figures"):
+                display_figures(st.session_state.last_figures)
 
             # Add to conversation history
             st.session_state.messages.append(
                 {
                     "role": "assistant",
-                    "content": answer,
-                    "sources": sources,
-                    "figures": figures,
+                    "content": st.session_state.last_answer,
+                    "sources": st.session_state.last_sources,
+                    "figures": st.session_state.last_figures,
                 }
             )
+
+        else:
+            # Non-streaming mode (original behavior)
+            with st.spinner("Thinking..."):
+                # Query RAG chain
+                result = st.session_state.rag_chain.query(
+                    question=prompt,
+                    conversation_history=history,
+                    include_figures=st.session_state.get("include_figures", True),
+                    top_k=st.session_state.get("top_k", 5),
+                )
+
+                # Display answer
+                answer = result.get("answer", "")
+                st.markdown(answer)
+
+                # Display sources
+                sources = result.get("sources", [])
+                display_sources(sources)
+
+                # Display figures
+                figures = result.get("figures", [])
+                display_figures(figures)
+
+                # Add to conversation history
+                st.session_state.messages.append(
+                    {
+                        "role": "assistant",
+                        "content": answer,
+                        "sources": sources,
+                        "figures": figures,
+                    }
+                )
