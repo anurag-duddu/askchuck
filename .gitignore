@@ -56,11 +56,36 @@ tmp/
 temp/
 *.bak
 
-# Local testing (not synced to GitHub)
+# Large data files (not synced to GitHub)
 figure_extraction_test/
 Charles Owen Papers/
-ask_chuck_api/
-.docs/
 evaluate_pdf_extraction.py
 inspect_pdf_graphics.py
 test_figure_rendering.py
+
+# Python-specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+venv/
+.venv/
+
+# Data directories
+data/raw/*.pdf
+data/figures/*.png
+data/figures/*.jpg
+data/figures_test/
+*.pkl
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Streamlit
+.streamlit/secrets.toml
