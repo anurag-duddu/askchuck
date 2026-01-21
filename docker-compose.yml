@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # FastAPI Backend
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: askchuck-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - PORT=8000
+    volumes:
+      # Mount for hot reloading in development
+      - ./src:/app/src:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - askchuck-network
+
+  # Streamlit UI (optional - for local development)
+  streamlit:
+    build:
+      context: .
+      dockerfile: Dockerfile.streamlit
+    container_name: askchuck-streamlit
+    ports:
+      - "8501:8501"
+    env_file:
+      - .env
+    environment:
+      - ASKCHUCK_API_URL=http://api:8000
+    depends_on:
+      - api
+    restart: unless-stopped
+    networks:
+      - askchuck-network
+
+networks:
+  askchuck-network:
+    driver: bridge
+
+# Usage:
+# Development: docker-compose up
+# Production: docker-compose -f docker-compose.prod.yml up -d
+# Stop: docker-compose down
+# Rebuild: docker-compose up --build
