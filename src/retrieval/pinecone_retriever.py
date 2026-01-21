@@ -44,7 +44,15 @@ class PineconeHybridRetriever:
         # Initialize embedding and sparse encoding
         self.embedder = VoyageEmbedder()
         self.sparse_encoder = SparseEncoder()
-        self.sparse_encoder.load()  # Load saved encoder from PRD-04
+
+        # Try to load sparse encoder, but continue without it if not available
+        try:
+            self.sparse_encoder.load()  # Load saved encoder from PRD-04
+            self.use_sparse = True
+            logger.info("✓ Sparse encoder loaded for hybrid search")
+        except FileNotFoundError:
+            logger.warning("Sparse encoder not found, using dense-only search")
+            self.use_sparse = False
 
         self.alpha = alpha
         self.expand_to_parents = expand_to_parents
@@ -74,17 +82,22 @@ class PineconeHybridRetriever:
         # Generate dense vector
         dense_vector = self.embedder.embed_query(query)
 
-        # Generate sparse vector
-        sparse_vector = self.sparse_encoder.encode(query)
+        # Generate sparse vector (if encoder is available)
+        sparse_vector = None
+        if self.use_sparse:
+            sparse_vector = self.sparse_encoder.encode(query)
 
-        # Query Pinecone with hybrid search
-        results = self.index.query(
-            vector=dense_vector,
-            sparse_vector=sparse_vector,
-            top_k=top_k,
-            filter=filter,
-            include_metadata=include_metadata,
-        )
+        # Query Pinecone with hybrid search (or dense-only if sparse unavailable)
+        query_params = {
+            "vector": dense_vector,
+            "top_k": top_k,
+            "filter": filter,
+            "include_metadata": include_metadata,
+        }
+        if sparse_vector:
+            query_params["sparse_vector"] = sparse_vector
+
+        results = self.index.query(**query_params)
 
         # Convert to standard format
         candidates = []
@@ -207,9 +220,7 @@ class PineconeHybridRetriever:
 
         # Parse comma-separated neighbor IDs
         if isinstance(neighbor_ids, str):
-            neighbor_id_list = [
-                n.strip() for n in neighbor_ids.split(",") if n.strip()
-            ]
+            neighbor_id_list = [n.strip() for n in neighbor_ids.split(",") if n.strip()]
         else:
             neighbor_id_list = neighbor_ids
 

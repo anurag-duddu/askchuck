@@ -9,7 +9,7 @@ from pathlib import Path
 from typing import Dict, List, Optional
 from uuid import uuid4
 
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from src.utils.config import CHUNKS_DIR, PROCESSED_DIR
 from src.utils.owen_glossary import tag_chunk_with_terms
@@ -159,8 +159,11 @@ class SemanticChunker:
         # Extract Owen terms
         owen_terms = tag_chunk_with_terms(text)
 
-        # Determine source section
-        source_section = self._determine_section(text, doc_data)
+        # Determine source section and page
+        source_section, page_start = self._determine_section_and_page(text, doc_data)
+
+        # Get PDF filename from document metadata
+        pdf_filename = doc_data.get("metadata", {}).get("filename", "")
 
         # Create chunk
         chunk = {
@@ -174,6 +177,8 @@ class SemanticChunker:
                 "document_title": doc_data["metadata"]["title"],
                 "document_author": doc_data["metadata"]["author"],
                 "source_section": source_section,
+                "page_start": page_start,  # Page number for navigation
+                "pdf_filename": pdf_filename,  # PDF filename for URL construction
                 "owen_terms": owen_terms,
                 "char_count": len(text),
                 "approx_tokens": len(text) // 4,  # Rough estimate
@@ -185,24 +190,35 @@ class SemanticChunker:
 
         return chunk
 
-    def _determine_section(self, text: str, doc_data: dict) -> Optional[str]:
+    def _determine_section_and_page(self, text: str, doc_data: dict) -> tuple:
         """
-        Determine which document section this chunk likely comes from.
+        Determine which document section this chunk comes from and its page number.
 
         Args:
             text: Chunk text
             doc_data: Document data
 
         Returns:
-            Section heading or None
+            Tuple of (section heading, page_start)
         """
-        # Simple heuristic: find section whose content appears in chunk
+        import re
+
+        # Find section whose content appears in chunk
         for section in doc_data.get("sections", []):
             section_content = section.get("content", "")
             if section_content and section_content[:100] in text:
-                return section.get("heading", "Unknown Section")
+                return (
+                    section.get("heading", "Unknown Section"),
+                    section.get("page_start", 1),  # Page number from PDF parser
+                )
 
-        return None
+        # Fallback: try to find page from text markers
+        # The PDF parser adds "=== Page N ===" markers
+        page_match = re.search(r"=== Page (\d+) ===", text)
+        if page_match:
+            return (None, int(page_match.group(1)))
+
+        return (None, 1)  # Default to page 1 if unknown
 
     def _extract_figure_references(self, text: str) -> List[int]:
         """

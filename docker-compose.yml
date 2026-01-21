@@ -26,24 +26,6 @@ services:
     networks:
       - askchuck-network
 
-  # Streamlit UI (optional - for local development)
-  streamlit:
-    build:
-      context: .
-      dockerfile: Dockerfile.streamlit
-    container_name: askchuck-streamlit
-    ports:
-      - "8501:8501"
-    env_file:
-      - .env
-    environment:
-      - ASKCHUCK_API_URL=http://api:8000
-    depends_on:
-      - api
-    restart: unless-stopped
-    networks:
-      - askchuck-network
-
 networks:
   askchuck-network:
     driver: bridge

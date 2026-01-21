@@ -49,9 +49,7 @@ class VoyageEmbedder:
         if not texts:
             return []
 
-        logger.info(
-            f"Generating {len(texts)} embeddings (input_type={input_type})..."
-        )
+        logger.info(f"Generating {len(texts)} embeddings (input_type={input_type})...")
 
         all_embeddings = []
 
@@ -62,9 +60,7 @@ class VoyageEmbedder:
             total_batches = (len(texts) + self.batch_size - 1) // self.batch_size
 
             if show_progress:
-                logger.info(
-                    f"  Batch {batch_num}/{total_batches}: {len(batch)} texts"
-                )
+                logger.info(f"  Batch {batch_num}/{total_batches}: {len(batch)} texts")
 
             try:
                 # Call Voyage AI API
@@ -78,14 +74,19 @@ class VoyageEmbedder:
                 all_embeddings.extend(batch_embeddings)
 
                 # Rate limiting (safe delay between batches)
+                # Free tier: 3 RPM = need 20s between requests
                 if i + self.batch_size < len(texts):
-                    time.sleep(0.5)  # 500ms delay
+                    delay = 21  # 21 seconds for 3 RPM limit
+                    logger.info(f"  Waiting {delay}s (rate limit)...")
+                    time.sleep(delay)
 
             except Exception as e:
                 logger.error(f"Embedding batch {batch_num} failed: {e}")
                 # Retry once with exponential backoff
                 try:
-                    time.sleep(2)
+                    retry_delay = 25  # Wait longer for rate limit reset
+                    logger.info(f"  Retrying after {retry_delay}s...")
+                    time.sleep(retry_delay)
                     result = self.client.embed(
                         batch, model=self.model, input_type=input_type
                     )

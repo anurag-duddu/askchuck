@@ -81,9 +81,6 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 
 ```bash
 cat > requirements.txt << 'EOF'
-# Core Framework
-streamlit==1.29.0
-
 # LangChain Ecosystem
 langchain==0.1.10
 langchain-community==0.0.24

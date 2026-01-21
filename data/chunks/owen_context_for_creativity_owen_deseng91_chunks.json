@@ -1,0 +1,895 @@
+[
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p0_c0",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 0,
+    "level": "child",
+    "text": "=== Page 1 ===\nInstitute of Design \nIllinois Institute of Technology \nChicago, Illinois U.S.A\n\nContext for Creativity\n\nCharles L. Owen \nDistinguished Professor of Design\n\n(Adapted from a paper given at the National Design Engineering Conference\nheld in Chicago, Illinois on April 10, 1991. Published in: Design Studies [England]\n13, No. 3 (1992): 216-228; and Design Processes Newsletter 4, No. 4 (1992):\n1-6)\n\nAbstract\nA simplistic and seriously misleading myth about creative thinking is that creative\nprocesses are exclusive alternatives to systematic processes. In fact, breakthrough\nthinking almost always is preceded by extensive preparation, and the order in which\nissues are considered has much to do with how they are resolved. A better way to think\nabout creativity and design is to think about how to place the different styles of lateral\nand vertical thinking together in a process that takes best advantage of both at\nappropriate times.\n\nA design process, Structured Planning, is examined in this article for how it embeds\nconcepts of preparation and manipulation from the classic creativity model in its\nsystematic scheme. Its Action Analysis phase exhaustively catalogs the functions\nnecessary for a successful design while, at the time of identification, uncovering insights\nand capturing ideas for creative ways to perform the functions. Its Structuring phase\norganizes the functions for systematic consideration, but does so in a way that supports\ninvention by clustering functions in groups that are frequently counter-intuitive, but\nought to be considered as groups because they have potential solutions of common\ninterest. The result, an information structure specialized for inventive design, defies the\nnatural tendency to a priori categorization.\n\nIntroduction\nMost people are creative—at least they probably were. Our schools, institutions\nand businesses tend to wither natural creativity, but fortunately for many, a little\nnurturing can bring back the knack.",
+    "enriched_text": "=== Page 1 ===\nInstitute of Design \nIllinois Institute of Technology \nChicago, Illinois U.S.A\n\nContext for Creativity\n\nCharles L. Owen \nDistinguished Professor of Design\n\n(Adapted from a paper given at the National Design Engineering Conference\nheld in Chicago, Illinois on April 10, 1991. Published in: Design Studies [England]\n13, No. 3 (1992): 216-228; and Design Processes Newsletter 4, No. 4 (1992):\n1-6)\n\nAbstract\nA simplistic and seriously misleading myth about creative thinking is that creative\nprocesses are exclusive alternatives to systematic processes. In fact, breakthrough\nthinking almost always is preceded by extensive preparation, and the order in which\nissues are considered has much to do with how they are resolved. A better way to think\nabout creativity and design is to think about how to place the different styles of lateral\nand vertical thinking together in a process that takes best advantage of both at\nappropriate times.\n\nA design process, Structured Planning, is examined in this article for how it embeds\nconcepts of preparation and manipulation from the classic creativity model in its\nsystematic scheme. Its Action Analysis phase exhaustively catalogs the functions\nnecessary for a successful design while, at the time of identification, uncovering insights\nand capturing ideas for creative ways to perform the functions. Its Structuring phase\norganizes the functions for systematic consideration, but does so in a way that supports\ninvention by clustering functions in groups that are frequently counter-intuitive, but\nought to be considered as groups because they have potential solutions of common\ninterest. The result, an information structure specialized for inventive design, defies the\nnatural tendency to a priori categorization.\n\nIntroduction\nMost people are creative—at least they probably were. Our schools, institutions\nand businesses tend to wither natural creativity, but fortunately for many, a little\nnurturing can bring back the knack.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Information Structure",
+        "Action Analysis",
+        "Structured Planning",
+        "Mode",
+        "Cluster"
+      ],
+      "char_count": 1985,
+      "approx_tokens": 496,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p0",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p0_c1",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 1,
+    "level": "child",
+    "text": "That’s the good news. The bad news is that random creativity, particularly in\nbusiness, won’t be enough in the new economic world.\n\nThe trouble is, you just can’t invent or discover at whim. The myth that creative\npeople deliver brilliant ideas on demand discourages otherwise perfectly able\npeople from trying. The fact is that ideas seldom come without extensive\npreparation. Edison and many others before and since have said it in one form or\nanother, \"Genius is one percent inspiration and ninety-nine percent perspiration\"\n[Evans 1968, 266]. Yet, the creative element obviously is very important. How can\ninspiration and perspiration be deployed optimally?\n\n1\n\n=== Page 2 ===\nPsychologists have probed the perplexities of creativity since the discipline was\nformalized. Most agree on a similar set of states or stages that an individual\npasses through in developing an idea. Typically, these are [Fabun 1968, 9-12]:\n\n1. Desire \n2. Preparation \n3. Manipulation \n4. Incubation \n5. Intimation \n6. Illumination \n7. Verification\n\nThere is necessarily also a \"0\" stage that is concerned with life preparation—it is\neasier for those with broad interests to make creative associations. Nearly all agree\nthat wide-ranging experience is beneficial to the creative individual, simply because\nit provides a base of analogies and metaphors upon which to draw. From a meth-\nodological viewpoint, unfortunately, there is little to be done in the way of life\npreparation. Except that the use of teams extends the range of experience\navailable, life preparation is generally outside the purview of a design project.\n\nStage 2 preparation, however—that part related to the project—is of great\nimportance to the creative process. Here and in the manipulation stage, Edison’s\nobservation can be put to work to set in motion reliable, predictable invention, as\nclose to on-demand creativity as I know how to achieve.",
+    "enriched_text": "That’s the good news. The bad news is that random creativity, particularly in\nbusiness, won’t be enough in the new economic world.\n\nThe trouble is, you just can’t invent or discover at whim. The myth that creative\npeople deliver brilliant ideas on demand discourages otherwise perfectly able\npeople from trying. The fact is that ideas seldom come without extensive\npreparation. Edison and many others before and since have said it in one form or\nanother, \"Genius is one percent inspiration and ninety-nine percent perspiration\"\n[Evans 1968, 266]. Yet, the creative element obviously is very important. How can\ninspiration and perspiration be deployed optimally?\n\n1\n\n=== Page 2 ===\nPsychologists have probed the perplexities of creativity since the discipline was\nformalized. Most agree on a similar set of states or stages that an individual\npasses through in developing an idea. Typically, these are [Fabun 1968, 9-12]:\n\n1. Desire \n2. Preparation \n3. Manipulation \n4. Incubation \n5. Intimation \n6. Illumination \n7. Verification\n\nThere is necessarily also a \"0\" stage that is concerned with life preparation—it is\neasier for those with broad interests to make creative associations. Nearly all agree\nthat wide-ranging experience is beneficial to the creative individual, simply because\nit provides a base of analogies and metaphors upon which to draw. From a meth-\nodological viewpoint, unfortunately, there is little to be done in the way of life\npreparation. Except that the use of teams extends the range of experience\navailable, life preparation is generally outside the purview of a design project.\n\nStage 2 preparation, however—that part related to the project—is of great\nimportance to the creative process. Here and in the manipulation stage, Edison’s\nobservation can be put to work to set in motion reliable, predictable invention, as\nclose to on-demand creativity as I know how to achieve.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [],
+      "char_count": 1899,
+      "approx_tokens": 474,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p0",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p0_c2",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 2,
+    "level": "child",
+    "text": "After years of experimentation, our experience at the Institute of Design suggests\nthat the way that information is assembled and organized in a project is absolutely\ncritical to the creative quality of the result. To bend a phrase, creativity ignores a\nvacuum.\n\nFirst, insights must be sought throughout the search for information, and ideas\nmust be teased from them as they occur. Second, information must be organized\nproperly, so that ideas can be merged, modified and expanded in direct association\nwith the right problems to be addressed.\n\nA process developed at the Institute of Design, called Structured Planning [Owen\n1988], includes techniques for a complete process of problem description,\ninformation collection, organization and ideation. In this paper, I will discuss\nideation as it is incorporated in Structured Planning, viewing the process through\nthe psychologist’s model of the stages of preparation and manipulation in the\ncreative process.\n\nPreparation\n\"As the first step toward satisfying the desire, both pertinent and seemingly impertinent\ninformation are gathered. This may be through research, experimentation or exposure to\nexperience. ... The process is analytical, and is a way of ’making the strange familiar’\"\n[Fabun 1968, 10].\n\nAction\nAnalysis\n\nIn the Structured Planning process, the collection of detailed information for a\nproject is done with a technique called Action Analysis. Action Analysis achieves its\nvalue from the thoroughness with which it seeks out the Functions that must be\nperformed by the system being designed (I will call the object of design a \"system\",\neven though it may be any kind of entity—hardware or software, artifact or\ninstitution). The objectives of Action Analysis are to identify as many as possible of\nthe Functions that the system should perform (or have performed to it) and to gain\nas many insights as possible about what goes wrong or right as these Functions\nare performed.\n\n2",
+    "enriched_text": "After years of experimentation, our experience at the Institute of Design suggests\nthat the way that information is assembled and organized in a project is absolutely\ncritical to the creative quality of the result. To bend a phrase, creativity ignores a\nvacuum.\n\nFirst, insights must be sought throughout the search for information, and ideas\nmust be teased from them as they occur. Second, information must be organized\nproperly, so that ideas can be merged, modified and expanded in direct association\nwith the right problems to be addressed.\n\nA process developed at the Institute of Design, called Structured Planning [Owen\n1988], includes techniques for a complete process of problem description,\ninformation collection, organization and ideation. In this paper, I will discuss\nideation as it is incorporated in Structured Planning, viewing the process through\nthe psychologist’s model of the stages of preparation and manipulation in the\ncreative process.\n\nPreparation\n\"As the first step toward satisfying the desire, both pertinent and seemingly impertinent\ninformation are gathered. This may be through research, experimentation or exposure to\nexperience. ... The process is analytical, and is a way of ’making the strange familiar’\"\n[Fabun 1968, 10].\n\nAction\nAnalysis\n\nIn the Structured Planning process, the collection of detailed information for a\nproject is done with a technique called Action Analysis. Action Analysis achieves its\nvalue from the thoroughness with which it seeks out the Functions that must be\nperformed by the system being designed (I will call the object of design a \"system\",\neven though it may be any kind of entity—hardware or software, artifact or\ninstitution). The objectives of Action Analysis are to identify as many as possible of\nthe Functions that the system should perform (or have performed to it) and to gain\nas many insights as possible about what goes wrong or right as these Functions\nare performed.\n\n2",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Action Analysis",
+        "Structured Planning",
+        "Mode"
+      ],
+      "char_count": 1949,
+      "approx_tokens": 487,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p0",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p0_c3",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 3,
+    "level": "child",
+    "text": "2\n\n=== Page 3 ===\nTo achieve the objectives, the design team undertakes a top-down analysis, estab-\nlishing for the system a Function Structure breaking down all actions into three hi-\nerarchical levels of operation. Figure 1 shows a simplified, partially filled-in Function\nStructure for a housing system project in which the challenge was to design a\n\"house of the future\" embodying state-of-the-art communication and control\ntechnology.\n\nHousing System\n\nMode\nLevel\n\nMode\nMode\nUse\n\nFood Preparation\nSubmode\n\nActivity\nLevel\n\nActivity\nCooking\n\nActivity\n\nSubactivity\nSubactivity\n\nFunction\nLevel\n\nGrill food \nBake food \nFry food\n\nFunction\n\nFunction\n\nFunction\n\nFunction\n\nFunction\n..\n\nFunction\n\nFigure 1. A three-level, top-down analysis is used to find Functions that cover the requirements of a\nsystem. The result is a Function Structure.\n\nModes of operation, or Modes, are at the highest level. These are usually very\ndistinct states that the system goes through from the time it is produced until it is\nretired. There are relatively few possibilities, although the selection varies for every\nsystem. Some of the more typical Modes considered are:\n\n• Production \n• Distribution \n• Specification \n• Transport \n• Sale \n• Use \n• Storage \n• Maintenance \n• Repair \n• Adaptation \n• Retirement\n\nThere may also be Submodes, if necessary, for some Modes. The Use Mode is a\nfrequent candidate for Submode treatment because a system often has a range of\nuses under different conditions.\n\nThe middle level of the hierarchy is the Activity level. For any Mode of operation, it\nis usually possible to describe several Activities that occur in accomplishing the\npurpose of the Mode (for example, Loading, Transiting and Unloading for the\nTransport Mode). Activities are defined as \"purposeful performances\" in Action\nAnalysis. The use of the theater metaphor is very intentional. Thought of as scenes\nof a play, Activities can be characterized nicely and distinctively and, therefore,\nmay be described relatively precisely.",
+    "enriched_text": "2\n\n=== Page 3 ===\nTo achieve the objectives, the design team undertakes a top-down analysis, estab-\nlishing for the system a Function Structure breaking down all actions into three hi-\nerarchical levels of operation. Figure 1 shows a simplified, partially filled-in Function\nStructure for a housing system project in which the challenge was to design a\n\"house of the future\" embodying state-of-the-art communication and control\ntechnology.\n\nHousing System\n\nMode\nLevel\n\nMode\nMode\nUse\n\nFood Preparation\nSubmode\n\nActivity\nLevel\n\nActivity\nCooking\n\nActivity\n\nSubactivity\nSubactivity\n\nFunction\nLevel\n\nGrill food \nBake food \nFry food\n\nFunction\n\nFunction\n\nFunction\n\nFunction\n\nFunction\n..\n\nFunction\n\nFigure 1. A three-level, top-down analysis is used to find Functions that cover the requirements of a\nsystem. The result is a Function Structure.\n\nModes of operation, or Modes, are at the highest level. These are usually very\ndistinct states that the system goes through from the time it is produced until it is\nretired. There are relatively few possibilities, although the selection varies for every\nsystem. Some of the more typical Modes considered are:\n\n• Production \n• Distribution \n• Specification \n• Transport \n• Sale \n• Use \n• Storage \n• Maintenance \n• Repair \n• Adaptation \n• Retirement\n\nThere may also be Submodes, if necessary, for some Modes. The Use Mode is a\nfrequent candidate for Submode treatment because a system often has a range of\nuses under different conditions.\n\nThe middle level of the hierarchy is the Activity level. For any Mode of operation, it\nis usually possible to describe several Activities that occur in accomplishing the\npurpose of the Mode (for example, Loading, Transiting and Unloading for the\nTransport Mode). Activities are defined as \"purposeful performances\" in Action\nAnalysis. The use of the theater metaphor is very intentional. Thought of as scenes\nof a play, Activities can be characterized nicely and distinctively and, therefore,\nmay be described relatively precisely.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Function Structure",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 2007,
+      "approx_tokens": 501,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p0",
+      "child_ids": [],
+      "figure_references": [
+        1
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p0_c4",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 4,
+    "level": "child",
+    "text": "For a theatrical scene, there are players, props and a set. In an Activity, there are\nusers (players), system components that the users work with (props), and environ-\n\n3\n\n=== Page 4 ===\nmental components that are not involved directly, but place conditions on the\nsystem (the set).",
+    "enriched_text": "For a theatrical scene, there are players, props and a set. In an Activity, there are\nusers (players), system components that the users work with (props), and environ-\n\n3\n\n=== Page 4 ===\nmental components that are not involved directly, but place conditions on the\nsystem (the set).",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Activity"
+      ],
+      "char_count": 282,
+      "approx_tokens": 70,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p0",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p0",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 5,
+    "level": "parent",
+    "text": "=== Page 1 ===\nInstitute of Design \nIllinois Institute of Technology \nChicago, Illinois U.S.A\n\nContext for Creativity\n\nCharles L. Owen \nDistinguished Professor of Design\n\n(Adapted from a paper given at the National Design Engineering Conference\nheld in Chicago, Illinois on April 10, 1991. Published in: Design Studies [England]\n13, No. 3 (1992): 216-228; and Design Processes Newsletter 4, No. 4 (1992):\n1-6)\n\nAbstract\nA simplistic and seriously misleading myth about creative thinking is that creative\nprocesses are exclusive alternatives to systematic processes. In fact, breakthrough\nthinking almost always is preceded by extensive preparation, and the order in which\nissues are considered has much to do with how they are resolved. A better way to think\nabout creativity and design is to think about how to place the different styles of lateral\nand vertical thinking together in a process that takes best advantage of both at\nappropriate times.\n\nA design process, Structured Planning, is examined in this article for how it embeds\nconcepts of preparation and manipulation from the classic creativity model in its\nsystematic scheme. Its Action Analysis phase exhaustively catalogs the functions\nnecessary for a successful design while, at the time of identification, uncovering insights\nand capturing ideas for creative ways to perform the functions. Its Structuring phase\norganizes the functions for systematic consideration, but does so in a way that supports\ninvention by clustering functions in groups that are frequently counter-intuitive, but\nought to be considered as groups because they have potential solutions of common\ninterest. The result, an information structure specialized for inventive design, defies the\nnatural tendency to a priori categorization.\n\nIntroduction\nMost people are creative—at least they probably were. Our schools, institutions\nand businesses tend to wither natural creativity, but fortunately for many, a little\nnurturing can bring back the knack.\n\nThat’s the good news. The bad news is that random creativity, particularly in\nbusiness, won’t be enough in the new economic world.\n\nThe trouble is, you just can’t invent or discover at whim. The myth that creative\npeople deliver brilliant ideas on demand discourages otherwise perfectly able\npeople from trying. The fact is that ideas seldom come without extensive\npreparation. Edison and many others before and since have said it in one form or\nanother, \"Genius is one percent inspiration and ninety-nine percent perspiration\"\n[Evans 1968, 266]. Yet, the creative element obviously is very important. How can\ninspiration and perspiration be deployed optimally?\n\n1\n\n=== Page 2 ===\nPsychologists have probed the perplexities of creativity since the discipline was\nformalized. Most agree on a similar set of states or stages that an individual\npasses through in developing an idea. Typically, these are [Fabun 1968, 9-12]:\n\n1. Desire \n2. Preparation \n3. Manipulation \n4. Incubation \n5. Intimation \n6. Illumination \n7. Verification\n\nThere is necessarily also a \"0\" stage that is concerned with life preparation—it is\neasier for those with broad interests to make creative associations. Nearly all agree\nthat wide-ranging experience is beneficial to the creative individual, simply because\nit provides a base of analogies and metaphors upon which to draw. From a meth-\nodological viewpoint, unfortunately, there is little to be done in the way of life\npreparation. Except that the use of teams extends the range of experience\navailable, life preparation is generally outside the purview of a design project.\n\nStage 2 preparation, however—that part related to the project—is of great\nimportance to the creative process. Here and in the manipulation stage, Edison’s\nobservation can be put to work to set in motion reliable, predictable invention, as\nclose to on-demand creativity as I know how to achieve.\n\nAfter years of experimentation, our experience at the Institute of Design suggests\nthat the way that information is assembled and organized in a project is absolutely\ncritical to the creative quality of the result. To bend a phrase, creativity ignores a\nvacuum.\n\nFirst, insights must be sought throughout the search for information, and ideas\nmust be teased from them as they occur. Second, information must be organized\nproperly, so that ideas can be merged, modified and expanded in direct association\nwith the right problems to be addressed.\n\nA process developed at the Institute of Design, called Structured Planning [Owen\n1988], includes techniques for a complete process of problem description,\ninformation collection, organization and ideation. In this paper, I will discuss\nideation as it is incorporated in Structured Planning, viewing the process through\nthe psychologist’s model of the stages of preparation and manipulation in the\ncreative process.\n\nPreparation\n\"As the first step toward satisfying the desire, both pertinent and seemingly impertinent\ninformation are gathered. This may be through research, experimentation or exposure to\nexperience. ... The process is analytical, and is a way of ’making the strange familiar’\"\n[Fabun 1968, 10].\n\nAction\nAnalysis\n\nIn the Structured Planning process, the collection of detailed information for a\nproject is done with a technique called Action Analysis. Action Analysis achieves its\nvalue from the thoroughness with which it seeks out the Functions that must be\nperformed by the system being designed (I will call the object of design a \"system\",\neven though it may be any kind of entity—hardware or software, artifact or\ninstitution). The objectives of Action Analysis are to identify as many as possible of\nthe Functions that the system should perform (or have performed to it) and to gain\nas many insights as possible about what goes wrong or right as these Functions\nare performed.\n\n2\n\n=== Page 3 ===\nTo achieve the objectives, the design team undertakes a top-down analysis, estab-\nlishing for the system a Function Structure breaking down all actions into three hi-\nerarchical levels of operation. Figure 1 shows a simplified, partially filled-in Function\nStructure for a housing system project in which the challenge was to design a\n\"house of the future\" embodying state-of-the-art communication and control\ntechnology.\n\nHousing System\n\nMode\nLevel\n\nMode\nMode\nUse\n\nFood Preparation\nSubmode\n\nActivity\nLevel\n\nActivity\nCooking\n\nActivity\n\nSubactivity\nSubactivity\n\nFunction\nLevel\n\nGrill food \nBake food \nFry food\n\nFunction\n\nFunction\n\nFunction\n\nFunction\n\nFunction\n..\n\nFunction\n\nFigure 1. A three-level, top-down analysis is used to find Functions that cover the requirements of a\nsystem. The result is a Function Structure.\n\nModes of operation, or Modes, are at the highest level. These are usually very\ndistinct states that the system goes through from the time it is produced until it is\nretired. There are relatively few possibilities, although the selection varies for every\nsystem. Some of the more typical Modes considered are:\n\n• Production \n• Distribution \n• Specification \n• Transport \n• Sale \n• Use \n• Storage \n• Maintenance \n• Repair \n• Adaptation \n• Retirement\n\nThere may also be Submodes, if necessary, for some Modes. The Use Mode is a\nfrequent candidate for Submode treatment because a system often has a range of\nuses under different conditions.\n\nThe middle level of the hierarchy is the Activity level. For any Mode of operation, it\nis usually possible to describe several Activities that occur in accomplishing the\npurpose of the Mode (for example, Loading, Transiting and Unloading for the\nTransport Mode). Activities are defined as \"purposeful performances\" in Action\nAnalysis. The use of the theater metaphor is very intentional. Thought of as scenes\nof a play, Activities can be characterized nicely and distinctively and, therefore,\nmay be described relatively precisely.\n\nFor a theatrical scene, there are players, props and a set. In an Activity, there are\nusers (players), system components that the users work with (props), and environ-\n\n3\n\n=== Page 4 ===\nmental components that are not involved directly, but place conditions on the\nsystem (the set).",
+    "enriched_text": "=== Page 1 ===\nInstitute of Design \nIllinois Institute of Technology \nChicago, Illinois U.S.A\n\nContext for Creativity\n\nCharles L. Owen \nDistinguished Professor of Design\n\n(Adapted from a paper given at the National Design Engineering Conference\nheld in Chicago, Illinois on April 10, 1991. Published in: Design Studies [England]\n13, No. 3 (1992): 216-228; and Design Processes Newsletter 4, No. 4 (1992):\n1-6)\n\nAbstract\nA simplistic and seriously misleading myth about creative thinking is that creative\nprocesses are exclusive alternatives to systematic processes. In fact, breakthrough\nthinking almost always is preceded by extensive preparation, and the order in which\nissues are considered has much to do with how they are resolved. A better way to think\nabout creativity and design is to think about how to place the different styles of lateral\nand vertical thinking together in a process that takes best advantage of both at\nappropriate times.\n\nA design process, Structured Planning, is examined in this article for how it embeds\nconcepts of preparation and manipulation from the classic creativity model in its\nsystematic scheme. Its Action Analysis phase exhaustively catalogs the functions\nnecessary for a successful design while, at the time of identification, uncovering insights\nand capturing ideas for creative ways to perform the functions. Its Structuring phase\norganizes the functions for systematic consideration, but does so in a way that supports\ninvention by clustering functions in groups that are frequently counter-intuitive, but\nought to be considered as groups because they have potential solutions of common\ninterest. The result, an information structure specialized for inventive design, defies the\nnatural tendency to a priori categorization.\n\nIntroduction\nMost people are creative—at least they probably were. Our schools, institutions\nand businesses tend to wither natural creativity, but fortunately for many, a little\nnurturing can bring back the knack.\n\nThat’s the good news. The bad news is that random creativity, particularly in\nbusiness, won’t be enough in the new economic world.\n\nThe trouble is, you just can’t invent or discover at whim. The myth that creative\npeople deliver brilliant ideas on demand discourages otherwise perfectly able\npeople from trying. The fact is that ideas seldom come without extensive\npreparation. Edison and many others before and since have said it in one form or\nanother, \"Genius is one percent inspiration and ninety-nine percent perspiration\"\n[Evans 1968, 266]. Yet, the creative element obviously is very important. How can\ninspiration and perspiration be deployed optimally?\n\n1\n\n=== Page 2 ===\nPsychologists have probed the perplexities of creativity since the discipline was\nformalized. Most agree on a similar set of states or stages that an individual\npasses through in developing an idea. Typically, these are [Fabun 1968, 9-12]:\n\n1. Desire \n2. Preparation \n3. Manipulation \n4. Incubation \n5. Intimation \n6. Illumination \n7. Verification\n\nThere is necessarily also a \"0\" stage that is concerned with life preparation—it is\neasier for those with broad interests to make creative associations. Nearly all agree\nthat wide-ranging experience is beneficial to the creative individual, simply because\nit provides a base of analogies and metaphors upon which to draw. From a meth-\nodological viewpoint, unfortunately, there is little to be done in the way of life\npreparation. Except that the use of teams extends the range of experience\navailable, life preparation is generally outside the purview of a design project.\n\nStage 2 preparation, however—that part related to the project—is of great\nimportance to the creative process. Here and in the manipulation stage, Edison’s\nobservation can be put to work to set in motion reliable, predictable invention, as\nclose to on-demand creativity as I know how to achieve.\n\nAfter years of experimentation, our experience at the Institute of Design suggests\nthat the way that information is assembled and organized in a project is absolutely\ncritical to the creative quality of the result. To bend a phrase, creativity ignores a\nvacuum.\n\nFirst, insights must be sought throughout the search for information, and ideas\nmust be teased from them as they occur. Second, information must be organized\nproperly, so that ideas can be merged, modified and expanded in direct association\nwith the right problems to be addressed.\n\nA process developed at the Institute of Design, called Structured Planning [Owen\n1988], includes techniques for a complete process of problem description,\ninformation collection, organization and ideation. In this paper, I will discuss\nideation as it is incorporated in Structured Planning, viewing the process through\nthe psychologist’s model of the stages of preparation and manipulation in the\ncreative process.\n\nPreparation\n\"As the first step toward satisfying the desire, both pertinent and seemingly impertinent\ninformation are gathered. This may be through research, experimentation or exposure to\nexperience. ... The process is analytical, and is a way of ’making the strange familiar’\"\n[Fabun 1968, 10].\n\nAction\nAnalysis\n\nIn the Structured Planning process, the collection of detailed information for a\nproject is done with a technique called Action Analysis. Action Analysis achieves its\nvalue from the thoroughness with which it seeks out the Functions that must be\nperformed by the system being designed (I will call the object of design a \"system\",\neven though it may be any kind of entity—hardware or software, artifact or\ninstitution). The objectives of Action Analysis are to identify as many as possible of\nthe Functions that the system should perform (or have performed to it) and to gain\nas many insights as possible about what goes wrong or right as these Functions\nare performed.\n\n2\n\n=== Page 3 ===\nTo achieve the objectives, the design team undertakes a top-down analysis, estab-\nlishing for the system a Function Structure breaking down all actions into three hi-\nerarchical levels of operation. Figure 1 shows a simplified, partially filled-in Function\nStructure for a housing system project in which the challenge was to design a\n\"house of the future\" embodying state-of-the-art communication and control\ntechnology.\n\nHousing System\n\nMode\nLevel\n\nMode\nMode\nUse\n\nFood Preparation\nSubmode\n\nActivity\nLevel\n\nActivity\nCooking\n\nActivity\n\nSubactivity\nSubactivity\n\nFunction\nLevel\n\nGrill food \nBake food \nFry food\n\nFunction\n\nFunction\n\nFunction\n\nFunction\n\nFunction\n..\n\nFunction\n\nFigure 1. A three-level, top-down analysis is used to find Functions that cover the requirements of a\nsystem. The result is a Function Structure.\n\nModes of operation, or Modes, are at the highest level. These are usually very\ndistinct states that the system goes through from the time it is produced until it is\nretired. There are relatively few possibilities, although the selection varies for every\nsystem. Some of the more typical Modes considered are:\n\n• Production \n• Distribution \n• Specification \n• Transport \n• Sale \n• Use \n• Storage \n• Maintenance \n• Repair \n• Adaptation \n• Retirement\n\nThere may also be Submodes, if necessary, for some Modes. The Use Mode is a\nfrequent candidate for Submode treatment because a system often has a range of\nuses under different conditions.\n\nThe middle level of the hierarchy is the Activity level. For any Mode of operation, it\nis usually possible to describe several Activities that occur in accomplishing the\npurpose of the Mode (for example, Loading, Transiting and Unloading for the\nTransport Mode). Activities are defined as \"purposeful performances\" in Action\nAnalysis. The use of the theater metaphor is very intentional. Thought of as scenes\nof a play, Activities can be characterized nicely and distinctively and, therefore,\nmay be described relatively precisely.\n\nFor a theatrical scene, there are players, props and a set. In an Activity, there are\nusers (players), system components that the users work with (props), and environ-\n\n3\n\n=== Page 4 ===\nmental components that are not involved directly, but place conditions on the\nsystem (the set).",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Information Structure",
+        "Function Structure",
+        "Action Analysis",
+        "Structured Planning",
+        "Mode",
+        "Activity",
+        "Cluster"
+      ],
+      "char_count": 8127,
+      "approx_tokens": 2031,
+      "parent_id": null,
+      "child_ids": [
+        "owen_context_for_creativity_owen_deseng91_p0_c0",
+        "owen_context_for_creativity_owen_deseng91_p0_c1",
+        "owen_context_for_creativity_owen_deseng91_p0_c2",
+        "owen_context_for_creativity_owen_deseng91_p0_c3",
+        "owen_context_for_creativity_owen_deseng91_p0_c4"
+      ],
+      "figure_references": [
+        1
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p1_c0",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 6,
+    "level": "child",
+    "text": "For a theatrical scene, there are players, props and a set. In an Activity, there are\nusers (players), system components that the users work with (props), and environ-\n\n3\n\n=== Page 4 ===\nmental components that are not involved directly, but place conditions on the\nsystem (the set).\n\nOnce an Activity is described, it is relatively easy to go to the next level to identify\nthe actions that are performed during the Activity, both by the system and by users\noperating the system. In keeping with design nomenclature, the actions are\ndescribed as Functions— System Functions or User Functions, depending on\nwhether they are performed by the system or by the user. This Function level is the\nthird and lowest level of the Action Analysis hierarchy. At this level we attain the\nlevel of detail necessary to meet the goal of the analysis, uncovering the Functions\nthat must be performed. Thorough coverage means thorough design. Careful\npreparation of a Function Structure produces the foundation we need for a creative,\nholistic approach to concept development.\n\nAction Analysis\n\nActivity/Event:\n\nCookin g\n\n10\n\nOriginator\n\nProject\n\nMode\n\nC. Owen\nHou sin g System\nUse (Su bm ode: Food Preparation )\n\nUsers\n\nEnvironmental Components\nSystem Components\n\nCook\nCookin g h elpers\n\nStove\nOven\nMicrowave oven\nPots an d pan s\nRecipes\nFood in gredien ts\nRefrigerator\nFreezer\nUten sils\nWork su rfaces\n\nWork su rfaces\nTask ligh tin g\nSin ks\nStorage u n its\nGarbage disposal\nUsed an d u n u sed vessels\n\nSystem Functions\nAssociated Design Factors\n\n2 5 . Grill food\n2 6 . Bake food\n2 7 . Fry food\n2 8 . Boil food\n2 9 . Steam  food\n3 0 . Heat food\n3 2 . Defrost food\n3 3 . Cool food\n3 4 . Freeze food\n3 5 . Ch eck progress\n3 6 . Clean  u ten sils an d con tain ers\n3 7 . Tran sfer foods between\n\n5 0 . Process-depen den t tests\n\ncon tain ers\n3 8 . Set u p con trols\n3 9 . Dispose of garbage\n4 0 . Stir pots\n4 1 . Add in gredien ts\n\n5 1 . In itialization  Un certain ty\n\nUser Functions\n\nAssociated Design Factors",
+    "enriched_text": "For a theatrical scene, there are players, props and a set. In an Activity, there are\nusers (players), system components that the users work with (props), and environ-\n\n3\n\n=== Page 4 ===\nmental components that are not involved directly, but place conditions on the\nsystem (the set).\n\nOnce an Activity is described, it is relatively easy to go to the next level to identify\nthe actions that are performed during the Activity, both by the system and by users\noperating the system. In keeping with design nomenclature, the actions are\ndescribed as Functions— System Functions or User Functions, depending on\nwhether they are performed by the system or by the user. This Function level is the\nthird and lowest level of the Action Analysis hierarchy. At this level we attain the\nlevel of detail necessary to meet the goal of the analysis, uncovering the Functions\nthat must be performed. Thorough coverage means thorough design. Careful\npreparation of a Function Structure produces the foundation we need for a creative,\nholistic approach to concept development.\n\nAction Analysis\n\nActivity/Event:\n\nCookin g\n\n10\n\nOriginator\n\nProject\n\nMode\n\nC. Owen\nHou sin g System\nUse (Su bm ode: Food Preparation )\n\nUsers\n\nEnvironmental Components\nSystem Components\n\nCook\nCookin g h elpers\n\nStove\nOven\nMicrowave oven\nPots an d pan s\nRecipes\nFood in gredien ts\nRefrigerator\nFreezer\nUten sils\nWork su rfaces\n\nWork su rfaces\nTask ligh tin g\nSin ks\nStorage u n its\nGarbage disposal\nUsed an d u n u sed vessels\n\nSystem Functions\nAssociated Design Factors\n\n2 5 . Grill food\n2 6 . Bake food\n2 7 . Fry food\n2 8 . Boil food\n2 9 . Steam  food\n3 0 . Heat food\n3 2 . Defrost food\n3 3 . Cool food\n3 4 . Freeze food\n3 5 . Ch eck progress\n3 6 . Clean  u ten sils an d con tain ers\n3 7 . Tran sfer foods between\n\n5 0 . Process-depen den t tests\n\ncon tain ers\n3 8 . Set u p con trols\n3 9 . Dispose of garbage\n4 0 . Stir pots\n4 1 . Add in gredien ts\n\n5 1 . In itialization  Un certain ty\n\nUser Functions\n\nAssociated Design Factors",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Function Structure",
+        "Action Analysis",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 1991,
+      "approx_tokens": 497,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p1",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p1_c1",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 7,
+    "level": "child",
+    "text": "con tain ers\n3 8 . Set u p con trols\n3 9 . Dispose of garbage\n4 0 . Stir pots\n4 1 . Add in gredien ts\n\n5 1 . In itialization  Un certain ty\n\nUser Functions\n\nAssociated Design Factors\n\n4 2 . Prepare sau ces\n4 3 . Con su lt recipes\n4 4 . Prepare servin gs\n\n5 2 . In gredien ts don ’t m ix\n\n5 3 . Non -lin ear scalin g\n\nFigure 2. The Action Analysis information collecting form is used to identify\nFunctions for an activity and associate insights, as Design Factors, with\nthem. Design Factor 51, for example, is associated with Function 38.\n\nRequirement\nand Insight\n\nThe Function Structure is, in a sense, a catalog of requirements for the system. If\nthe system is to perform well, it must fulfill all of the Functions. The design question\nis, of course, \"how?\" At this point it is important to abandon the old model of the\n\n4\n\n=== Page 5 ===\ndesign process as one that proceeds linearly or iteratively through the phases of\nanalysis, synthesis and evaluation. Insight and idea go hand in hand. When\ninsights are obtained, it is crucial to capture the ideas that may follow naturally.\n\nAs Activities are described and functions specified in the Action Analysis process,\ninsights are also sought in the immediacy of the moment. On the Action Analysis\nform (Fig. 2) used to analyze Activities (and develop the information for the\nFunction Structure), there is a section for what are called Design Factors\njuxtaposed to the list of Functions. Design Factors are documents developing\ninsights about Functions. They are titled next to the Function (or Functions) to\nwhich they refer.\n\nAt this stage of preparation—what would be analysis in the classic model—the\ncreative process begins in the Structured Planning process. The generation of\nDesign Factors forces the interplay of insight and idea at the micro-level associated\nwith individual Functions.\n\nDesign Factors\nSeveral features characterize the Design Factor document.",
+    "enriched_text": "con tain ers\n3 8 . Set u p con trols\n3 9 . Dispose of garbage\n4 0 . Stir pots\n4 1 . Add in gredien ts\n\n5 1 . In itialization  Un certain ty\n\nUser Functions\n\nAssociated Design Factors\n\n4 2 . Prepare sau ces\n4 3 . Con su lt recipes\n4 4 . Prepare servin gs\n\n5 2 . In gredien ts don ’t m ix\n\n5 3 . Non -lin ear scalin g\n\nFigure 2. The Action Analysis information collecting form is used to identify\nFunctions for an activity and associate insights, as Design Factors, with\nthem. Design Factor 51, for example, is associated with Function 38.\n\nRequirement\nand Insight\n\nThe Function Structure is, in a sense, a catalog of requirements for the system. If\nthe system is to perform well, it must fulfill all of the Functions. The design question\nis, of course, \"how?\" At this point it is important to abandon the old model of the\n\n4\n\n=== Page 5 ===\ndesign process as one that proceeds linearly or iteratively through the phases of\nanalysis, synthesis and evaluation. Insight and idea go hand in hand. When\ninsights are obtained, it is crucial to capture the ideas that may follow naturally.\n\nAs Activities are described and functions specified in the Action Analysis process,\ninsights are also sought in the immediacy of the moment. On the Action Analysis\nform (Fig. 2) used to analyze Activities (and develop the information for the\nFunction Structure), there is a section for what are called Design Factors\njuxtaposed to the list of Functions. Design Factors are documents developing\ninsights about Functions. They are titled next to the Function (or Functions) to\nwhich they refer.\n\nAt this stage of preparation—what would be analysis in the classic model—the\ncreative process begins in the Structured Planning process. The generation of\nDesign Factors forces the interplay of insight and idea at the micro-level associated\nwith individual Functions.\n\nDesign Factors\nSeveral features characterize the Design Factor document.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Function Structure",
+        "Action Analysis",
+        "Structured Planning",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 1918,
+      "approx_tokens": 479,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p1",
+      "child_ids": [],
+      "figure_references": [
+        2
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p1_c2",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 8,
+    "level": "child",
+    "text": "Design Factors\nSeveral features characterize the Design Factor document.\n\nFirst, a Design Factor is a document. It has source and reference information, as\nwell as discussion material and illustrations. Second, it contains information about\nboth insight and ideas. In one place, the source for ideas and the ideas themselves\nare recorded. Third, it is qualitative. Quantitative information can be incorporated,\nbut the emphasis is on insight, described in the way most appropriate—generally in\nprose, with mathematical and/or graphic illustrations where useful.\n\nIn the Design Factor there resides a model for a corporate or institutional memory\nassociated with the \"why’s\" rather than the \"what’s\" of project histories. Ideas and\nthe insights that produced them are the diamonds among the enormous amounts of\n\"data dust\" accumulated by corporations and institutions. Billions of dollars must be\nlost every year by corporations that recreate the wheel over and over again\nbecause ideas and insights locked in the heads of employees leave with them as\nthey retire or go to other jobs.\n\nA Design Factor (Fig. 3) has two major parts, subdivisions for each, and several\nreference sections. The first major part is about insight; its two subdivisions are\nObservation and Extension. An Observation is a succinct statement of the insight,\ndistilled to its essence—a silver bullet. The Extension fills in the details, examines\ncauses and effects or, less certainly, conditions and tendencies. Essentially\nunbounded, the Extension section provides a forum for discussion of related\ninformation and the exploration of reasons for the Observation. It answers why\nquestions as thoroughly as possible.",
+    "enriched_text": "Design Factors\nSeveral features characterize the Design Factor document.\n\nFirst, a Design Factor is a document. It has source and reference information, as\nwell as discussion material and illustrations. Second, it contains information about\nboth insight and ideas. In one place, the source for ideas and the ideas themselves\nare recorded. Third, it is qualitative. Quantitative information can be incorporated,\nbut the emphasis is on insight, described in the way most appropriate—generally in\nprose, with mathematical and/or graphic illustrations where useful.\n\nIn the Design Factor there resides a model for a corporate or institutional memory\nassociated with the \"why’s\" rather than the \"what’s\" of project histories. Ideas and\nthe insights that produced them are the diamonds among the enormous amounts of\n\"data dust\" accumulated by corporations and institutions. Billions of dollars must be\nlost every year by corporations that recreate the wheel over and over again\nbecause ideas and insights locked in the heads of employees leave with them as\nthey retire or go to other jobs.\n\nA Design Factor (Fig. 3) has two major parts, subdivisions for each, and several\nreference sections. The first major part is about insight; its two subdivisions are\nObservation and Extension. An Observation is a succinct statement of the insight,\ndistilled to its essence—a silver bullet. The Extension fills in the details, examines\ncauses and effects or, less certainly, conditions and tendencies. Essentially\nunbounded, the Extension section provides a forum for discussion of related\ninformation and the exploration of reasons for the Observation. It answers why\nquestions as thoroughly as possible.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Design Factor",
+        "Mode"
+      ],
+      "char_count": 1688,
+      "approx_tokens": 422,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p1",
+      "child_ids": [],
+      "figure_references": [
+        3
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p1_c3",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 9,
+    "level": "child",
+    "text": "The second major part is concerned with ideas. It also consists of two sections:\nDesign Implications and Speculations. Project implications of the insight are drawn\nhere, first, to strategies for solution and, then, to specific concepts. Design Implica-\ntions are strategic, suggesting directions in which to seek solutions. Speculations\nare tactical, expressing tangible, concrete ideas that, while still speculative at this\nearly stage of the design process, are well enough formed to be able to be\nevaluated for how they might contribute to fulfilling any Function.\n\nFigure 3 is a typical example of a Design Factor. Through it we can see how the\nprocess distills data into information, explores it for understanding, and then\nextracts strategies and ideas.\n\n5\n\n=== Page 6 ===\nDesign Factor\n\nTitle:\n\nIn itialization  Un certain ty\n\n51\n\nC. Owen\n\nOriginator\n\nSource/s\n\n3 8 . Set u p con trols\n1. An derson , Robert M. The\nArt of Cooking. Lon don : Acm e\nPress, Ltd., 1973.\n\nAssociated Functions\n\nProject\n\nHou sin g System\n\n2. Keeley, Lau ra G. Des ign Con-\ns iderations  for Cook ing Appli-\nances . Appliance Technology\n3, No. 4 (April 1989): 47-50.\n\nMode\n\nUse (Su bm ode: Food Preparation )\n\nActivity\n\nCookin g\n\nObservation\n\nExtension\n\nBecau se of th e ph ysical differ-\nen ces in  th e way h eat is pro-\ndu ced an d applied, it is difficu lt\nto kn ow wh en  a cookin g device\nis \"ready\" at a desired tem pera-\ntu re.",
+    "enriched_text": "The second major part is concerned with ideas. It also consists of two sections:\nDesign Implications and Speculations. Project implications of the insight are drawn\nhere, first, to strategies for solution and, then, to specific concepts. Design Implica-\ntions are strategic, suggesting directions in which to seek solutions. Speculations\nare tactical, expressing tangible, concrete ideas that, while still speculative at this\nearly stage of the design process, are well enough formed to be able to be\nevaluated for how they might contribute to fulfilling any Function.\n\nFigure 3 is a typical example of a Design Factor. Through it we can see how the\nprocess distills data into information, explores it for understanding, and then\nextracts strategies and ideas.\n\n5\n\n=== Page 6 ===\nDesign Factor\n\nTitle:\n\nIn itialization  Un certain ty\n\n51\n\nC. Owen\n\nOriginator\n\nSource/s\n\n3 8 . Set u p con trols\n1. An derson , Robert M. The\nArt of Cooking. Lon don : Acm e\nPress, Ltd., 1973.\n\nAssociated Functions\n\nProject\n\nHou sin g System\n\n2. Keeley, Lau ra G. Des ign Con-\ns iderations  for Cook ing Appli-\nances . Appliance Technology\n3, No. 4 (April 1989): 47-50.\n\nMode\n\nUse (Su bm ode: Food Preparation )\n\nActivity\n\nCookin g\n\nObservation\n\nExtension\n\nBecau se of th e ph ysical differ-\nen ces in  th e way h eat is pro-\ndu ced an d applied, it is difficu lt\nto kn ow wh en  a cookin g device\nis \"ready\" at a desired tem pera-\ntu re.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 1419,
+      "approx_tokens": 354,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p1",
+      "child_ids": [],
+      "figure_references": [
+        3
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p1_c4",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 10,
+    "level": "child",
+    "text": "Extension\n\nBecau se of th e ph ysical differ-\nen ces in  th e way h eat is pro-\ndu ced an d applied, it is difficu lt\nto kn ow wh en  a cookin g device\nis \"ready\" at a desired tem pera-\ntu re.\n\nTh e speed th at a cookin g device ach ieves in  com in g to a desired tem -\nperatu re is partly a fu n ction  of th e h eatin g process an d partly a fu n c-\ntion  of th e form  an d m aterial of th e cookin g vessel. Gas h eat is very\nqu ickly set; electric h eat is very slow to develop -- or dissipate. Oven s\nrequ ire tim e to absorb h eat so th at th ey can  com e to an  equ ilibriu m .\nMicrowaves in du ce h eat qu ickly in  th e food. In du ction  h eaters h eat\ncookin g vessels qu ickly (An derson  1973, 137). In  m ost cases, th ere is\nn o real in dication  of th e tem peratu re at th e m om en t or th e am ou n t of\nh eat bein g delivered. Oven s are, perh aps, th e m ost reliable in  th is\nregard -- particu larly if th ere are m ean s for preven tin g h ot spots\n(Keeley 1989, 48).\n\nTh e problem  presen ted is on e of in itialization . If a m easu rin g system\nis to u se tim e as its variable, it is im portan t to kn ow wh en  th e proper\ntem peratu re h as been  reach ed in  order to predict wh en  th e food will\nbe don e.\n\nDesign Implications\n\nSpeculations\n\n8 4 . Micro Sam pler\nSen se h eat in  cookin g con tain ers.\n\nRegu late h eat by feedback.\n6 2 . Feedback-Con trolled Heatin g.\n\nFigure 3. A Design Factor records an insight about a Function. It also\napplies the insight to the generation of ideas (Speculations) for how to fulfill\nthe Function.",
+    "enriched_text": "Extension\n\nBecau se of th e ph ysical differ-\nen ces in  th e way h eat is pro-\ndu ced an d applied, it is difficu lt\nto kn ow wh en  a cookin g device\nis \"ready\" at a desired tem pera-\ntu re.\n\nTh e speed th at a cookin g device ach ieves in  com in g to a desired tem -\nperatu re is partly a fu n ction  of th e h eatin g process an d partly a fu n c-\ntion  of th e form  an d m aterial of th e cookin g vessel. Gas h eat is very\nqu ickly set; electric h eat is very slow to develop -- or dissipate. Oven s\nrequ ire tim e to absorb h eat so th at th ey can  com e to an  equ ilibriu m .\nMicrowaves in du ce h eat qu ickly in  th e food. In du ction  h eaters h eat\ncookin g vessels qu ickly (An derson  1973, 137). In  m ost cases, th ere is\nn o real in dication  of th e tem peratu re at th e m om en t or th e am ou n t of\nh eat bein g delivered. Oven s are, perh aps, th e m ost reliable in  th is\nregard -- particu larly if th ere are m ean s for preven tin g h ot spots\n(Keeley 1989, 48).\n\nTh e problem  presen ted is on e of in itialization . If a m easu rin g system\nis to u se tim e as its variable, it is im portan t to kn ow wh en  th e proper\ntem peratu re h as been  reach ed in  order to predict wh en  th e food will\nbe don e.\n\nDesign Implications\n\nSpeculations\n\n8 4 . Micro Sam pler\nSen se h eat in  cookin g con tain ers.\n\nRegu late h eat by feedback.\n6 2 . Feedback-Con trolled Heatin g.\n\nFigure 3. A Design Factor records an insight about a Function. It also\napplies the insight to the generation of ideas (Speculations) for how to fulfill\nthe Function.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication"
+      ],
+      "char_count": 1572,
+      "approx_tokens": 393,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p1",
+      "child_ids": [],
+      "figure_references": [
+        3
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p1",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 11,
+    "level": "parent",
+    "text": "For a theatrical scene, there are players, props and a set. In an Activity, there are\nusers (players), system components that the users work with (props), and environ-\n\n3\n\n=== Page 4 ===\nmental components that are not involved directly, but place conditions on the\nsystem (the set).\n\nOnce an Activity is described, it is relatively easy to go to the next level to identify\nthe actions that are performed during the Activity, both by the system and by users\noperating the system. In keeping with design nomenclature, the actions are\ndescribed as Functions— System Functions or User Functions, depending on\nwhether they are performed by the system or by the user. This Function level is the\nthird and lowest level of the Action Analysis hierarchy. At this level we attain the\nlevel of detail necessary to meet the goal of the analysis, uncovering the Functions\nthat must be performed. Thorough coverage means thorough design. Careful\npreparation of a Function Structure produces the foundation we need for a creative,\nholistic approach to concept development.\n\nAction Analysis\n\nActivity/Event:\n\nCookin g\n\n10\n\nOriginator\n\nProject\n\nMode\n\nC. Owen\nHou sin g System\nUse (Su bm ode: Food Preparation )\n\nUsers\n\nEnvironmental Components\nSystem Components\n\nCook\nCookin g h elpers\n\nStove\nOven\nMicrowave oven\nPots an d pan s\nRecipes\nFood in gredien ts\nRefrigerator\nFreezer\nUten sils\nWork su rfaces\n\nWork su rfaces\nTask ligh tin g\nSin ks\nStorage u n its\nGarbage disposal\nUsed an d u n u sed vessels\n\nSystem Functions\nAssociated Design Factors\n\n2 5 . Grill food\n2 6 . Bake food\n2 7 . Fry food\n2 8 . Boil food\n2 9 . Steam  food\n3 0 . Heat food\n3 2 . Defrost food\n3 3 . Cool food\n3 4 . Freeze food\n3 5 . Ch eck progress\n3 6 . Clean  u ten sils an d con tain ers\n3 7 . Tran sfer foods between\n\n5 0 . Process-depen den t tests\n\ncon tain ers\n3 8 . Set u p con trols\n3 9 . Dispose of garbage\n4 0 . Stir pots\n4 1 . Add in gredien ts\n\n5 1 . In itialization  Un certain ty\n\nUser Functions\n\nAssociated Design Factors\n\n4 2 . Prepare sau ces\n4 3 . Con su lt recipes\n4 4 . Prepare servin gs\n\n5 2 . In gredien ts don ’t m ix\n\n5 3 . Non -lin ear scalin g\n\nFigure 2. The Action Analysis information collecting form is used to identify\nFunctions for an activity and associate insights, as Design Factors, with\nthem. Design Factor 51, for example, is associated with Function 38.\n\nRequirement\nand Insight\n\nThe Function Structure is, in a sense, a catalog of requirements for the system. If\nthe system is to perform well, it must fulfill all of the Functions. The design question\nis, of course, \"how?\" At this point it is important to abandon the old model of the\n\n4\n\n=== Page 5 ===\ndesign process as one that proceeds linearly or iteratively through the phases of\nanalysis, synthesis and evaluation. Insight and idea go hand in hand. When\ninsights are obtained, it is crucial to capture the ideas that may follow naturally.\n\nAs Activities are described and functions specified in the Action Analysis process,\ninsights are also sought in the immediacy of the moment. On the Action Analysis\nform (Fig. 2) used to analyze Activities (and develop the information for the\nFunction Structure), there is a section for what are called Design Factors\njuxtaposed to the list of Functions. Design Factors are documents developing\ninsights about Functions. They are titled next to the Function (or Functions) to\nwhich they refer.\n\nAt this stage of preparation—what would be analysis in the classic model—the\ncreative process begins in the Structured Planning process. The generation of\nDesign Factors forces the interplay of insight and idea at the micro-level associated\nwith individual Functions.\n\nDesign Factors\nSeveral features characterize the Design Factor document.\n\nFirst, a Design Factor is a document. It has source and reference information, as\nwell as discussion material and illustrations. Second, it contains information about\nboth insight and ideas. In one place, the source for ideas and the ideas themselves\nare recorded. Third, it is qualitative. Quantitative information can be incorporated,\nbut the emphasis is on insight, described in the way most appropriate—generally in\nprose, with mathematical and/or graphic illustrations where useful.\n\nIn the Design Factor there resides a model for a corporate or institutional memory\nassociated with the \"why’s\" rather than the \"what’s\" of project histories. Ideas and\nthe insights that produced them are the diamonds among the enormous amounts of\n\"data dust\" accumulated by corporations and institutions. Billions of dollars must be\nlost every year by corporations that recreate the wheel over and over again\nbecause ideas and insights locked in the heads of employees leave with them as\nthey retire or go to other jobs.\n\nA Design Factor (Fig. 3) has two major parts, subdivisions for each, and several\nreference sections. The first major part is about insight; its two subdivisions are\nObservation and Extension. An Observation is a succinct statement of the insight,\ndistilled to its essence—a silver bullet. The Extension fills in the details, examines\ncauses and effects or, less certainly, conditions and tendencies. Essentially\nunbounded, the Extension section provides a forum for discussion of related\ninformation and the exploration of reasons for the Observation. It answers why\nquestions as thoroughly as possible.\n\nThe second major part is concerned with ideas. It also consists of two sections:\nDesign Implications and Speculations. Project implications of the insight are drawn\nhere, first, to strategies for solution and, then, to specific concepts. Design Implica-\ntions are strategic, suggesting directions in which to seek solutions. Speculations\nare tactical, expressing tangible, concrete ideas that, while still speculative at this\nearly stage of the design process, are well enough formed to be able to be\nevaluated for how they might contribute to fulfilling any Function.\n\nFigure 3 is a typical example of a Design Factor. Through it we can see how the\nprocess distills data into information, explores it for understanding, and then\nextracts strategies and ideas.\n\n5\n\n=== Page 6 ===\nDesign Factor\n\nTitle:\n\nIn itialization  Un certain ty\n\n51\n\nC. Owen\n\nOriginator\n\nSource/s\n\n3 8 . Set u p con trols\n1. An derson , Robert M. The\nArt of Cooking. Lon don : Acm e\nPress, Ltd., 1973.\n\nAssociated Functions\n\nProject\n\nHou sin g System\n\n2. Keeley, Lau ra G. Des ign Con-\ns iderations  for Cook ing Appli-\nances . Appliance Technology\n3, No. 4 (April 1989): 47-50.\n\nMode\n\nUse (Su bm ode: Food Preparation )\n\nActivity\n\nCookin g\n\nObservation\n\nExtension\n\nBecau se of th e ph ysical differ-\nen ces in  th e way h eat is pro-\ndu ced an d applied, it is difficu lt\nto kn ow wh en  a cookin g device\nis \"ready\" at a desired tem pera-\ntu re.\n\nTh e speed th at a cookin g device ach ieves in  com in g to a desired tem -\nperatu re is partly a fu n ction  of th e h eatin g process an d partly a fu n c-\ntion  of th e form  an d m aterial of th e cookin g vessel. Gas h eat is very\nqu ickly set; electric h eat is very slow to develop -- or dissipate. Oven s\nrequ ire tim e to absorb h eat so th at th ey can  com e to an  equ ilibriu m .\nMicrowaves in du ce h eat qu ickly in  th e food. In du ction  h eaters h eat\ncookin g vessels qu ickly (An derson  1973, 137). In  m ost cases, th ere is\nn o real in dication  of th e tem peratu re at th e m om en t or th e am ou n t of\nh eat bein g delivered. Oven s are, perh aps, th e m ost reliable in  th is\nregard -- particu larly if th ere are m ean s for preven tin g h ot spots\n(Keeley 1989, 48).\n\nTh e problem  presen ted is on e of in itialization . If a m easu rin g system\nis to u se tim e as its variable, it is im portan t to kn ow wh en  th e proper\ntem peratu re h as been  reach ed in  order to predict wh en  th e food will\nbe don e.\n\nDesign Implications\n\nSpeculations\n\n8 4 . Micro Sam pler\nSen se h eat in  cookin g con tain ers.\n\nRegu late h eat by feedback.\n6 2 . Feedback-Con trolled Heatin g.\n\nFigure 3. A Design Factor records an insight about a Function. It also\napplies the insight to the generation of ideas (Speculations) for how to fulfill\nthe Function.",
+    "enriched_text": "For a theatrical scene, there are players, props and a set. In an Activity, there are\nusers (players), system components that the users work with (props), and environ-\n\n3\n\n=== Page 4 ===\nmental components that are not involved directly, but place conditions on the\nsystem (the set).\n\nOnce an Activity is described, it is relatively easy to go to the next level to identify\nthe actions that are performed during the Activity, both by the system and by users\noperating the system. In keeping with design nomenclature, the actions are\ndescribed as Functions— System Functions or User Functions, depending on\nwhether they are performed by the system or by the user. This Function level is the\nthird and lowest level of the Action Analysis hierarchy. At this level we attain the\nlevel of detail necessary to meet the goal of the analysis, uncovering the Functions\nthat must be performed. Thorough coverage means thorough design. Careful\npreparation of a Function Structure produces the foundation we need for a creative,\nholistic approach to concept development.\n\nAction Analysis\n\nActivity/Event:\n\nCookin g\n\n10\n\nOriginator\n\nProject\n\nMode\n\nC. Owen\nHou sin g System\nUse (Su bm ode: Food Preparation )\n\nUsers\n\nEnvironmental Components\nSystem Components\n\nCook\nCookin g h elpers\n\nStove\nOven\nMicrowave oven\nPots an d pan s\nRecipes\nFood in gredien ts\nRefrigerator\nFreezer\nUten sils\nWork su rfaces\n\nWork su rfaces\nTask ligh tin g\nSin ks\nStorage u n its\nGarbage disposal\nUsed an d u n u sed vessels\n\nSystem Functions\nAssociated Design Factors\n\n2 5 . Grill food\n2 6 . Bake food\n2 7 . Fry food\n2 8 . Boil food\n2 9 . Steam  food\n3 0 . Heat food\n3 2 . Defrost food\n3 3 . Cool food\n3 4 . Freeze food\n3 5 . Ch eck progress\n3 6 . Clean  u ten sils an d con tain ers\n3 7 . Tran sfer foods between\n\n5 0 . Process-depen den t tests\n\ncon tain ers\n3 8 . Set u p con trols\n3 9 . Dispose of garbage\n4 0 . Stir pots\n4 1 . Add in gredien ts\n\n5 1 . In itialization  Un certain ty\n\nUser Functions\n\nAssociated Design Factors\n\n4 2 . Prepare sau ces\n4 3 . Con su lt recipes\n4 4 . Prepare servin gs\n\n5 2 . In gredien ts don ’t m ix\n\n5 3 . Non -lin ear scalin g\n\nFigure 2. The Action Analysis information collecting form is used to identify\nFunctions for an activity and associate insights, as Design Factors, with\nthem. Design Factor 51, for example, is associated with Function 38.\n\nRequirement\nand Insight\n\nThe Function Structure is, in a sense, a catalog of requirements for the system. If\nthe system is to perform well, it must fulfill all of the Functions. The design question\nis, of course, \"how?\" At this point it is important to abandon the old model of the\n\n4\n\n=== Page 5 ===\ndesign process as one that proceeds linearly or iteratively through the phases of\nanalysis, synthesis and evaluation. Insight and idea go hand in hand. When\ninsights are obtained, it is crucial to capture the ideas that may follow naturally.\n\nAs Activities are described and functions specified in the Action Analysis process,\ninsights are also sought in the immediacy of the moment. On the Action Analysis\nform (Fig. 2) used to analyze Activities (and develop the information for the\nFunction Structure), there is a section for what are called Design Factors\njuxtaposed to the list of Functions. Design Factors are documents developing\ninsights about Functions. They are titled next to the Function (or Functions) to\nwhich they refer.\n\nAt this stage of preparation—what would be analysis in the classic model—the\ncreative process begins in the Structured Planning process. The generation of\nDesign Factors forces the interplay of insight and idea at the micro-level associated\nwith individual Functions.\n\nDesign Factors\nSeveral features characterize the Design Factor document.\n\nFirst, a Design Factor is a document. It has source and reference information, as\nwell as discussion material and illustrations. Second, it contains information about\nboth insight and ideas. In one place, the source for ideas and the ideas themselves\nare recorded. Third, it is qualitative. Quantitative information can be incorporated,\nbut the emphasis is on insight, described in the way most appropriate—generally in\nprose, with mathematical and/or graphic illustrations where useful.\n\nIn the Design Factor there resides a model for a corporate or institutional memory\nassociated with the \"why’s\" rather than the \"what’s\" of project histories. Ideas and\nthe insights that produced them are the diamonds among the enormous amounts of\n\"data dust\" accumulated by corporations and institutions. Billions of dollars must be\nlost every year by corporations that recreate the wheel over and over again\nbecause ideas and insights locked in the heads of employees leave with them as\nthey retire or go to other jobs.\n\nA Design Factor (Fig. 3) has two major parts, subdivisions for each, and several\nreference sections. The first major part is about insight; its two subdivisions are\nObservation and Extension. An Observation is a succinct statement of the insight,\ndistilled to its essence—a silver bullet. The Extension fills in the details, examines\ncauses and effects or, less certainly, conditions and tendencies. Essentially\nunbounded, the Extension section provides a forum for discussion of related\ninformation and the exploration of reasons for the Observation. It answers why\nquestions as thoroughly as possible.\n\nThe second major part is concerned with ideas. It also consists of two sections:\nDesign Implications and Speculations. Project implications of the insight are drawn\nhere, first, to strategies for solution and, then, to specific concepts. Design Implica-\ntions are strategic, suggesting directions in which to seek solutions. Speculations\nare tactical, expressing tangible, concrete ideas that, while still speculative at this\nearly stage of the design process, are well enough formed to be able to be\nevaluated for how they might contribute to fulfilling any Function.\n\nFigure 3 is a typical example of a Design Factor. Through it we can see how the\nprocess distills data into information, explores it for understanding, and then\nextracts strategies and ideas.\n\n5\n\n=== Page 6 ===\nDesign Factor\n\nTitle:\n\nIn itialization  Un certain ty\n\n51\n\nC. Owen\n\nOriginator\n\nSource/s\n\n3 8 . Set u p con trols\n1. An derson , Robert M. The\nArt of Cooking. Lon don : Acm e\nPress, Ltd., 1973.\n\nAssociated Functions\n\nProject\n\nHou sin g System\n\n2. Keeley, Lau ra G. Des ign Con-\ns iderations  for Cook ing Appli-\nances . Appliance Technology\n3, No. 4 (April 1989): 47-50.\n\nMode\n\nUse (Su bm ode: Food Preparation )\n\nActivity\n\nCookin g\n\nObservation\n\nExtension\n\nBecau se of th e ph ysical differ-\nen ces in  th e way h eat is pro-\ndu ced an d applied, it is difficu lt\nto kn ow wh en  a cookin g device\nis \"ready\" at a desired tem pera-\ntu re.\n\nTh e speed th at a cookin g device ach ieves in  com in g to a desired tem -\nperatu re is partly a fu n ction  of th e h eatin g process an d partly a fu n c-\ntion  of th e form  an d m aterial of th e cookin g vessel. Gas h eat is very\nqu ickly set; electric h eat is very slow to develop -- or dissipate. Oven s\nrequ ire tim e to absorb h eat so th at th ey can  com e to an  equ ilibriu m .\nMicrowaves in du ce h eat qu ickly in  th e food. In du ction  h eaters h eat\ncookin g vessels qu ickly (An derson  1973, 137). In  m ost cases, th ere is\nn o real in dication  of th e tem peratu re at th e m om en t or th e am ou n t of\nh eat bein g delivered. Oven s are, perh aps, th e m ost reliable in  th is\nregard -- particu larly if th ere are m ean s for preven tin g h ot spots\n(Keeley 1989, 48).\n\nTh e problem  presen ted is on e of in itialization . If a m easu rin g system\nis to u se tim e as its variable, it is im portan t to kn ow wh en  th e proper\ntem peratu re h as been  reach ed in  order to predict wh en  th e food will\nbe don e.\n\nDesign Implications\n\nSpeculations\n\n8 4 . Micro Sam pler\nSen se h eat in  cookin g con tain ers.\n\nRegu late h eat by feedback.\n6 2 . Feedback-Con trolled Heatin g.\n\nFigure 3. A Design Factor records an insight about a Function. It also\napplies the insight to the generation of ideas (Speculations) for how to fulfill\nthe Function.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication",
+        "Function Structure",
+        "Action Analysis",
+        "Structured Planning",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 8144,
+      "approx_tokens": 2036,
+      "parent_id": null,
+      "child_ids": [
+        "owen_context_for_creativity_owen_deseng91_p1_c0",
+        "owen_context_for_creativity_owen_deseng91_p1_c1",
+        "owen_context_for_creativity_owen_deseng91_p1_c2",
+        "owen_context_for_creativity_owen_deseng91_p1_c3",
+        "owen_context_for_creativity_owen_deseng91_p1_c4"
+      ],
+      "figure_references": [
+        2,
+        3
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p2_c0",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 12,
+    "level": "child",
+    "text": "Th e problem  presen ted is on e of in itialization . If a m easu rin g system\nis to u se tim e as its variable, it is im portan t to kn ow wh en  th e proper\ntem peratu re h as been  reach ed in  order to predict wh en  th e food will\nbe don e.\n\nDesign Implications\n\nSpeculations\n\n8 4 . Micro Sam pler\nSen se h eat in  cookin g con tain ers.\n\nRegu late h eat by feedback.\n6 2 . Feedback-Con trolled Heatin g.\n\nFigure 3. A Design Factor records an insight about a Function. It also\napplies the insight to the generation of ideas (Speculations) for how to fulfill\nthe Function.\n\nThe Observation comes from reflection about the Function Set up controls. This\naction takes place as food is placed in an appliance for cooking. The essence of\nthe insight is that the application of heat at the right temperature to food is not\ninstantaneous; it arrives at different times and rates depending on cooking process\nand equipment. The Extension explores this insight with examples of process and\nequipment and draws some conclusions about establishing initialization times for\ncooking processes that use time as the control variable.\n\nDesign Implications set two strategies for using the insight in a computer-supported\nfood preparation system. Sense heat in cooking containers suggests building\nsensing devices directly into the cooking process, in some way allowing the system\nto read temperatures directly in the food being cooked. Regulate heat by\nfeedback goes farther to suggest using knowledge of state to vary the rate of heat\ndelivery, thus speeding up the initialization phase as well as stabilizing the cooking\nprocess.\n\nFor the two Design Implications, there are two specific ideas—Speculations—that\nmight actually be used in the final design. A Micro Sampler is a probe that can be\ninserted automatically into a container from within the cooking unit. Heat on\n\n6",
+    "enriched_text": "Th e problem  presen ted is on e of in itialization . If a m easu rin g system\nis to u se tim e as its variable, it is im portan t to kn ow wh en  th e proper\ntem peratu re h as been  reach ed in  order to predict wh en  th e food will\nbe don e.\n\nDesign Implications\n\nSpeculations\n\n8 4 . Micro Sam pler\nSen se h eat in  cookin g con tain ers.\n\nRegu late h eat by feedback.\n6 2 . Feedback-Con trolled Heatin g.\n\nFigure 3. A Design Factor records an insight about a Function. It also\napplies the insight to the generation of ideas (Speculations) for how to fulfill\nthe Function.\n\nThe Observation comes from reflection about the Function Set up controls. This\naction takes place as food is placed in an appliance for cooking. The essence of\nthe insight is that the application of heat at the right temperature to food is not\ninstantaneous; it arrives at different times and rates depending on cooking process\nand equipment. The Extension explores this insight with examples of process and\nequipment and draws some conclusions about establishing initialization times for\ncooking processes that use time as the control variable.\n\nDesign Implications set two strategies for using the insight in a computer-supported\nfood preparation system. Sense heat in cooking containers suggests building\nsensing devices directly into the cooking process, in some way allowing the system\nto read temperatures directly in the food being cooked. Regulate heat by\nfeedback goes farther to suggest using knowledge of state to vary the rate of heat\ndelivery, thus speeding up the initialization phase as well as stabilizing the cooking\nprocess.\n\nFor the two Design Implications, there are two specific ideas—Speculations—that\nmight actually be used in the final design. A Micro Sampler is a probe that can be\ninserted automatically into a container from within the cooking unit. Heat on\n\n6",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication"
+      ],
+      "char_count": 1865,
+      "approx_tokens": 466,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p2",
+      "child_ids": [],
+      "figure_references": [
+        3
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p2_c1",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 13,
+    "level": "child",
+    "text": "6\n\n=== Page 7 ===\nDemand is a procedural idea that places all heating processes in the control of a\nsystem director that executes the recipe along with many other food preparation\nfunctions.\n\nManipulative\nPreparation\n\nAs a Design Factor is written, a form of manipulation takes place—even though this\nis still what the psychologists technically would call the preparation phase. The\nseparation of the idea part of the document into Design Implications and Specula-\ntions generates a tension between abstract and concrete that may be manipulated.\n\nParadoxically, as a first step toward an idea, it is almost always better to back\naway. Rather than directly attempt a solution, it is better to begin from a more\nabstract position. \"What is a good way to use this information?\" (from the Insight\nand Extension). \"What different strategies can be employed?\" Almost always, there\nis more than one way to approach solution—frequently, there are radically different\nperspectives.\n\nThe abstraction ladder runs from general strategy to specific idea. In the middle is\nthe topical strategy. Design Implications in the Design Factor document are topical\nstrategies (strategies specific to the insight at hand); Speculations are specific\nideas.\n\nBecause general strategies apply to all problems and opportunities, they are good\nto begin with. They reflect fundamentally different problem-solving approaches.\nMore can always be created because of the richness of natural language, but ten\ngood ones are:\n\n• Confront the problem \n• Overwhelm the problem \n• Avoid the problem \n• Remove the source of the problem \n• Circumvent the problem \n• Isolate the problem \n• Turn the problem aside \n• Invert the problem \n• Divide the problem \n• Hide the problem",
+    "enriched_text": "6\n\n=== Page 7 ===\nDemand is a procedural idea that places all heating processes in the control of a\nsystem director that executes the recipe along with many other food preparation\nfunctions.\n\nManipulative\nPreparation\n\nAs a Design Factor is written, a form of manipulation takes place—even though this\nis still what the psychologists technically would call the preparation phase. The\nseparation of the idea part of the document into Design Implications and Specula-\ntions generates a tension between abstract and concrete that may be manipulated.\n\nParadoxically, as a first step toward an idea, it is almost always better to back\naway. Rather than directly attempt a solution, it is better to begin from a more\nabstract position. \"What is a good way to use this information?\" (from the Insight\nand Extension). \"What different strategies can be employed?\" Almost always, there\nis more than one way to approach solution—frequently, there are radically different\nperspectives.\n\nThe abstraction ladder runs from general strategy to specific idea. In the middle is\nthe topical strategy. Design Implications in the Design Factor document are topical\nstrategies (strategies specific to the insight at hand); Speculations are specific\nideas.\n\nBecause general strategies apply to all problems and opportunities, they are good\nto begin with. They reflect fundamentally different problem-solving approaches.\nMore can always be created because of the richness of natural language, but ten\ngood ones are:\n\n• Confront the problem \n• Overwhelm the problem \n• Avoid the problem \n• Remove the source of the problem \n• Circumvent the problem \n• Isolate the problem \n• Turn the problem aside \n• Invert the problem \n• Divide the problem \n• Hide the problem",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication",
+        "Abstraction Ladder"
+      ],
+      "char_count": 1735,
+      "approx_tokens": 433,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p2",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p2_c2",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 14,
+    "level": "child",
+    "text": "To develop a Design Implication, a general strategy is chosen and a topical\nstrategy is derived from it. The question is asked, \"What would be a good example\nof the application of general strategy X to the insight of this Design Factor?\" For\nour example Design Factor, the general strategy Circumvent the problem yields\nthe Design Implication, Sense heat in cooking containers. General strategy\nOverwhelm the problem suggests Regulate heat by feedback.\n\nContinuing down the abstraction ladder, the Design Implications are used to\ngenerate Speculations. \"What specific idea might result from the application of this\nDesign Implication?\" Speculations are formatted as noun phrases, usually with an\nevocative adjective or adjective phrase preceding the noun name. Noun phrases\nare best for conjuring and retrieving images, so they are the choice for denoting\nideas. Moreover, the more evocative the description, the more memorable the idea\nwill be. Synectics, Inc. recognized the importance of this early in the development\nof their techniques for group creativity. Evocative adjective-noun descriptions are\ncalled for as \"Book Titles\" in one stage of their \"excursion\" procedure for making\nthe familiar strange.\n\n\"In form, a Book Title is a two-word phrase that captures both an essence and a paradox\ninvolved in a particular thing or set of feelings. The combination of an adjective and a\nnoun is the most workable form\" [Prince 1970, 95].\n\n7\n\n=== Page 8 ===\n\"The two-word statement to capture the essence with a paradox is not new. Many book\ntitles, not surprisingly, qualify. Originally, we called this step symbolic analogy and\nthought of it differently. It developed when we asked team members to characterize a\nthing (like a closure) in a compressed way. To explain what we wanted, we would say\n’Pretend you have written a whole book about closures. Think of a two-word, poetic title\nfor your book without the word closure.’ One title that would qualify: Penetrable Barrier\"\n[Prince 1970, 138].",
+    "enriched_text": "To develop a Design Implication, a general strategy is chosen and a topical\nstrategy is derived from it. The question is asked, \"What would be a good example\nof the application of general strategy X to the insight of this Design Factor?\" For\nour example Design Factor, the general strategy Circumvent the problem yields\nthe Design Implication, Sense heat in cooking containers. General strategy\nOverwhelm the problem suggests Regulate heat by feedback.\n\nContinuing down the abstraction ladder, the Design Implications are used to\ngenerate Speculations. \"What specific idea might result from the application of this\nDesign Implication?\" Speculations are formatted as noun phrases, usually with an\nevocative adjective or adjective phrase preceding the noun name. Noun phrases\nare best for conjuring and retrieving images, so they are the choice for denoting\nideas. Moreover, the more evocative the description, the more memorable the idea\nwill be. Synectics, Inc. recognized the importance of this early in the development\nof their techniques for group creativity. Evocative adjective-noun descriptions are\ncalled for as \"Book Titles\" in one stage of their \"excursion\" procedure for making\nthe familiar strange.\n\n\"In form, a Book Title is a two-word phrase that captures both an essence and a paradox\ninvolved in a particular thing or set of feelings. The combination of an adjective and a\nnoun is the most workable form\" [Prince 1970, 95].\n\n7\n\n=== Page 8 ===\n\"The two-word statement to capture the essence with a paradox is not new. Many book\ntitles, not surprisingly, qualify. Originally, we called this step symbolic analogy and\nthought of it differently. It developed when we asked team members to characterize a\nthing (like a closure) in a compressed way. To explain what we wanted, we would say\n’Pretend you have written a whole book about closures. Think of a two-word, poetic title\nfor your book without the word closure.’ One title that would qualify: Penetrable Barrier\"\n[Prince 1970, 138].",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Design Factor",
+        "Speculation",
+        "Design Implication",
+        "Abstraction Ladder"
+      ],
+      "char_count": 1998,
+      "approx_tokens": 499,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p2",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p2_c3",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 15,
+    "level": "child",
+    "text": "Once a Design Implication has been derived and a Speculation invented, the\ninherent tension in the description system can be exploited. \"What is another way\nto express the Design Implication?\" (another Speculation from the operative Design\nImplication). \"What other strategies might be employed to use the insight?\" (other\nDesign Implications). Thoughtful, open-minded manipulation of this tension between\nabstract and concrete is capable of generating a wealth of specific ideas to fulfill\nthe Function at issue. Generation of the Design Factor and its Speculations at the\ntime of analysis—in the preparation stage—assures the freshest use of the\ninformation, at the time it is obtained.\n\nManipulation\n\"Now, with all this material before him—in his mind, on the workbench, or in piles of\nnotes on slips of paper—the creative person begins to try to find some new pattern. he\npokes at the material, shuffles it around, turns it upside down, looks at it sideways. ...\nThe manipulative process is an attempt at synthesis, the putting together of hitherto\nunrelated concepts, and what it hopes to do is ’to make the familiar strange’\" [Fabun\n1968, 10]\n\nIn the Structured Planning process, a major manipulation activity is the creation of\nan Information Structure that places Functions together that ought to be seen\ntogether not because they are classified together in predetermined categories, but\nbecause they share interest in potential solutions —the Speculations already\ninvented in large numbers.",
+    "enriched_text": "Once a Design Implication has been derived and a Speculation invented, the\ninherent tension in the description system can be exploited. \"What is another way\nto express the Design Implication?\" (another Speculation from the operative Design\nImplication). \"What other strategies might be employed to use the insight?\" (other\nDesign Implications). Thoughtful, open-minded manipulation of this tension between\nabstract and concrete is capable of generating a wealth of specific ideas to fulfill\nthe Function at issue. Generation of the Design Factor and its Speculations at the\ntime of analysis—in the preparation stage—assures the freshest use of the\ninformation, at the time it is obtained.\n\nManipulation\n\"Now, with all this material before him—in his mind, on the workbench, or in piles of\nnotes on slips of paper—the creative person begins to try to find some new pattern. he\npokes at the material, shuffles it around, turns it upside down, looks at it sideways. ...\nThe manipulative process is an attempt at synthesis, the putting together of hitherto\nunrelated concepts, and what it hopes to do is ’to make the familiar strange’\" [Fabun\n1968, 10]\n\nIn the Structured Planning process, a major manipulation activity is the creation of\nan Information Structure that places Functions together that ought to be seen\ntogether not because they are classified together in predetermined categories, but\nbecause they share interest in potential solutions —the Speculations already\ninvented in large numbers.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication",
+        "Information Structure",
+        "Structured Planning",
+        "Activity"
+      ],
+      "char_count": 1499,
+      "approx_tokens": 374,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p2",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p2_c4",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 16,
+    "level": "child",
+    "text": "If a project has even a moderate number of Functions to be considered, some\nattempt to organize them will be necessary. The conventional way is to find a set of\ncategories that cover the subject well and assign Functions to them. That is what\nwe do in using Action Analysis to create a Function Structure. For the design of a\nhousing system, this might be the Modes, Activities and Functions revealed through\nAction Analysis, or it might be traditional and familiar categories such as structural,\nelectrical, plumbing, hvac (heating, ventilating and cooling), etc. Either way, the\nprocess is logical, very important in the preparation phase—and totally wrong for\ncreative synthesis! Using such a model to organize design as opposed to\ninformation collecting activities virtually guarantees that the only inventive solutions\nthat will cross subject categories will be those that are produced accidentally.",
+    "enriched_text": "If a project has even a moderate number of Functions to be considered, some\nattempt to organize them will be necessary. The conventional way is to find a set of\ncategories that cover the subject well and assign Functions to them. That is what\nwe do in using Action Analysis to create a Function Structure. For the design of a\nhousing system, this might be the Modes, Activities and Functions revealed through\nAction Analysis, or it might be traditional and familiar categories such as structural,\nelectrical, plumbing, hvac (heating, ventilating and cooling), etc. Either way, the\nprocess is logical, very important in the preparation phase—and totally wrong for\ncreative synthesis! Using such a model to organize design as opposed to\ninformation collecting activities virtually guarantees that the only inventive solutions\nthat will cross subject categories will be those that are produced accidentally.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Function Structure",
+        "Action Analysis",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 904,
+      "approx_tokens": 226,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p2",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p2",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 17,
+    "level": "parent",
+    "text": "Th e problem  presen ted is on e of in itialization . If a m easu rin g system\nis to u se tim e as its variable, it is im portan t to kn ow wh en  th e proper\ntem peratu re h as been  reach ed in  order to predict wh en  th e food will\nbe don e.\n\nDesign Implications\n\nSpeculations\n\n8 4 . Micro Sam pler\nSen se h eat in  cookin g con tain ers.\n\nRegu late h eat by feedback.\n6 2 . Feedback-Con trolled Heatin g.\n\nFigure 3. A Design Factor records an insight about a Function. It also\napplies the insight to the generation of ideas (Speculations) for how to fulfill\nthe Function.\n\nThe Observation comes from reflection about the Function Set up controls. This\naction takes place as food is placed in an appliance for cooking. The essence of\nthe insight is that the application of heat at the right temperature to food is not\ninstantaneous; it arrives at different times and rates depending on cooking process\nand equipment. The Extension explores this insight with examples of process and\nequipment and draws some conclusions about establishing initialization times for\ncooking processes that use time as the control variable.\n\nDesign Implications set two strategies for using the insight in a computer-supported\nfood preparation system. Sense heat in cooking containers suggests building\nsensing devices directly into the cooking process, in some way allowing the system\nto read temperatures directly in the food being cooked. Regulate heat by\nfeedback goes farther to suggest using knowledge of state to vary the rate of heat\ndelivery, thus speeding up the initialization phase as well as stabilizing the cooking\nprocess.\n\nFor the two Design Implications, there are two specific ideas—Speculations—that\nmight actually be used in the final design. A Micro Sampler is a probe that can be\ninserted automatically into a container from within the cooking unit. Heat on\n\n6\n\n=== Page 7 ===\nDemand is a procedural idea that places all heating processes in the control of a\nsystem director that executes the recipe along with many other food preparation\nfunctions.\n\nManipulative\nPreparation\n\nAs a Design Factor is written, a form of manipulation takes place—even though this\nis still what the psychologists technically would call the preparation phase. The\nseparation of the idea part of the document into Design Implications and Specula-\ntions generates a tension between abstract and concrete that may be manipulated.\n\nParadoxically, as a first step toward an idea, it is almost always better to back\naway. Rather than directly attempt a solution, it is better to begin from a more\nabstract position. \"What is a good way to use this information?\" (from the Insight\nand Extension). \"What different strategies can be employed?\" Almost always, there\nis more than one way to approach solution—frequently, there are radically different\nperspectives.\n\nThe abstraction ladder runs from general strategy to specific idea. In the middle is\nthe topical strategy. Design Implications in the Design Factor document are topical\nstrategies (strategies specific to the insight at hand); Speculations are specific\nideas.\n\nBecause general strategies apply to all problems and opportunities, they are good\nto begin with. They reflect fundamentally different problem-solving approaches.\nMore can always be created because of the richness of natural language, but ten\ngood ones are:\n\n• Confront the problem \n• Overwhelm the problem \n• Avoid the problem \n• Remove the source of the problem \n• Circumvent the problem \n• Isolate the problem \n• Turn the problem aside \n• Invert the problem \n• Divide the problem \n• Hide the problem\n\nTo develop a Design Implication, a general strategy is chosen and a topical\nstrategy is derived from it. The question is asked, \"What would be a good example\nof the application of general strategy X to the insight of this Design Factor?\" For\nour example Design Factor, the general strategy Circumvent the problem yields\nthe Design Implication, Sense heat in cooking containers. General strategy\nOverwhelm the problem suggests Regulate heat by feedback.\n\nContinuing down the abstraction ladder, the Design Implications are used to\ngenerate Speculations. \"What specific idea might result from the application of this\nDesign Implication?\" Speculations are formatted as noun phrases, usually with an\nevocative adjective or adjective phrase preceding the noun name. Noun phrases\nare best for conjuring and retrieving images, so they are the choice for denoting\nideas. Moreover, the more evocative the description, the more memorable the idea\nwill be. Synectics, Inc. recognized the importance of this early in the development\nof their techniques for group creativity. Evocative adjective-noun descriptions are\ncalled for as \"Book Titles\" in one stage of their \"excursion\" procedure for making\nthe familiar strange.\n\n\"In form, a Book Title is a two-word phrase that captures both an essence and a paradox\ninvolved in a particular thing or set of feelings. The combination of an adjective and a\nnoun is the most workable form\" [Prince 1970, 95].\n\n7\n\n=== Page 8 ===\n\"The two-word statement to capture the essence with a paradox is not new. Many book\ntitles, not surprisingly, qualify. Originally, we called this step symbolic analogy and\nthought of it differently. It developed when we asked team members to characterize a\nthing (like a closure) in a compressed way. To explain what we wanted, we would say\n’Pretend you have written a whole book about closures. Think of a two-word, poetic title\nfor your book without the word closure.’ One title that would qualify: Penetrable Barrier\"\n[Prince 1970, 138].\n\nOnce a Design Implication has been derived and a Speculation invented, the\ninherent tension in the description system can be exploited. \"What is another way\nto express the Design Implication?\" (another Speculation from the operative Design\nImplication). \"What other strategies might be employed to use the insight?\" (other\nDesign Implications). Thoughtful, open-minded manipulation of this tension between\nabstract and concrete is capable of generating a wealth of specific ideas to fulfill\nthe Function at issue. Generation of the Design Factor and its Speculations at the\ntime of analysis—in the preparation stage—assures the freshest use of the\ninformation, at the time it is obtained.\n\nManipulation\n\"Now, with all this material before him—in his mind, on the workbench, or in piles of\nnotes on slips of paper—the creative person begins to try to find some new pattern. he\npokes at the material, shuffles it around, turns it upside down, looks at it sideways. ...\nThe manipulative process is an attempt at synthesis, the putting together of hitherto\nunrelated concepts, and what it hopes to do is ’to make the familiar strange’\" [Fabun\n1968, 10]\n\nIn the Structured Planning process, a major manipulation activity is the creation of\nan Information Structure that places Functions together that ought to be seen\ntogether not because they are classified together in predetermined categories, but\nbecause they share interest in potential solutions —the Speculations already\ninvented in large numbers.\n\nIf a project has even a moderate number of Functions to be considered, some\nattempt to organize them will be necessary. The conventional way is to find a set of\ncategories that cover the subject well and assign Functions to them. That is what\nwe do in using Action Analysis to create a Function Structure. For the design of a\nhousing system, this might be the Modes, Activities and Functions revealed through\nAction Analysis, or it might be traditional and familiar categories such as structural,\nelectrical, plumbing, hvac (heating, ventilating and cooling), etc. Either way, the\nprocess is logical, very important in the preparation phase—and totally wrong for\ncreative synthesis! Using such a model to organize design as opposed to\ninformation collecting activities virtually guarantees that the only inventive solutions\nthat will cross subject categories will be those that are produced accidentally.",
+    "enriched_text": "Th e problem  presen ted is on e of in itialization . If a m easu rin g system\nis to u se tim e as its variable, it is im portan t to kn ow wh en  th e proper\ntem peratu re h as been  reach ed in  order to predict wh en  th e food will\nbe don e.\n\nDesign Implications\n\nSpeculations\n\n8 4 . Micro Sam pler\nSen se h eat in  cookin g con tain ers.\n\nRegu late h eat by feedback.\n6 2 . Feedback-Con trolled Heatin g.\n\nFigure 3. A Design Factor records an insight about a Function. It also\napplies the insight to the generation of ideas (Speculations) for how to fulfill\nthe Function.\n\nThe Observation comes from reflection about the Function Set up controls. This\naction takes place as food is placed in an appliance for cooking. The essence of\nthe insight is that the application of heat at the right temperature to food is not\ninstantaneous; it arrives at different times and rates depending on cooking process\nand equipment. The Extension explores this insight with examples of process and\nequipment and draws some conclusions about establishing initialization times for\ncooking processes that use time as the control variable.\n\nDesign Implications set two strategies for using the insight in a computer-supported\nfood preparation system. Sense heat in cooking containers suggests building\nsensing devices directly into the cooking process, in some way allowing the system\nto read temperatures directly in the food being cooked. Regulate heat by\nfeedback goes farther to suggest using knowledge of state to vary the rate of heat\ndelivery, thus speeding up the initialization phase as well as stabilizing the cooking\nprocess.\n\nFor the two Design Implications, there are two specific ideas—Speculations—that\nmight actually be used in the final design. A Micro Sampler is a probe that can be\ninserted automatically into a container from within the cooking unit. Heat on\n\n6\n\n=== Page 7 ===\nDemand is a procedural idea that places all heating processes in the control of a\nsystem director that executes the recipe along with many other food preparation\nfunctions.\n\nManipulative\nPreparation\n\nAs a Design Factor is written, a form of manipulation takes place—even though this\nis still what the psychologists technically would call the preparation phase. The\nseparation of the idea part of the document into Design Implications and Specula-\ntions generates a tension between abstract and concrete that may be manipulated.\n\nParadoxically, as a first step toward an idea, it is almost always better to back\naway. Rather than directly attempt a solution, it is better to begin from a more\nabstract position. \"What is a good way to use this information?\" (from the Insight\nand Extension). \"What different strategies can be employed?\" Almost always, there\nis more than one way to approach solution—frequently, there are radically different\nperspectives.\n\nThe abstraction ladder runs from general strategy to specific idea. In the middle is\nthe topical strategy. Design Implications in the Design Factor document are topical\nstrategies (strategies specific to the insight at hand); Speculations are specific\nideas.\n\nBecause general strategies apply to all problems and opportunities, they are good\nto begin with. They reflect fundamentally different problem-solving approaches.\nMore can always be created because of the richness of natural language, but ten\ngood ones are:\n\n• Confront the problem \n• Overwhelm the problem \n• Avoid the problem \n• Remove the source of the problem \n• Circumvent the problem \n• Isolate the problem \n• Turn the problem aside \n• Invert the problem \n• Divide the problem \n• Hide the problem\n\nTo develop a Design Implication, a general strategy is chosen and a topical\nstrategy is derived from it. The question is asked, \"What would be a good example\nof the application of general strategy X to the insight of this Design Factor?\" For\nour example Design Factor, the general strategy Circumvent the problem yields\nthe Design Implication, Sense heat in cooking containers. General strategy\nOverwhelm the problem suggests Regulate heat by feedback.\n\nContinuing down the abstraction ladder, the Design Implications are used to\ngenerate Speculations. \"What specific idea might result from the application of this\nDesign Implication?\" Speculations are formatted as noun phrases, usually with an\nevocative adjective or adjective phrase preceding the noun name. Noun phrases\nare best for conjuring and retrieving images, so they are the choice for denoting\nideas. Moreover, the more evocative the description, the more memorable the idea\nwill be. Synectics, Inc. recognized the importance of this early in the development\nof their techniques for group creativity. Evocative adjective-noun descriptions are\ncalled for as \"Book Titles\" in one stage of their \"excursion\" procedure for making\nthe familiar strange.\n\n\"In form, a Book Title is a two-word phrase that captures both an essence and a paradox\ninvolved in a particular thing or set of feelings. The combination of an adjective and a\nnoun is the most workable form\" [Prince 1970, 95].\n\n7\n\n=== Page 8 ===\n\"The two-word statement to capture the essence with a paradox is not new. Many book\ntitles, not surprisingly, qualify. Originally, we called this step symbolic analogy and\nthought of it differently. It developed when we asked team members to characterize a\nthing (like a closure) in a compressed way. To explain what we wanted, we would say\n’Pretend you have written a whole book about closures. Think of a two-word, poetic title\nfor your book without the word closure.’ One title that would qualify: Penetrable Barrier\"\n[Prince 1970, 138].\n\nOnce a Design Implication has been derived and a Speculation invented, the\ninherent tension in the description system can be exploited. \"What is another way\nto express the Design Implication?\" (another Speculation from the operative Design\nImplication). \"What other strategies might be employed to use the insight?\" (other\nDesign Implications). Thoughtful, open-minded manipulation of this tension between\nabstract and concrete is capable of generating a wealth of specific ideas to fulfill\nthe Function at issue. Generation of the Design Factor and its Speculations at the\ntime of analysis—in the preparation stage—assures the freshest use of the\ninformation, at the time it is obtained.\n\nManipulation\n\"Now, with all this material before him—in his mind, on the workbench, or in piles of\nnotes on slips of paper—the creative person begins to try to find some new pattern. he\npokes at the material, shuffles it around, turns it upside down, looks at it sideways. ...\nThe manipulative process is an attempt at synthesis, the putting together of hitherto\nunrelated concepts, and what it hopes to do is ’to make the familiar strange’\" [Fabun\n1968, 10]\n\nIn the Structured Planning process, a major manipulation activity is the creation of\nan Information Structure that places Functions together that ought to be seen\ntogether not because they are classified together in predetermined categories, but\nbecause they share interest in potential solutions —the Speculations already\ninvented in large numbers.\n\nIf a project has even a moderate number of Functions to be considered, some\nattempt to organize them will be necessary. The conventional way is to find a set of\ncategories that cover the subject well and assign Functions to them. That is what\nwe do in using Action Analysis to create a Function Structure. For the design of a\nhousing system, this might be the Modes, Activities and Functions revealed through\nAction Analysis, or it might be traditional and familiar categories such as structural,\nelectrical, plumbing, hvac (heating, ventilating and cooling), etc. Either way, the\nprocess is logical, very important in the preparation phase—and totally wrong for\ncreative synthesis! Using such a model to organize design as opposed to\ninformation collecting activities virtually guarantees that the only inventive solutions\nthat will cross subject categories will be those that are produced accidentally.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication",
+        "Information Structure",
+        "Function Structure",
+        "Abstraction Ladder",
+        "Action Analysis",
+        "Structured Planning",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 8006,
+      "approx_tokens": 2001,
+      "parent_id": null,
+      "child_ids": [
+        "owen_context_for_creativity_owen_deseng91_p2_c0",
+        "owen_context_for_creativity_owen_deseng91_p2_c1",
+        "owen_context_for_creativity_owen_deseng91_p2_c2",
+        "owen_context_for_creativity_owen_deseng91_p2_c3",
+        "owen_context_for_creativity_owen_deseng91_p2_c4"
+      ],
+      "figure_references": [
+        3
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p3_c0",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 18,
+    "level": "child",
+    "text": "The organization principle needed is one that relates Functions on the basis that\nthey share interest in ideas—no matter in what descriptive category they may fit.\nChristopher Alexander [Alexander 1964] identified the operative concept. Two\nFunctions are related, or interact, for the purposes of design if there is a significant\nnumber of ideas that would tend to fulfill both, or there are ideas that would fulfill\none, but if used in the final concept, would make it difficult to fulfill the other. Either\nway, the designer would like to consider these Functions together. In the first case,\nsubtle refinement might make it possible to use a few ideas to fulfill several\nFunctions inventively and elegantly. In the second case, modification of obstructive\nideas or selection of alternative ideas might prevent design failures otherwise\ndifficult to foresee.\n\nComputer programs in the Structured Planning process (RELATN and VTCON)\nenable a design team to create an Information Structure optimized for bottom-up\ndesign considerations based on this concept. The RELATN program produces a\ngraph of Functions, using decision data provided by the design team about how the\nSpeculations support or obstruct fulfillment of the Functions (Fig. 4). The VTCON\n\n8\n\n=== Page 9 ===\nprogram decomposes the graph to find clusters of Functions that are highly inter-\nrelated and, then, clusters the clusters to create an inclusion hierarchy that pro-\ngressively reassembles the Functions into a structure representing the total project\n(Figs. 5 and 6).\n\n47\n48\n\n26\n\n110\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n94\n\n38\n\n120\n\n101\n\n35\n\n45\n\nFigure 4. Links determined by the RELATN program relate Functions (vertices) in\na graph. (optimally arranged in this example so that groupings can be seen by\ninspection).\n\n47\n48\n\n107\n101\n104\n\n26\n\n110\n\n103\n\n108\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n105\n\n94\n\n38\n\n120\n\n101\n\n35\n\n102\n\n106\n\n45",
+    "enriched_text": "The organization principle needed is one that relates Functions on the basis that\nthey share interest in ideas—no matter in what descriptive category they may fit.\nChristopher Alexander [Alexander 1964] identified the operative concept. Two\nFunctions are related, or interact, for the purposes of design if there is a significant\nnumber of ideas that would tend to fulfill both, or there are ideas that would fulfill\none, but if used in the final concept, would make it difficult to fulfill the other. Either\nway, the designer would like to consider these Functions together. In the first case,\nsubtle refinement might make it possible to use a few ideas to fulfill several\nFunctions inventively and elegantly. In the second case, modification of obstructive\nideas or selection of alternative ideas might prevent design failures otherwise\ndifficult to foresee.\n\nComputer programs in the Structured Planning process (RELATN and VTCON)\nenable a design team to create an Information Structure optimized for bottom-up\ndesign considerations based on this concept. The RELATN program produces a\ngraph of Functions, using decision data provided by the design team about how the\nSpeculations support or obstruct fulfillment of the Functions (Fig. 4). The VTCON\n\n8\n\n=== Page 9 ===\nprogram decomposes the graph to find clusters of Functions that are highly inter-\nrelated and, then, clusters the clusters to create an inclusion hierarchy that pro-\ngressively reassembles the Functions into a structure representing the total project\n(Figs. 5 and 6).\n\n47\n48\n\n26\n\n110\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n94\n\n38\n\n120\n\n101\n\n35\n\n45\n\nFigure 4. Links determined by the RELATN program relate Functions (vertices) in\na graph. (optimally arranged in this example so that groupings can be seen by\ninspection).\n\n47\n48\n\n107\n101\n104\n\n26\n\n110\n\n103\n\n108\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n105\n\n94\n\n38\n\n120\n\n101\n\n35\n\n102\n\n106\n\n45",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Speculation",
+        "Information Structure",
+        "Structured Planning",
+        "Cluster",
+        "RELATN",
+        "VTCON"
+      ],
+      "char_count": 1885,
+      "approx_tokens": 471,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p3",
+      "child_ids": [],
+      "figure_references": [
+        4
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p3_c1",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 19,
+    "level": "child",
+    "text": "47\n48\n\n107\n101\n104\n\n26\n\n110\n\n103\n\n108\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n105\n\n94\n\n38\n\n120\n\n101\n\n35\n\n102\n\n106\n\n45\n\nFigure 5. The VTCON program finds clusters of Functions that are highly interlinked. Cluster\nnotation denotes both level and cluster number (i.e., 104 is level 1 cluster 4).\n\n9\n\n=== Page 10 ===\nCondensation \nClusters\n\n401\n\n303\n\n301\n\n302\n\n202\n204\n203\n\n201\n\n205\n\nPrimary\nClusters\n\n107\n106\n103\n102\n101\n105\n104\n\n108\n\nFunctions\n\n94 \n43 \n35 \n35 \n42 \n45 \n47 \n21\n\n48\n95 \n100\n\n94 \n100\n\n38 \n42 \n43 \n110\n\n38 \n42 \n120\n\n112 \n120\n\n101 \n120\n\n48 \n112\n\n26\n\nFigure 6. Hierarchical clustering by the VTCON program produces an organization of the entire set of\nFunctions—an Information Structure.\n\nSetting the\nView\n\nOther computer programs in the Structured Planning process help to pull together\nappropriate Design Factors, Speculations and Functions as they are needed in\nteam synthesis sessions. The important thing is that the inspirations for innovative\nconcepts are now where they should be, associated with Functions that should be\nconsidered together.\n\nFigure 7 is an example of a second level cluster from an Information Structure\nconstructed for the housing system project. The Functions from three first level\nclusters are visible. The diagram shows the linkage between the Functions (with\nthe strength of link given on a 0 to 1 scale—indicating the degree of interaction or\nindependence of the Functions with regard to all the Speculations thought of for the\nproject). Shown for each Function also are the Speculations that support (or\nobstruct) it and the Design Factors associated with it.\n\nWhile correct in form, this example (like all of the other structural figures) has been\npurposely simplified for this discussion. Typically, most clusters are larger, and\nFunctions have many more associated Speculations because Speculations\ninvented for Functions not in this cluster may also have been recognized as\nsupporting (or obstructing) these Functions.",
+    "enriched_text": "47\n48\n\n107\n101\n104\n\n26\n\n110\n\n103\n\n108\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n105\n\n94\n\n38\n\n120\n\n101\n\n35\n\n102\n\n106\n\n45\n\nFigure 5. The VTCON program finds clusters of Functions that are highly interlinked. Cluster\nnotation denotes both level and cluster number (i.e., 104 is level 1 cluster 4).\n\n9\n\n=== Page 10 ===\nCondensation \nClusters\n\n401\n\n303\n\n301\n\n302\n\n202\n204\n203\n\n201\n\n205\n\nPrimary\nClusters\n\n107\n106\n103\n102\n101\n105\n104\n\n108\n\nFunctions\n\n94 \n43 \n35 \n35 \n42 \n45 \n47 \n21\n\n48\n95 \n100\n\n94 \n100\n\n38 \n42 \n43 \n110\n\n38 \n42 \n120\n\n112 \n120\n\n101 \n120\n\n48 \n112\n\n26\n\nFigure 6. Hierarchical clustering by the VTCON program produces an organization of the entire set of\nFunctions—an Information Structure.\n\nSetting the\nView\n\nOther computer programs in the Structured Planning process help to pull together\nappropriate Design Factors, Speculations and Functions as they are needed in\nteam synthesis sessions. The important thing is that the inspirations for innovative\nconcepts are now where they should be, associated with Functions that should be\nconsidered together.\n\nFigure 7 is an example of a second level cluster from an Information Structure\nconstructed for the housing system project. The Functions from three first level\nclusters are visible. The diagram shows the linkage between the Functions (with\nthe strength of link given on a 0 to 1 scale—indicating the degree of interaction or\nindependence of the Functions with regard to all the Speculations thought of for the\nproject). Shown for each Function also are the Speculations that support (or\nobstruct) it and the Design Factors associated with it.\n\nWhile correct in form, this example (like all of the other structural figures) has been\npurposely simplified for this discussion. Typically, most clusters are larger, and\nFunctions have many more associated Speculations because Speculations\ninvented for Functions not in this cluster may also have been recognized as\nsupporting (or obstructing) these Functions.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": "205",
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Information Structure",
+        "Structured Planning",
+        "Cluster",
+        "VTCON"
+      ],
+      "char_count": 1952,
+      "approx_tokens": 488,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p3",
+      "child_ids": [],
+      "figure_references": [
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p3_c2",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 20,
+    "level": "child",
+    "text": "The design team uses the Information Structure to organize the synthesis activity.\nFrom the juxtaposition of Functions and the concatenation/modification of Specula-\ntions conceived over all the information gathering activity, come composite,\ninteresting ideas. Design Factors not only stimulate new ideas through the juxtapo-\nsitions, but provide bases for evaluation as the new ideas are generated. A flexible,\nfluid, conjectural/evaluative paradigm for creativity is naturally supported.\n\n10\n\n=== Page 11 ===\n201\n\n52 Ingredients\nDon’t Mix\n\nSpeculations\n\n90\n\nXX Design Factor\n\n84\n\n61 Heated\nMixer\n\n62\n\n83\n84\n\n62\n\nYY Function\n\n110 Adjust\nRecipe\n\n61\n\n62 Feedback-\nControlled\nHeating\n\n90\n\n83\n\n.46\n\n42 Prepare\nSauces\n\n112 Serve\nDiners\n\n.51\n\n.38\n\n83\n\n84\n\n.36\n.54\n\n83 Multiple\nCondition\nSensor\n\n43 Consult\nRecipes\n\n53 Non-linear\nScaling\n\n.54\n\n.61\n.51\n\n.62\n\n.51\n.37\n\n90\n\n.59\n\n84 Micro\nSampler\n\n155\n\n38 Set Up\nControls\n\n.50\n\n120 Hold\nTemperature\n\n62\n\n90\n83\n\n.37\n\n90 Recipe\nAdvisor\n\n.50\n35 Check\nProgress\n\n83\n84\n62\n\n84\n\n84\n\n155 Weekly\nAdvisor\n\n50 Process-\nDependent Tests\n\n90\n\n51 Initialization\nUncertainty\n\nFigure 7. A 2nd level cluster with associated Speculations and Design Factors.\n\nSummary\nContrary to general opinion, creative thinking is not confined to the few. It can be\nsystematically implemented and employed with great success to develop concepts\nfor new products, systems, artifacts and institutions.\n\nThe key to successful implementation is integrating insight and idea early in the\ninformation collection activity, and then building on that duality as the project\ndevelops. The preparation and manipulation stages of the classic creativity model\nindeed may require Edison’s 99 percent perspiration, but treated with a little insight\nthemselves, they make that 1 percent inspiration easy to attain.",
+    "enriched_text": "The design team uses the Information Structure to organize the synthesis activity.\nFrom the juxtaposition of Functions and the concatenation/modification of Specula-\ntions conceived over all the information gathering activity, come composite,\ninteresting ideas. Design Factors not only stimulate new ideas through the juxtapo-\nsitions, but provide bases for evaluation as the new ideas are generated. A flexible,\nfluid, conjectural/evaluative paradigm for creativity is naturally supported.\n\n10\n\n=== Page 11 ===\n201\n\n52 Ingredients\nDon’t Mix\n\nSpeculations\n\n90\n\nXX Design Factor\n\n84\n\n61 Heated\nMixer\n\n62\n\n83\n84\n\n62\n\nYY Function\n\n110 Adjust\nRecipe\n\n61\n\n62 Feedback-\nControlled\nHeating\n\n90\n\n83\n\n.46\n\n42 Prepare\nSauces\n\n112 Serve\nDiners\n\n.51\n\n.38\n\n83\n\n84\n\n.36\n.54\n\n83 Multiple\nCondition\nSensor\n\n43 Consult\nRecipes\n\n53 Non-linear\nScaling\n\n.54\n\n.61\n.51\n\n.62\n\n.51\n.37\n\n90\n\n.59\n\n84 Micro\nSampler\n\n155\n\n38 Set Up\nControls\n\n.50\n\n120 Hold\nTemperature\n\n62\n\n90\n83\n\n.37\n\n90 Recipe\nAdvisor\n\n.50\n35 Check\nProgress\n\n83\n84\n62\n\n84\n\n84\n\n155 Weekly\nAdvisor\n\n50 Process-\nDependent Tests\n\n90\n\n51 Initialization\nUncertainty\n\nFigure 7. A 2nd level cluster with associated Speculations and Design Factors.\n\nSummary\nContrary to general opinion, creative thinking is not confined to the few. It can be\nsystematically implemented and employed with great success to develop concepts\nfor new products, systems, artifacts and institutions.\n\nThe key to successful implementation is integrating insight and idea early in the\ninformation collection activity, and then building on that duality as the project\ndevelops. The preparation and manipulation stages of the classic creativity model\nindeed may require Edison’s 99 percent perspiration, but treated with a little insight\nthemselves, they make that 1 percent inspiration easy to attain.",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Information Structure",
+        "Mode",
+        "Activity",
+        "Cluster"
+      ],
+      "char_count": 1806,
+      "approx_tokens": 451,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p3",
+      "child_ids": [],
+      "figure_references": [
+        7
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p3_c3",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 21,
+    "level": "child",
+    "text": "In Structured Planning, preparation and manipulation are reconsidered to include\nspecialized idea generating activities. Two important concepts are at the heart of\nthe process. First, insight is critical to creativity, and elements of information must\ncontain both insight and application of insight. Second, the organization of\ninformation must support creative reach; things should be considered together that\nhave potential solution together—whatever their conventional classification. Out of\nstrange associations come novel ideas.\n\nReferences\n1. Evans, Bergen. Dictionary of Quotations. New York: Delacorte Press, 1968.\nEvans describes the quote only as being given by Thomas Alva Edison in a\nnewspaper interview.\n\n2. Fabun, Don, Ed. The World of A\n\nn ⇔C! You and Creativity. Kaiser\nAluminum News 25, No. 3 (1968): 9-16.\n\nn + B\n\n3. Owen, Charles. Structured Planning, A Concept Formation Process.\nChicago: Design Processes Laboratory, Institute of Design, IIT, 1988.\n\n4. Prince, George M. The Practice of Creativity. New York: Macmillan, 1970.\n\n5. Alexander, Christopher. Notes on the Synthesis of Form. Cambridge, MA:\nHarvard University Press, 1964.\n\n11\n\n=== Page 12 ===\n12",
+    "enriched_text": "In Structured Planning, preparation and manipulation are reconsidered to include\nspecialized idea generating activities. Two important concepts are at the heart of\nthe process. First, insight is critical to creativity, and elements of information must\ncontain both insight and application of insight. Second, the organization of\ninformation must support creative reach; things should be considered together that\nhave potential solution together—whatever their conventional classification. Out of\nstrange associations come novel ideas.\n\nReferences\n1. Evans, Bergen. Dictionary of Quotations. New York: Delacorte Press, 1968.\nEvans describes the quote only as being given by Thomas Alva Edison in a\nnewspaper interview.\n\n2. Fabun, Don, Ed. The World of A\n\nn ⇔C! You and Creativity. Kaiser\nAluminum News 25, No. 3 (1968): 9-16.\n\nn + B\n\n3. Owen, Charles. Structured Planning, A Concept Formation Process.\nChicago: Design Processes Laboratory, Institute of Design, IIT, 1988.\n\n4. Prince, George M. The Practice of Creativity. New York: Macmillan, 1970.\n\n5. Alexander, Christopher. Notes on the Synthesis of Form. Cambridge, MA:\nHarvard University Press, 1964.\n\n11\n\n=== Page 12 ===\n12",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": null,
+      "owen_terms": [
+        "Structured Planning",
+        "Activity"
+      ],
+      "char_count": 1178,
+      "approx_tokens": 294,
+      "parent_id": "owen_context_for_creativity_owen_deseng91_p3",
+      "child_ids": [],
+      "figure_references": []
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_p3",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": 22,
+    "level": "parent",
+    "text": "The organization principle needed is one that relates Functions on the basis that\nthey share interest in ideas—no matter in what descriptive category they may fit.\nChristopher Alexander [Alexander 1964] identified the operative concept. Two\nFunctions are related, or interact, for the purposes of design if there is a significant\nnumber of ideas that would tend to fulfill both, or there are ideas that would fulfill\none, but if used in the final concept, would make it difficult to fulfill the other. Either\nway, the designer would like to consider these Functions together. In the first case,\nsubtle refinement might make it possible to use a few ideas to fulfill several\nFunctions inventively and elegantly. In the second case, modification of obstructive\nideas or selection of alternative ideas might prevent design failures otherwise\ndifficult to foresee.\n\nComputer programs in the Structured Planning process (RELATN and VTCON)\nenable a design team to create an Information Structure optimized for bottom-up\ndesign considerations based on this concept. The RELATN program produces a\ngraph of Functions, using decision data provided by the design team about how the\nSpeculations support or obstruct fulfillment of the Functions (Fig. 4). The VTCON\n\n8\n\n=== Page 9 ===\nprogram decomposes the graph to find clusters of Functions that are highly inter-\nrelated and, then, clusters the clusters to create an inclusion hierarchy that pro-\ngressively reassembles the Functions into a structure representing the total project\n(Figs. 5 and 6).\n\n47\n48\n\n26\n\n110\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n94\n\n38\n\n120\n\n101\n\n35\n\n45\n\nFigure 4. Links determined by the RELATN program relate Functions (vertices) in\na graph. (optimally arranged in this example so that groupings can be seen by\ninspection).\n\n47\n48\n\n107\n101\n104\n\n26\n\n110\n\n103\n\n108\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n105\n\n94\n\n38\n\n120\n\n101\n\n35\n\n102\n\n106\n\n45\n\nFigure 5. The VTCON program finds clusters of Functions that are highly interlinked. Cluster\nnotation denotes both level and cluster number (i.e., 104 is level 1 cluster 4).\n\n9\n\n=== Page 10 ===\nCondensation \nClusters\n\n401\n\n303\n\n301\n\n302\n\n202\n204\n203\n\n201\n\n205\n\nPrimary\nClusters\n\n107\n106\n103\n102\n101\n105\n104\n\n108\n\nFunctions\n\n94 \n43 \n35 \n35 \n42 \n45 \n47 \n21\n\n48\n95 \n100\n\n94 \n100\n\n38 \n42 \n43 \n110\n\n38 \n42 \n120\n\n112 \n120\n\n101 \n120\n\n48 \n112\n\n26\n\nFigure 6. Hierarchical clustering by the VTCON program produces an organization of the entire set of\nFunctions—an Information Structure.\n\nSetting the\nView\n\nOther computer programs in the Structured Planning process help to pull together\nappropriate Design Factors, Speculations and Functions as they are needed in\nteam synthesis sessions. The important thing is that the inspirations for innovative\nconcepts are now where they should be, associated with Functions that should be\nconsidered together.\n\nFigure 7 is an example of a second level cluster from an Information Structure\nconstructed for the housing system project. The Functions from three first level\nclusters are visible. The diagram shows the linkage between the Functions (with\nthe strength of link given on a 0 to 1 scale—indicating the degree of interaction or\nindependence of the Functions with regard to all the Speculations thought of for the\nproject). Shown for each Function also are the Speculations that support (or\nobstruct) it and the Design Factors associated with it.\n\nWhile correct in form, this example (like all of the other structural figures) has been\npurposely simplified for this discussion. Typically, most clusters are larger, and\nFunctions have many more associated Speculations because Speculations\ninvented for Functions not in this cluster may also have been recognized as\nsupporting (or obstructing) these Functions.\n\nThe design team uses the Information Structure to organize the synthesis activity.\nFrom the juxtaposition of Functions and the concatenation/modification of Specula-\ntions conceived over all the information gathering activity, come composite,\ninteresting ideas. Design Factors not only stimulate new ideas through the juxtapo-\nsitions, but provide bases for evaluation as the new ideas are generated. A flexible,\nfluid, conjectural/evaluative paradigm for creativity is naturally supported.\n\n10\n\n=== Page 11 ===\n201\n\n52 Ingredients\nDon’t Mix\n\nSpeculations\n\n90\n\nXX Design Factor\n\n84\n\n61 Heated\nMixer\n\n62\n\n83\n84\n\n62\n\nYY Function\n\n110 Adjust\nRecipe\n\n61\n\n62 Feedback-\nControlled\nHeating\n\n90\n\n83\n\n.46\n\n42 Prepare\nSauces\n\n112 Serve\nDiners\n\n.51\n\n.38\n\n83\n\n84\n\n.36\n.54\n\n83 Multiple\nCondition\nSensor\n\n43 Consult\nRecipes\n\n53 Non-linear\nScaling\n\n.54\n\n.61\n.51\n\n.62\n\n.51\n.37\n\n90\n\n.59\n\n84 Micro\nSampler\n\n155\n\n38 Set Up\nControls\n\n.50\n\n120 Hold\nTemperature\n\n62\n\n90\n83\n\n.37\n\n90 Recipe\nAdvisor\n\n.50\n35 Check\nProgress\n\n83\n84\n62\n\n84\n\n84\n\n155 Weekly\nAdvisor\n\n50 Process-\nDependent Tests\n\n90\n\n51 Initialization\nUncertainty\n\nFigure 7. A 2nd level cluster with associated Speculations and Design Factors.\n\nSummary\nContrary to general opinion, creative thinking is not confined to the few. It can be\nsystematically implemented and employed with great success to develop concepts\nfor new products, systems, artifacts and institutions.\n\nThe key to successful implementation is integrating insight and idea early in the\ninformation collection activity, and then building on that duality as the project\ndevelops. The preparation and manipulation stages of the classic creativity model\nindeed may require Edison’s 99 percent perspiration, but treated with a little insight\nthemselves, they make that 1 percent inspiration easy to attain.\n\nIn Structured Planning, preparation and manipulation are reconsidered to include\nspecialized idea generating activities. Two important concepts are at the heart of\nthe process. First, insight is critical to creativity, and elements of information must\ncontain both insight and application of insight. Second, the organization of\ninformation must support creative reach; things should be considered together that\nhave potential solution together—whatever their conventional classification. Out of\nstrange associations come novel ideas.\n\nReferences\n1. Evans, Bergen. Dictionary of Quotations. New York: Delacorte Press, 1968.\nEvans describes the quote only as being given by Thomas Alva Edison in a\nnewspaper interview.\n\n2. Fabun, Don, Ed. The World of A\n\nn ⇔C! You and Creativity. Kaiser\nAluminum News 25, No. 3 (1968): 9-16.\n\nn + B\n\n3. Owen, Charles. Structured Planning, A Concept Formation Process.\nChicago: Design Processes Laboratory, Institute of Design, IIT, 1988.\n\n4. Prince, George M. The Practice of Creativity. New York: Macmillan, 1970.\n\n5. Alexander, Christopher. Notes on the Synthesis of Form. Cambridge, MA:\nHarvard University Press, 1964.\n\n11\n\n=== Page 12 ===\n12",
+    "enriched_text": "The organization principle needed is one that relates Functions on the basis that\nthey share interest in ideas—no matter in what descriptive category they may fit.\nChristopher Alexander [Alexander 1964] identified the operative concept. Two\nFunctions are related, or interact, for the purposes of design if there is a significant\nnumber of ideas that would tend to fulfill both, or there are ideas that would fulfill\none, but if used in the final concept, would make it difficult to fulfill the other. Either\nway, the designer would like to consider these Functions together. In the first case,\nsubtle refinement might make it possible to use a few ideas to fulfill several\nFunctions inventively and elegantly. In the second case, modification of obstructive\nideas or selection of alternative ideas might prevent design failures otherwise\ndifficult to foresee.\n\nComputer programs in the Structured Planning process (RELATN and VTCON)\nenable a design team to create an Information Structure optimized for bottom-up\ndesign considerations based on this concept. The RELATN program produces a\ngraph of Functions, using decision data provided by the design team about how the\nSpeculations support or obstruct fulfillment of the Functions (Fig. 4). The VTCON\n\n8\n\n=== Page 9 ===\nprogram decomposes the graph to find clusters of Functions that are highly inter-\nrelated and, then, clusters the clusters to create an inclusion hierarchy that pro-\ngressively reassembles the Functions into a structure representing the total project\n(Figs. 5 and 6).\n\n47\n48\n\n26\n\n110\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n94\n\n38\n\n120\n\n101\n\n35\n\n45\n\nFigure 4. Links determined by the RELATN program relate Functions (vertices) in\na graph. (optimally arranged in this example so that groupings can be seen by\ninspection).\n\n47\n48\n\n107\n101\n104\n\n26\n\n110\n\n103\n\n108\n\n100\n\n42\n\n112\n\n21\n\n95\n\n43\n\n105\n\n94\n\n38\n\n120\n\n101\n\n35\n\n102\n\n106\n\n45\n\nFigure 5. The VTCON program finds clusters of Functions that are highly interlinked. Cluster\nnotation denotes both level and cluster number (i.e., 104 is level 1 cluster 4).\n\n9\n\n=== Page 10 ===\nCondensation \nClusters\n\n401\n\n303\n\n301\n\n302\n\n202\n204\n203\n\n201\n\n205\n\nPrimary\nClusters\n\n107\n106\n103\n102\n101\n105\n104\n\n108\n\nFunctions\n\n94 \n43 \n35 \n35 \n42 \n45 \n47 \n21\n\n48\n95 \n100\n\n94 \n100\n\n38 \n42 \n43 \n110\n\n38 \n42 \n120\n\n112 \n120\n\n101 \n120\n\n48 \n112\n\n26\n\nFigure 6. Hierarchical clustering by the VTCON program produces an organization of the entire set of\nFunctions—an Information Structure.\n\nSetting the\nView\n\nOther computer programs in the Structured Planning process help to pull together\nappropriate Design Factors, Speculations and Functions as they are needed in\nteam synthesis sessions. The important thing is that the inspirations for innovative\nconcepts are now where they should be, associated with Functions that should be\nconsidered together.\n\nFigure 7 is an example of a second level cluster from an Information Structure\nconstructed for the housing system project. The Functions from three first level\nclusters are visible. The diagram shows the linkage between the Functions (with\nthe strength of link given on a 0 to 1 scale—indicating the degree of interaction or\nindependence of the Functions with regard to all the Speculations thought of for the\nproject). Shown for each Function also are the Speculations that support (or\nobstruct) it and the Design Factors associated with it.\n\nWhile correct in form, this example (like all of the other structural figures) has been\npurposely simplified for this discussion. Typically, most clusters are larger, and\nFunctions have many more associated Speculations because Speculations\ninvented for Functions not in this cluster may also have been recognized as\nsupporting (or obstructing) these Functions.\n\nThe design team uses the Information Structure to organize the synthesis activity.\nFrom the juxtaposition of Functions and the concatenation/modification of Specula-\ntions conceived over all the information gathering activity, come composite,\ninteresting ideas. Design Factors not only stimulate new ideas through the juxtapo-\nsitions, but provide bases for evaluation as the new ideas are generated. A flexible,\nfluid, conjectural/evaluative paradigm for creativity is naturally supported.\n\n10\n\n=== Page 11 ===\n201\n\n52 Ingredients\nDon’t Mix\n\nSpeculations\n\n90\n\nXX Design Factor\n\n84\n\n61 Heated\nMixer\n\n62\n\n83\n84\n\n62\n\nYY Function\n\n110 Adjust\nRecipe\n\n61\n\n62 Feedback-\nControlled\nHeating\n\n90\n\n83\n\n.46\n\n42 Prepare\nSauces\n\n112 Serve\nDiners\n\n.51\n\n.38\n\n83\n\n84\n\n.36\n.54\n\n83 Multiple\nCondition\nSensor\n\n43 Consult\nRecipes\n\n53 Non-linear\nScaling\n\n.54\n\n.61\n.51\n\n.62\n\n.51\n.37\n\n90\n\n.59\n\n84 Micro\nSampler\n\n155\n\n38 Set Up\nControls\n\n.50\n\n120 Hold\nTemperature\n\n62\n\n90\n83\n\n.37\n\n90 Recipe\nAdvisor\n\n.50\n35 Check\nProgress\n\n83\n84\n62\n\n84\n\n84\n\n155 Weekly\nAdvisor\n\n50 Process-\nDependent Tests\n\n90\n\n51 Initialization\nUncertainty\n\nFigure 7. A 2nd level cluster with associated Speculations and Design Factors.\n\nSummary\nContrary to general opinion, creative thinking is not confined to the few. It can be\nsystematically implemented and employed with great success to develop concepts\nfor new products, systems, artifacts and institutions.\n\nThe key to successful implementation is integrating insight and idea early in the\ninformation collection activity, and then building on that duality as the project\ndevelops. The preparation and manipulation stages of the classic creativity model\nindeed may require Edison’s 99 percent perspiration, but treated with a little insight\nthemselves, they make that 1 percent inspiration easy to attain.\n\nIn Structured Planning, preparation and manipulation are reconsidered to include\nspecialized idea generating activities. Two important concepts are at the heart of\nthe process. First, insight is critical to creativity, and elements of information must\ncontain both insight and application of insight. Second, the organization of\ninformation must support creative reach; things should be considered together that\nhave potential solution together—whatever their conventional classification. Out of\nstrange associations come novel ideas.\n\nReferences\n1. Evans, Bergen. Dictionary of Quotations. New York: Delacorte Press, 1968.\nEvans describes the quote only as being given by Thomas Alva Edison in a\nnewspaper interview.\n\n2. Fabun, Don, Ed. The World of A\n\nn ⇔C! You and Creativity. Kaiser\nAluminum News 25, No. 3 (1968): 9-16.\n\nn + B\n\n3. Owen, Charles. Structured Planning, A Concept Formation Process.\nChicago: Design Processes Laboratory, Institute of Design, IIT, 1988.\n\n4. Prince, George M. The Practice of Creativity. New York: Macmillan, 1970.\n\n5. Alexander, Christopher. Notes on the Synthesis of Form. Cambridge, MA:\nHarvard University Press, 1964.\n\n11\n\n=== Page 12 ===\n12",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "source_section": "205",
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Information Structure",
+        "Structured Planning",
+        "Mode",
+        "Activity",
+        "Cluster",
+        "RELATN",
+        "VTCON"
+      ],
+      "char_count": 6721,
+      "approx_tokens": 1680,
+      "parent_id": null,
+      "child_ids": [
+        "owen_context_for_creativity_owen_deseng91_p3_c0",
+        "owen_context_for_creativity_owen_deseng91_p3_c1",
+        "owen_context_for_creativity_owen_deseng91_p3_c2",
+        "owen_context_for_creativity_owen_deseng91_p3_c3"
+      ],
+      "figure_references": [
+        4,
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_fig_1",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": -1,
+    "level": "figure",
+    "text": "Figure 1: A three-level, top-down analysis is used to find Functions that cover the requirements of a system. The result is a Function Structure. Grill food Bake food Fry food Function Function Function .. Modes of operation, or Modes, are at the highest level. These are usually very distinct states that the system goes through from the time it is produced until it is retired. There are relatively few possibilities, although the selection varies for every system. Some of the more typical Modes considered ...\n\nFigure showing: A three-level, top-down analysis is used to find Functions that cover the requirements of a system. The result is a Function Structure. Grill food Bake food Fry food Function Function Function .. Modes of operation, or Modes, are at the highest level. These are usually very distinct states that the system goes through from the time it is produced until it is retired. There are relatively few possibilities, although the selection varies for every system. Some of the more typical Modes considered ...",
+    "enriched_text": "Figure 1: A three-level, top-down analysis is used to find Functions that cover the requirements of a system. The result is a Function Structure. Grill food Bake food Fry food Function Function Function .. Modes of operation, or Modes, are at the highest level. These are usually very distinct states that the system goes through from the time it is produced until it is retired. There are relatively few possibilities, although the selection varies for every system. Some of the more typical Modes considered ...\n\nFigure showing: A three-level, top-down analysis is used to find Functions that cover the requirements of a system. The result is a Function Structure. Grill food Bake food Fry food Function Function Function .. Modes of operation, or Modes, are at the highest level. These are usually very distinct states that the system goes through from the time it is produced until it is retired. There are relatively few possibilities, although the selection varies for every system. Some of the more typical Modes considered ...",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "chunk_type": "figure",
+      "figure_number": 1,
+      "figure_page": 3,
+      "figure_caption": "A three-level, top-down analysis is used to find Functions that cover the requirements of a system. The result is a Function Structure. Grill food Bake food Fry food Function Function Function .. Modes of operation, or Modes, are at the highest level. These are usually very distinct states that the system goes through from the time it is produced until it is retired. There are relatively few possibilities, although the selection varies for every system. Some of the more typical Modes considered ...",
+      "figure_description": "Figure showing: A three-level, top-down analysis is used to find Functions that cover the requirements of a system. The result is a Function Structure. Grill food Bake food Fry food Function Function Function .. Modes of operation, or Modes, are at the highest level. These are usually very distinct states that the system goes through from the time it is produced until it is retired. There are relatively few possibilities, although the selection varies for every system. Some of the more typical Modes considered ...",
+      "figure_url": "figures/owen_context_for_creativity_owen_deseng91_fig_1.png",
+      "owen_terms": [
+        "Function",
+        "Function Structure",
+        "Mode"
+      ],
+      "char_count": 1034,
+      "approx_tokens": 258,
+      "parent_id": null,
+      "child_ids": [],
+      "width": 1950,
+      "height": 1042,
+      "bbox": [
+        72,
+        78.240966796875,
+        540.0,
+        328.240966796875
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_fig_2",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": -1,
+    "level": "figure",
+    "text": "Figure 2: The Action Analysis information collecting form is used to identify Functions for an activity and associate insights, as Design Factors, with them. Design Factor 51, for example, is associated with Function 38. Action Analysis Users Originator User Functions Mode Associated Design Factors Environmental Components System Components Activity/Event: System Functions Associated Design Factors Project Cookin g C. Owen Hou sin g System Use (Su bm ode: Food Preparation ) Cook Cookin g h elpers Stove Ov...\n\nFigure showing: The Action Analysis information collecting form is used to identify Functions for an activity and associate insights, as Design Factors, with them. Design Factor 51, for example, is associated with Function 38. Action Analysis Users Originator User Functions Mode Associated Design Factors Environmental Components System Components Activity/Event: System Functions Associated Design Factors Project Cookin g C. Owen Hou sin g System Use (Su bm ode: Food Preparation ) Cook Cookin g h elpers Stove Ov...",
+    "enriched_text": "Figure 2: The Action Analysis information collecting form is used to identify Functions for an activity and associate insights, as Design Factors, with them. Design Factor 51, for example, is associated with Function 38. Action Analysis Users Originator User Functions Mode Associated Design Factors Environmental Components System Components Activity/Event: System Functions Associated Design Factors Project Cookin g C. Owen Hou sin g System Use (Su bm ode: Food Preparation ) Cook Cookin g h elpers Stove Ov...\n\nFigure showing: The Action Analysis information collecting form is used to identify Functions for an activity and associate insights, as Design Factors, with them. Design Factor 51, for example, is associated with Function 38. Action Analysis Users Originator User Functions Mode Associated Design Factors Environmental Components System Components Activity/Event: System Functions Associated Design Factors Project Cookin g C. Owen Hou sin g System Use (Su bm ode: Food Preparation ) Cook Cookin g h elpers Stove Ov...",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "chunk_type": "figure",
+      "figure_number": 2,
+      "figure_page": 4,
+      "figure_caption": "The Action Analysis information collecting form is used to identify Functions for an activity and associate insights, as Design Factors, with them. Design Factor 51, for example, is associated with Function 38. Action Analysis Users Originator User Functions Mode Associated Design Factors Environmental Components System Components Activity/Event: System Functions Associated Design Factors Project Cookin g C. Owen Hou sin g System Use (Su bm ode: Food Preparation ) Cook Cookin g h elpers Stove Ov...",
+      "figure_description": "Figure showing: The Action Analysis information collecting form is used to identify Functions for an activity and associate insights, as Design Factors, with them. Design Factor 51, for example, is associated with Function 38. Action Analysis Users Originator User Functions Mode Associated Design Factors Environmental Components System Components Activity/Event: System Functions Associated Design Factors Project Cookin g C. Owen Hou sin g System Use (Su bm ode: Food Preparation ) Cook Cookin g h elpers Stove Ov...",
+      "figure_url": "figures/owen_context_for_creativity_owen_deseng91_fig_2.png",
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Action Analysis",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 1034,
+      "approx_tokens": 258,
+      "parent_id": null,
+      "child_ids": [],
+      "width": 1950,
+      "height": 1043,
+      "bbox": [
+        72,
+        360.405029296875,
+        540.0,
+        610.405029296875
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_fig_3",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": -1,
+    "level": "figure",
+    "text": "Figure 3: A Design Factor records an insight about a Function. It also applies the insight to the generation of ideas (Speculations) for how to fulfill the Function. Design Factor Originator Observation Design Implications Extension Speculations Associated Functions Title: Project Activity Mode Source/s In itialization Un certain ty 3 8 . Set u p con trols 1. An derson , Robert M. The Art of Cooking. Lon don : Acm e Press, Ltd., 1973. Becau se of th e ph ysical differ- en ces in th e way h eat is pro- du ...\n\nFigure showing: A Design Factor records an insight about a Function. It also applies the insight to the generation of ideas (Speculations) for how to fulfill the Function. Design Factor Originator Observation Design Implications Extension Speculations Associated Functions Title: Project Activity Mode Source/s In itialization Un certain ty 3 8 . Set u p con trols 1. An derson , Robert M. The Art of Cooking. Lon don : Acm e Press, Ltd., 1973. Becau se of th e ph ysical differ- en ces in th e way h eat is pro- du ...",
+    "enriched_text": "Figure 3: A Design Factor records an insight about a Function. It also applies the insight to the generation of ideas (Speculations) for how to fulfill the Function. Design Factor Originator Observation Design Implications Extension Speculations Associated Functions Title: Project Activity Mode Source/s In itialization Un certain ty 3 8 . Set u p con trols 1. An derson , Robert M. The Art of Cooking. Lon don : Acm e Press, Ltd., 1973. Becau se of th e ph ysical differ- en ces in th e way h eat is pro- du ...\n\nFigure showing: A Design Factor records an insight about a Function. It also applies the insight to the generation of ideas (Speculations) for how to fulfill the Function. Design Factor Originator Observation Design Implications Extension Speculations Associated Functions Title: Project Activity Mode Source/s In itialization Un certain ty 3 8 . Set u p con trols 1. An derson , Robert M. The Art of Cooking. Lon don : Acm e Press, Ltd., 1973. Becau se of th e ph ysical differ- en ces in th e way h eat is pro- du ...",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "chunk_type": "figure",
+      "figure_number": 3,
+      "figure_page": 6,
+      "figure_caption": "A Design Factor records an insight about a Function. It also applies the insight to the generation of ideas (Speculations) for how to fulfill the Function. Design Factor Originator Observation Design Implications Extension Speculations Associated Functions Title: Project Activity Mode Source/s In itialization Un certain ty 3 8 . Set u p con trols 1. An derson , Robert M. The Art of Cooking. Lon don : Acm e Press, Ltd., 1973. Becau se of th e ph ysical differ- en ces in th e way h eat is pro- du ...",
+      "figure_description": "Figure showing: A Design Factor records an insight about a Function. It also applies the insight to the generation of ideas (Speculations) for how to fulfill the Function. Design Factor Originator Observation Design Implications Extension Speculations Associated Functions Title: Project Activity Mode Source/s In itialization Un certain ty 3 8 . Set u p con trols 1. An derson , Robert M. The Art of Cooking. Lon don : Acm e Press, Ltd., 1973. Becau se of th e ph ysical differ- en ces in th e way h eat is pro- du ...",
+      "figure_url": "figures/owen_context_for_creativity_owen_deseng91_fig_3.png",
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Design Implication",
+        "Mode",
+        "Activity"
+      ],
+      "char_count": 1034,
+      "approx_tokens": 258,
+      "parent_id": null,
+      "child_ids": [],
+      "width": 1950,
+      "height": 1042,
+      "bbox": [
+        72,
+        204.524658203125,
+        540.0,
+        454.524658203125
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_fig_4",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": -1,
+    "level": "figure",
+    "text": "Figure 4: Links determined by the RELATN program relate Functions (vertices) in a graph. (optimally arranged in this example so that groupings can be seen by inspection). 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94\n\nFigure showing: Links determined by the RELATN program relate Functions (vertices) in a graph. (optimally arranged in this example so that groupings can be seen by inspection). 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94",
+    "enriched_text": "Figure 4: Links determined by the RELATN program relate Functions (vertices) in a graph. (optimally arranged in this example so that groupings can be seen by inspection). 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94\n\nFigure showing: Links determined by the RELATN program relate Functions (vertices) in a graph. (optimally arranged in this example so that groupings can be seen by inspection). 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "chunk_type": "figure",
+      "figure_number": 4,
+      "figure_page": 9,
+      "figure_caption": "Links determined by the RELATN program relate Functions (vertices) in a graph. (optimally arranged in this example so that groupings can be seen by inspection). 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94",
+      "figure_description": "Figure showing: Links determined by the RELATN program relate Functions (vertices) in a graph. (optimally arranged in this example so that groupings can be seen by inspection). 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94 110 42 38 35 43 112 120 47 48 26 21 101 45 100 95 94",
+      "figure_url": "figures/owen_context_for_creativity_owen_deseng91_fig_4.png",
+      "owen_terms": [
+        "Function",
+        "RELATN"
+      ],
+      "char_count": 560,
+      "approx_tokens": 140,
+      "parent_id": null,
+      "child_ids": [],
+      "width": 1950,
+      "height": 1043,
+      "bbox": [
+        72,
+        72.415283203125,
+        540.0,
+        322.415283203125
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_fig_5",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": -1,
+    "level": "figure",
+    "text": "Figure 5: The VTCON program finds clusters of Functions that are highly interlinked. Cluster notation denotes both level and cluster number (i.e., 104 is level 1 cluster 4). 108 107 101 104 105 106 103 102\n\nFigure showing: The VTCON program finds clusters of Functions that are highly interlinked. Cluster notation denotes both level and cluster number (i.e., 104 is level 1 cluster 4). 108 107 101 104 105 106 103 102",
+    "enriched_text": "Figure 5: The VTCON program finds clusters of Functions that are highly interlinked. Cluster notation denotes both level and cluster number (i.e., 104 is level 1 cluster 4). 108 107 101 104 105 106 103 102\n\nFigure showing: The VTCON program finds clusters of Functions that are highly interlinked. Cluster notation denotes both level and cluster number (i.e., 104 is level 1 cluster 4). 108 107 101 104 105 106 103 102",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "chunk_type": "figure",
+      "figure_number": 5,
+      "figure_page": 9,
+      "figure_caption": "The VTCON program finds clusters of Functions that are highly interlinked. Cluster notation denotes both level and cluster number (i.e., 104 is level 1 cluster 4). 108 107 101 104 105 106 103 102",
+      "figure_description": "Figure showing: The VTCON program finds clusters of Functions that are highly interlinked. Cluster notation denotes both level and cluster number (i.e., 104 is level 1 cluster 4). 108 107 101 104 105 106 103 102",
+      "figure_url": "figures/owen_context_for_creativity_owen_deseng91_fig_5.png",
+      "owen_terms": [
+        "Function",
+        "Cluster",
+        "VTCON"
+      ],
+      "char_count": 418,
+      "approx_tokens": 104,
+      "parent_id": null,
+      "child_ids": [],
+      "width": 1950,
+      "height": 1042,
+      "bbox": [
+        72,
+        384.31536865234375,
+        540.0,
+        634.3153686523438
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_fig_6",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": -1,
+    "level": "figure",
+    "text": "Figure 6: Hierarchical clustering by the VTCON program produces an organization of the entire set of Functions—an Information Structure. 107 106 103 102 101 105 104 94 43 35 35 42 45 47 21 201 303 48 95 100 94 100 38 42 43 110 38 42 120 112 120 101 120 48 112 26 Setting the View Other computer programs in the Structured Planning process help to pull together appropriate Design Factors, Speculations and Functions as they are needed in team synthesis sessions. The important thing is that the inspirations fo...\n\nFigure showing: Hierarchical clustering by the VTCON program produces an organization of the entire set of Functions—an Information Structure. 107 106 103 102 101 105 104 94 43 35 35 42 45 47 21 201 303 48 95 100 94 100 38 42 43 110 38 42 120 112 120 101 120 48 112 26 Setting the View Other computer programs in the Structured Planning process help to pull together appropriate Design Factors, Speculations and Functions as they are needed in team synthesis sessions. The important thing is that the inspirations fo...",
+    "enriched_text": "Figure 6: Hierarchical clustering by the VTCON program produces an organization of the entire set of Functions—an Information Structure. 107 106 103 102 101 105 104 94 43 35 35 42 45 47 21 201 303 48 95 100 94 100 38 42 43 110 38 42 120 112 120 101 120 48 112 26 Setting the View Other computer programs in the Structured Planning process help to pull together appropriate Design Factors, Speculations and Functions as they are needed in team synthesis sessions. The important thing is that the inspirations fo...\n\nFigure showing: Hierarchical clustering by the VTCON program produces an organization of the entire set of Functions—an Information Structure. 107 106 103 102 101 105 104 94 43 35 35 42 45 47 21 201 303 48 95 100 94 100 38 42 43 110 38 42 120 112 120 101 120 48 112 26 Setting the View Other computer programs in the Structured Planning process help to pull together appropriate Design Factors, Speculations and Functions as they are needed in team synthesis sessions. The important thing is that the inspirations fo...",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "chunk_type": "figure",
+      "figure_number": 6,
+      "figure_page": 10,
+      "figure_caption": "Hierarchical clustering by the VTCON program produces an organization of the entire set of Functions—an Information Structure. 107 106 103 102 101 105 104 94 43 35 35 42 45 47 21 201 303 48 95 100 94 100 38 42 43 110 38 42 120 112 120 101 120 48 112 26 Setting the View Other computer programs in the Structured Planning process help to pull together appropriate Design Factors, Speculations and Functions as they are needed in team synthesis sessions. The important thing is that the inspirations fo...",
+      "figure_description": "Figure showing: Hierarchical clustering by the VTCON program produces an organization of the entire set of Functions—an Information Structure. 107 106 103 102 101 105 104 94 43 35 35 42 45 47 21 201 303 48 95 100 94 100 38 42 43 110 38 42 120 112 120 101 120 48 112 26 Setting the View Other computer programs in the Structured Planning process help to pull together appropriate Design Factors, Speculations and Functions as they are needed in team synthesis sessions. The important thing is that the inspirations fo...",
+      "figure_url": "figures/owen_context_for_creativity_owen_deseng91_fig_6.png",
+      "owen_terms": [
+        "Function",
+        "Design Factor",
+        "Speculation",
+        "Information Structure",
+        "Structured Planning",
+        "Cluster",
+        "VTCON"
+      ],
+      "char_count": 1034,
+      "approx_tokens": 258,
+      "parent_id": null,
+      "child_ids": [],
+      "width": 1950,
+      "height": 813,
+      "bbox": [
+        72,
+        72,
+        540.0,
+        267.0857849121094
+      ]
+    }
+  },
+  {
+    "chunk_id": "owen_context_for_creativity_owen_deseng91_fig_7",
+    "document_id": "owen_context_for_creativity_owen_deseng91",
+    "chunk_position": -1,
+    "level": "figure",
+    "text": "Figure 7: A 2nd level cluster with associated Speculations and Design Factors. 61 Heated Mixer 62 Feedback- Controlled Heating 83 Multiple Condition Sensor 84 Micro Sampler 90 Recipe Advisor 155 Weekly Advisor 52 Ingredients Don’t Mix 53 Non-linear Scaling 50 Process- Dependent Tests 51 Initialization Uncertainty 84 90 61 62 83 84 90 62 83 62 83 84 62 84 90 83 84 90 83 84 90 155 201 Speculations .36 .54 .51 .37 .54 .46 .51 .59 .37 .61 .51 .38 .62 .50 .50 35 Check Progress 38 Set Up Controls 42 Prepare Sau...\n\nFigure showing: A 2nd level cluster with associated Speculations and Design Factors. 61 Heated Mixer 62 Feedback- Controlled Heating 83 Multiple Condition Sensor 84 Micro Sampler 90 Recipe Advisor 155 Weekly Advisor 52 Ingredients Don’t Mix 53 Non-linear Scaling 50 Process- Dependent Tests 51 Initialization Uncertainty 84 90 61 62 83 84 90 62 83 62 83 84 62 84 90 83 84 90 83 84 90 155 201 Speculations .36 .54 .51 .37 .54 .46 .51 .59 .37 .61 .51 .38 .62 .50 .50 35 Check Progress 38 Set Up Controls 42 Prepare Sau...",
+    "enriched_text": "Figure 7: A 2nd level cluster with associated Speculations and Design Factors. 61 Heated Mixer 62 Feedback- Controlled Heating 83 Multiple Condition Sensor 84 Micro Sampler 90 Recipe Advisor 155 Weekly Advisor 52 Ingredients Don’t Mix 53 Non-linear Scaling 50 Process- Dependent Tests 51 Initialization Uncertainty 84 90 61 62 83 84 90 62 83 62 83 84 62 84 90 83 84 90 83 84 90 155 201 Speculations .36 .54 .51 .37 .54 .46 .51 .59 .37 .61 .51 .38 .62 .50 .50 35 Check Progress 38 Set Up Controls 42 Prepare Sau...\n\nFigure showing: A 2nd level cluster with associated Speculations and Design Factors. 61 Heated Mixer 62 Feedback- Controlled Heating 83 Multiple Condition Sensor 84 Micro Sampler 90 Recipe Advisor 155 Weekly Advisor 52 Ingredients Don’t Mix 53 Non-linear Scaling 50 Process- Dependent Tests 51 Initialization Uncertainty 84 90 61 62 83 84 90 62 83 62 83 84 62 84 90 83 84 90 83 84 90 155 201 Speculations .36 .54 .51 .37 .54 .46 .51 .59 .37 .61 .51 .38 .62 .50 .50 35 Check Progress 38 Set Up Controls 42 Prepare Sau...",
+    "metadata": {
+      "document_title": "Institute of Design",
+      "document_author": "",
+      "chunk_type": "figure",
+      "figure_number": 7,
+      "figure_page": 11,
+      "figure_caption": "A 2nd level cluster with associated Speculations and Design Factors. 61 Heated Mixer 62 Feedback- Controlled Heating 83 Multiple Condition Sensor 84 Micro Sampler 90 Recipe Advisor 155 Weekly Advisor 52 Ingredients Don’t Mix 53 Non-linear Scaling 50 Process- Dependent Tests 51 Initialization Uncertainty 84 90 61 62 83 84 90 62 83 62 83 84 62 84 90 83 84 90 83 84 90 155 201 Speculations .36 .54 .51 .37 .54 .46 .51 .59 .37 .61 .51 .38 .62 .50 .50 35 Check Progress 38 Set Up Controls 42 Prepare Sau...",
+      "figure_description": "Figure showing: A 2nd level cluster with associated Speculations and Design Factors. 61 Heated Mixer 62 Feedback- Controlled Heating 83 Multiple Condition Sensor 84 Micro Sampler 90 Recipe Advisor 155 Weekly Advisor 52 Ingredients Don’t Mix 53 Non-linear Scaling 50 Process- Dependent Tests 51 Initialization Uncertainty 84 90 61 62 83 84 90 62 83 62 83 84 62 84 90 83 84 90 83 84 90 155 201 Speculations .36 .54 .51 .37 .54 .46 .51 .59 .37 .61 .51 .38 .62 .50 .50 35 Check Progress 38 Set Up Controls 42 Prepare Sau...",
+      "figure_url": "figures/owen_context_for_creativity_owen_deseng91_fig_7.png",
+      "owen_terms": [
+        "Design Factor",
+        "Speculation",
+        "Cluster"
+      ],
+      "char_count": 1034,
+      "approx_tokens": 258,
+      "parent_id": null,
+      "child_ids": [],
+      "width": 1950,
+      "height": 863,
+      "bbox": [
+        72,
+        72,
+        540.0,
+        278.8865661621094
+      ]
+    }
+  }
+]

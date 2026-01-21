@@ -48,12 +48,12 @@ class PineconeIndexManager:
         return self.index
 
     def _create_index(self):
-        """Create new Pinecone serverless index."""
-        # Create serverless index
+        """Create new Pinecone serverless index with hybrid search support."""
+        # Create serverless index with dotproduct metric for hybrid search
         self.client.create_index(
             name=self.index_name,
             dimension=self.dimension,
-            metric="cosine",
+            metric="dotproduct",  # Required for sparse vector support
             spec=ServerlessSpec(
                 cloud="aws",
                 region=settings.pinecone_environment or "us-east-1",
@@ -102,7 +102,9 @@ class PineconeIndexManager:
             total_batches = (len(vectors) + batch_size - 1) // batch_size
 
             if show_progress:
-                logger.info(f"  Batch {batch_num}/{total_batches}: {len(batch)} vectors")
+                logger.info(
+                    f"  Batch {batch_num}/{total_batches}: {len(batch)} vectors"
+                )
 
             try:
                 # Prepare batch for Pinecone format

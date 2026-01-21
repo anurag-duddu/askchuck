@@ -20,6 +20,28 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Icon Library
+
+This project uses [Phosphor Icons](https://phosphoricons.com) - a flexible icon family with 9,000+ free icons in 6 different styles.
+
+### Quick Usage
+
+```tsx
+import { Heart, PaperPlaneTilt, MagnifyingGlass } from "@phosphor-icons/react";
+
+export function MyComponent() {
+  return (
+    <div>
+      <Heart size={24} weight="fill" />
+      <PaperPlaneTilt size={20} weight="bold" />
+      <MagnifyingGlass size={16} />
+    </div>
+  );
+}
+```
+
+For complete documentation and examples, see [PHOSPHOR_ICONS.md](./PHOSPHOR_ICONS.md).
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

@@ -294,9 +294,6 @@ pip install --upgrade pip
 Create `requirements.txt` with **version pinning** for reproducibility:
 
 ```
-# Core Framework (TBD in PRD-07 - may replace Streamlit)
-streamlit==1.29.0
-
 # LangChain Ecosystem
 langchain==0.1.10
 langchain-community==0.0.24
@@ -555,9 +552,6 @@ data/figures_test/
 .vscode/
 *.swp
 *.swo
-
-# Streamlit (if used)
-.streamlit/secrets.toml
 
 # OS
 .DS_Store

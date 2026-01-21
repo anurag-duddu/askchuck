@@ -4,6 +4,8 @@
 **PRD Reference:** `.docs/PRD-09-Deployment.md` v2.0
 **Status:** In Progress
 
+> **⚠️ DEPRECATION NOTICE:** Streamlit has been completely removed from this project. This document contains historical references to Streamlit, but all Streamlit code, configuration, and dependencies have been removed.
+
 ---
 
 ## Objective

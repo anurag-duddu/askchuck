@@ -4,9 +4,11 @@
 
 **Approach:** FastAPI server + Streamlit UI (practical) + Next.js documentation (future)
 
+> **⚠️ DEPRECATION NOTICE:** Streamlit has been completely removed from this project. This document contains historical references to the Streamlit implementation, but all Streamlit code, configuration, and dependencies have been removed.
+
 **Rationale:** Next.js frontend (PRD v2.0) is a substantial separate project requiring external services (Clerk, Supabase, Vercel). For immediate functionality and to continue progress through remaining PRDs, we'll create:
 1. FastAPI server exposing RAG chain as API
-2. Streamlit UI for working prototype
+2. ~~Streamlit UI for working prototype~~ (removed)
 3. Architecture docs for future Next.js implementation
 
 ---

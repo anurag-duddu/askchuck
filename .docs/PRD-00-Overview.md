@@ -218,10 +218,6 @@ askchuck/
 ├── pyproject.toml                # Project metadata
 ├── README.md                     # Project documentation
 │
-├── .streamlit/
-│   ├── config.toml               # Streamlit configuration
-│   └── secrets.toml              # Secrets for deployment (gitignored)
-│
 ├── data/
 │   ├── raw/                      # Original 20 PDFs
 │   ├── processed/                # Parsed document JSONs
@@ -275,8 +271,6 @@ askchuck/
 │   ├── test_retrieval.py         # Retrieval unit tests
 │   ├── test_generation.py        # Generation tests
 │   └── golden_dataset.json       # Evaluation QA pairs
-│
-└── app.py                        # Streamlit application entry point
 ```
 
 ---
@@ -342,6 +336,6 @@ The V1 corpus consists of 20 papers by Charles Owen from IIT Institute of Design
 4. **PRD-04-Indexing.md** - Embeddings, Pinecone vector store with hybrid search
 5. **PRD-05-Retrieval.md** - Pinecone hybrid search, query expansion, Cohere reranking
 6. **PRD-06-Generation.md** - RAG chain, prompts, response formatting
-7. **PRD-07-Frontend.md** - Streamlit app, authentication, chat interface
+7. **PRD-07-Frontend.md** - Next.js frontend, authentication, chat interface
 8. **PRD-08-Evaluation.md** - Golden dataset, RAGAS metrics, testing strategy
-9. **PRD-09-Deployment.md** - Streamlit Cloud deployment, secrets management
+9. **PRD-09-Deployment.md** - Production deployment, secrets management

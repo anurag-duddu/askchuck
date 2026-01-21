@@ -4,15 +4,22 @@ Orchestrates retrieval, prompt construction, and generation.
 """
 
 import logging
+import threading
+from difflib import SequenceMatcher
 from typing import Dict, Generator, List, Optional
 
 from groq import Groq
 
 from src.generation.prompts import build_full_prompt
-from src.retrieval.retrieval_pipeline import RetrievalPipeline, get_retrieval_pipeline
-from src.utils.config import settings
+from src.retrieval.retrieval_pipeline import (RetrievalPipeline,
+                                              get_retrieval_pipeline)
+from src.utils.config import RAW_DIR, settings
 
 logger = logging.getLogger(__name__)
+
+# Thread-safe singleton lock
+_rag_chain_lock = threading.Lock()
+_rag_chain: Optional["AskChuckRAG"] = None
 
 
 class AskChuckRAG:
@@ -48,7 +55,30 @@ class AskChuckRAG:
         self.temperature = temperature
         self.max_tokens = max_tokens
 
+        # Cache PDF files at initialization for performance
+        self._pdf_file_cache: Optional[List[str]] = None
+        self._refresh_pdf_cache()
+
         logger.info(f"AskChuckRAG initialized with model: {self.model}")
+
+    def _refresh_pdf_cache(self) -> None:
+        """Refresh the cached list of PDF files."""
+        try:
+            if RAW_DIR.exists():
+                self._pdf_file_cache = [p.name for p in RAW_DIR.glob("*.pdf")]
+                logger.debug(f"PDF cache refreshed: {len(self._pdf_file_cache)} files")
+            else:
+                self._pdf_file_cache = []
+                logger.warning(f"RAW_DIR does not exist: {RAW_DIR}")
+        except OSError as e:
+            logger.error(f"Failed to refresh PDF cache: {e}")
+            self._pdf_file_cache = []
+
+    def _get_pdf_files(self) -> List[str]:
+        """Get cached PDF file list, refreshing if needed."""
+        if self._pdf_file_cache is None:
+            self._refresh_pdf_cache()
+        return self._pdf_file_cache or []
 
     def query(
         self,
@@ -235,66 +265,212 @@ class AskChuckRAG:
         seen_urls = set()
 
         for chunk in all_chunks:
-            if chunk.get("chunk_type") == "figure":
-                metadata = chunk.get("metadata", {})
-                url = metadata.get("figure_url", "")  # Cloudflare R2 URL
+            try:
+                if chunk.get("chunk_type") == "figure":
+                    metadata = chunk.get("metadata") or {}
+                    url = metadata.get("figure_url", "")  # Cloudflare R2 URL
 
-                if url and url not in seen_urls:
-                    figures.append(
-                        {
-                            "url": url,
-                            "caption": metadata.get("caption", ""),
-                            "document": chunk.get("document_title", ""),
-                            "figure_number": metadata.get("figure_number", 0),
-                            "description": chunk.get("content", ""),
-                        }
-                    )
-                    seen_urls.add(url)
+                    if url and url not in seen_urls:
+                        figures.append(
+                            {
+                                "url": url,
+                                "caption": metadata.get("caption", ""),
+                                "document": chunk.get("document_title", ""),
+                                "figure_number": metadata.get("figure_number", 0),
+                                "description": chunk.get("content", ""),
+                            }
+                        )
+                        seen_urls.add(url)
 
-                    # Limit to 3 figures
-                    if len(figures) >= 3:
-                        break
+                        # Limit to 3 figures
+                        if len(figures) >= 3:
+                            break
+            except Exception as e:
+                logger.warning(f"Error extracting figure from chunk: {e}")
+                continue
 
         return figures
+
+    def _infer_pdf_filename(self, document_id: str, chunk_id: str) -> Optional[str]:
+        """
+        Infer PDF filename from document_id using fuzzy matching.
+        Uses cached PDF file list for performance.
+
+        Args:
+            document_id: The document ID from chunk metadata
+            chunk_id: The chunk ID (used for logging)
+
+        Returns:
+            Best matching PDF filename, or None if no good match found
+        """
+        if not document_id:
+            return None
+
+        pdf_names = self._get_pdf_files()
+        if not pdf_names:
+            logger.debug("No PDF files in cache")
+            return None
+
+        try:
+            # Normalize document_id for matching
+            doc_normalized = document_id.lower().replace("_", "").replace("-", "")
+
+            best_match = None
+            best_ratio = 0.5  # Minimum threshold for a match
+
+            for pdf_name in pdf_names:
+                # Normalize PDF name for matching
+                pdf_normalized = (
+                    pdf_name.lower()
+                    .replace("-", "")
+                    .replace("_", "")
+                    .replace(".pdf", "")
+                )
+
+                # Use SequenceMatcher for fuzzy matching
+                ratio = SequenceMatcher(None, doc_normalized, pdf_normalized).ratio()
+
+                if ratio > best_ratio:
+                    best_match = pdf_name
+                    best_ratio = ratio
+
+            if best_match:
+                logger.debug(
+                    f"Inferred PDF: {document_id} -> {best_match} (confidence: {best_ratio:.2f})"
+                )
+                return best_match
+            else:
+                logger.debug(f"No PDF match found for document_id: {document_id}")
+                return None
+
+        except Exception as e:
+            logger.error(f"PDF inference failed for {document_id}: {e}")
+            return None
 
     def _build_sources_list(self, chunks: List[dict]) -> List[dict]:
         """
         Build deduplicated list of sources in [Document, Section] format.
-        Includes chunk metadata for debugging.
+        Includes page number and PDF URL for navigation.
         """
+        try:
+            from src.ingestion.pdf_uploader import get_pdf_uploader
+
+            pdf_uploader = get_pdf_uploader()
+        except Exception as e:
+            logger.error(f"Failed to get PDF uploader: {e}")
+            pdf_uploader = None
+
         sources = []
         seen = set()
 
         for chunk in chunks:
-            metadata = chunk.get("metadata", {})
-            doc_title = chunk.get("document_title", "Unknown")
-            section = chunk.get("section", "")
-            key = (doc_title, section)
+            try:
+                # Validate chunk is a dict
+                if not isinstance(chunk, dict):
+                    logger.warning(f"Skipping non-dict chunk: {type(chunk)}")
+                    continue
 
-            if key not in seen:
-                sources.append(
-                    {
-                        "display": f"[{doc_title}, {section}]" if section else f"[{doc_title}]",  # User-facing format
-                        "document": doc_title,
-                        "section": section,
-                        "chunk_id": chunk.get("chunk_id"),
-                        "chunk_level": chunk.get("chunk_level", "unknown"),
-                    }
+                metadata = chunk.get("metadata")
+                if not isinstance(metadata, dict):
+                    metadata = {}
+
+                doc_title = (
+                    chunk.get("document_title")
+                    or metadata.get("document_title")
+                    or "Unknown"
                 )
-                seen.add(key)
+                section = chunk.get("section") or metadata.get("source_section") or ""
+
+                # Handle page_start properly (0 is a valid page number)
+                page_start = metadata.get("page_start")
+                if page_start is None:
+                    page_start = chunk.get("page_start")
+                if page_start is None:
+                    page_start = 1
+
+                # Ensure page_start is an integer
+                try:
+                    page_start = int(page_start)
+                except (ValueError, TypeError):
+                    logger.warning(f"Invalid page_start value: {page_start}, using 1")
+                    page_start = 1
+
+                pdf_filename = (
+                    metadata.get("pdf_filename") or chunk.get("pdf_filename") or ""
+                )
+
+                # Fallback: try to infer PDF filename from document_id
+                if not pdf_filename:
+                    document_id = (
+                        chunk.get("document_id") or metadata.get("document_id") or ""
+                    )
+                    chunk_id = chunk.get("chunk_id", "")
+                    try:
+                        pdf_filename = (
+                            self._infer_pdf_filename(document_id, chunk_id) or ""
+                        )
+                    except Exception as e:
+                        logger.warning(
+                            f"PDF inference failed for chunk {chunk_id}: {e}"
+                        )
+                        pdf_filename = ""
+
+                key = (doc_title, section)
+
+                if key not in seen:
+                    # Build PDF URL with page anchor
+                    pdf_url = ""
+                    if pdf_filename and pdf_uploader:
+                        try:
+                            base_url = pdf_uploader.get_pdf_url(pdf_filename)
+                            if base_url:
+                                pdf_url = f"{base_url}#page={page_start}"
+                        except Exception as e:
+                            logger.warning(
+                                f"Failed to get PDF URL for {pdf_filename}: {e}"
+                            )
+
+                    # Clean up display string
+                    section_clean = section.strip() if section else ""
+                    if section_clean:
+                        display = f"[{doc_title}, {section_clean}]"
+                    else:
+                        display = f"[{doc_title}]"
+
+                    sources.append(
+                        {
+                            "display": display,
+                            "document": doc_title,
+                            "section": section_clean,
+                            "chunk_id": chunk.get("chunk_id", ""),
+                            "chunk_level": chunk.get("chunk_level")
+                            or metadata.get("level")
+                            or "unknown",
+                            # Navigation fields
+                            "page_start": page_start,
+                            "pdf_url": pdf_url,
+                        }
+                    )
+                    seen.add(key)
+
+            except Exception as e:
+                logger.error(f"Error processing chunk for sources: {e}")
+                continue
 
         return sources
 
 
-# Global instance
-_rag_chain: Optional[AskChuckRAG] = None
-
-
 def get_rag_chain() -> AskChuckRAG:
-    """Get or create the global RAG chain instance."""
+    """
+    Get or create the global RAG chain instance (thread-safe).
+
+    Uses double-checked locking pattern for thread safety.
+    """
     global _rag_chain
     if _rag_chain is None:
-        _rag_chain = AskChuckRAG()
+        with _rag_chain_lock:
+            if _rag_chain is None:
+                _rag_chain = AskChuckRAG()
     return _rag_chain
 
 

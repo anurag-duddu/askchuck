@@ -86,6 +86,3 @@ data/figures_test/
 .coverage
 htmlcov/
 .pytest_cache/
-
-# Streamlit
-.streamlit/secrets.toml

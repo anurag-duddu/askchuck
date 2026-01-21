@@ -3,6 +3,8 @@
 **Completion Date:** 2026-01-20
 **Implementation Approach:** Practical Hybrid (FastAPI + Streamlit + Next.js Architecture)
 
+> **⚠️ DEPRECATION NOTICE:** Streamlit has been completely removed from this project. This document contains historical references to the Streamlit implementation, but all Streamlit code, configuration, and dependencies have been removed. The project now uses Next.js exclusively for the frontend.
+
 ---
 
 ## Summary

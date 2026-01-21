@@ -28,7 +28,9 @@ class Settings(BaseSettings):
     # Groq
     groq_api_key: str
     groq_model: str = "llama-3.3-70b-versatile"
-    groq_vision_model: str = "llama-3.2-90b-vision-preview"
+    groq_vision_model: str = (
+        "meta-llama/llama-4-scout-17b-16e-instruct"  # Updated from deprecated llama-3.2-90b-vision-preview
+    )
 
     # Voyage AI
     voyage_api_key: str
@@ -38,6 +40,7 @@ class Settings(BaseSettings):
     pinecone_api_key: str
     pinecone_environment: str
     pinecone_index_name: str = "askchuck"
+    pinecone_namespace: str = "charles-owen"
 
     # Cohere
     cohere_api_key: str
@@ -48,6 +51,7 @@ class Settings(BaseSettings):
     supabase_key: str = ""
     supabase_anon_key: str = ""
     supabase_storage_bucket: str = "askchuck-figures"
+    supabase_pdf_bucket: str = "askchuck-pdfs"
 
     # Cloudflare R2 (DEPRECATED - Using Supabase Storage instead)
     cloudflare_account_id: str = ""
@@ -72,6 +76,9 @@ class Settings(BaseSettings):
     # RAG Configuration (defaults, tunable in PRD-05)
     retrieval_top_k: int = 50
     rerank_top_k: int = 5
+
+    # LlamaCloud (optional - for alternative document parsing)
+    llamacloud_api_key: str = ""
 
     class Config:
         env_file = ".env"

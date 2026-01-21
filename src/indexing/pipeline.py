@@ -49,11 +49,15 @@ class IndexingPipeline:
         # Step 1: Load all chunks
         logger.info("Step 1/5: Loading chunks...")
         all_chunks = self._load_all_chunks(limit=limit)
-        logger.info(f"  Loaded {len(all_chunks)} chunks from {len(set(c['document_id'] for c in all_chunks))} documents")
+        logger.info(
+            f"  Loaded {len(all_chunks)} chunks from {len(set(c['document_id'] for c in all_chunks))} documents"
+        )
 
         # Step 2: Fit sparse encoder on corpus
         logger.info("Step 2/5: Fitting sparse encoder...")
-        chunk_texts = [chunk.get("enriched_text") or chunk.get("text") for chunk in all_chunks]
+        chunk_texts = [
+            chunk.get("enriched_text") or chunk.get("text") for chunk in all_chunks
+        ]
         self.sparse_encoder.fit(chunk_texts)
         self.sparse_encoder.save()
         logger.info("  ✓ Sparse encoder fitted and saved")
@@ -177,7 +181,12 @@ class IndexingPipeline:
             "document_author": chunk["metadata"].get("document_author", ""),
             # Chunk metadata
             "source_section": chunk["metadata"].get("source_section", ""),
-            "owen_terms": chunk["metadata"].get("owen_terms", [])[:10],  # Limit array size
+            "owen_terms": chunk["metadata"].get("owen_terms", [])[
+                :10
+            ],  # Limit array size
+            # Page navigation metadata
+            "page_start": chunk["metadata"].get("page_start", 1),
+            "pdf_filename": chunk["metadata"].get("pdf_filename", ""),
             # Hierarchical metadata
             "parent_id": chunk["metadata"].get("parent_id", ""),
             # Figure metadata (if applicable)
@@ -188,8 +197,13 @@ class IndexingPipeline:
             "text": chunk["text"][:1000],  # Truncate for size
         }
 
-        # Remove empty/null values
-        metadata = {k: v for k, v in metadata.items() if v not in [None, "", [], 0] or k in ["chunk_position", "figure_number"]}
+        # Remove empty/null values (but keep page_start even if 1)
+        metadata = {
+            k: v
+            for k, v in metadata.items()
+            if v not in [None, "", []]
+            or k in ["chunk_position", "figure_number", "page_start"]
+        }
 
         return metadata
 

@@ -3,6 +3,8 @@
 **Completion Date:** 2026-01-20
 **Implementation Approach:** Docker + Multi-Platform Deployment
 
+> **⚠️ DEPRECATION NOTICE:** Streamlit has been completely removed from this project. This document contains historical references to Streamlit deployment, but all Streamlit code, configuration, and dependencies have been removed. The project now uses Next.js for the frontend.
+
 ---
 
 ## Summary

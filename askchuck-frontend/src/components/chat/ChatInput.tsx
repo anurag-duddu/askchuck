@@ -3,7 +3,7 @@
 import { useState, KeyboardEvent } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Send } from "lucide-react";
+import { PaperPlaneTilt } from "@phosphor-icons/react";
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -48,7 +48,7 @@ export function ChatInput({ onSend, isLoading }: ChatInputProps) {
         size="lg"
         className="h-[60px] px-6 bg-primary hover:bg-primary/90 text-primary-foreground transition-all duration-300 group"
       >
-        <Send className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />
+        <PaperPlaneTilt className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" weight="bold" />
       </Button>
     </div>
   );

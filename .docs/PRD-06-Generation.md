@@ -832,4 +832,4 @@ def ask(question: str, history: list[dict] = None) -> dict:
 
 ## Next Steps
 
-Once generation is working, proceed to **PRD-07: Frontend** to build the user interface with Streamlit and authentication.
+Once generation is working, proceed to **PRD-07: Frontend** to build the user interface with Next.js and authentication.

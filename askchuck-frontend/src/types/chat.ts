@@ -14,6 +14,9 @@ export interface Source {
   section: string;
   chunk_id: string;
   chunk_level: string;
+  // Navigation fields for PDF linking
+  page_start?: number;
+  pdf_url?: string;
 }
 
 export interface ChatMessage {
