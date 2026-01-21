@@ -323,12 +323,6 @@ MIT License - see LICENSE file for details
 
 ---
 
-## Contact
-
-**Anurag Reddy**
-- GitHub: [@anurag-duddu](https://github.com/anurag-duddu)
-- Email: anurag@infinative.com
-
 ---
 
 **Built with ❤️ for learning production-quality RAG systems**
