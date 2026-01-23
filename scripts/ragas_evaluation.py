@@ -68,6 +68,28 @@ def get_llm_for_ragas():
     )
 
 
+def get_vision_llm_for_ragas():
+    """
+    Get vision-capable LLM for multimodal RAGAS evaluation.
+
+    Uses Groq's Llama 4 Scout model which supports vision.
+    """
+    from langchain_groq import ChatGroq
+    from ragas.llms import LangchainLLMWrapper
+
+    from src.utils.config import settings
+
+    # Use vision-capable model
+    vision_llm = ChatGroq(
+        model=settings.groq_vision_model,  # meta-llama/llama-4-scout-17b-16e-instruct
+        api_key=settings.groq_api_key,
+        temperature=0,
+    )
+
+    # Wrap for RAGAS compatibility
+    return LangchainLLMWrapper(vision_llm)
+
+
 def get_embeddings_for_ragas():
     """
     Get embeddings for RAGAS evaluation.
@@ -107,6 +129,141 @@ def get_ragas_metrics():
     ]
 
 
+def get_multimodal_relevance_metric():
+    """
+    Get MultiModalRelevance metric for evaluating answers against
+    both text and image contexts.
+
+    Uses Groq's vision-capable Llama 4 Scout model.
+    """
+    from ragas.metrics import MultiModalRelevance
+
+    vision_llm = get_vision_llm_for_ragas()
+    return MultiModalRelevance(llm=vision_llm)
+
+
+def extract_figure_urls(rag_response: Dict) -> List[str]:
+    """
+    Extract figure URLs from a RAG response.
+
+    Args:
+        rag_response: Response from AskChuckRAG.query()
+
+    Returns:
+        List of figure URLs (Supabase storage URLs)
+    """
+    figures = rag_response.get("figures", [])
+    urls = []
+
+    for fig in figures:
+        # Figures already have URLs from the RAG chain
+        if fig.get("url"):
+            urls.append(fig["url"])
+
+    return urls
+
+
+async def evaluate_multimodal_relevance(
+    question: str,
+    answer: str,
+    text_contexts: List[str],
+    figure_urls: List[str],
+) -> float:
+    """
+    Evaluate multimodal relevance of an answer against text and image contexts.
+
+    Args:
+        question: The user's question
+        answer: The generated answer
+        text_contexts: List of text context strings
+        figure_urls: List of figure image URLs
+
+    Returns:
+        Relevance score (0.0 or 1.0)
+    """
+    from ragas.dataset_schema import SingleTurnSample
+
+    metric = get_multimodal_relevance_metric()
+
+    # Combine text and image contexts
+    # RAGAS MultiModalRelevance accepts mixed context types
+    combined_contexts = text_contexts + figure_urls
+
+    if not combined_contexts:
+        logger.warning("No contexts provided for multimodal evaluation")
+        return 0.0
+
+    try:
+        # Create SingleTurnSample for the metric
+        sample = SingleTurnSample(
+            user_input=question,
+            response=answer,
+            retrieved_contexts=combined_contexts,
+        )
+
+        # Use single_turn_ascore which accepts SingleTurnSample
+        result = await metric.single_turn_ascore(sample)
+        return float(result)
+    except Exception as e:
+        logger.error(f"Multimodal relevance evaluation failed: {e}")
+        import traceback
+
+        traceback.print_exc()
+        return 0.0
+
+
+def run_multimodal_evaluation(
+    questions: List[str],
+    answers: List[str],
+    text_contexts: List[List[str]],
+    figure_urls_list: List[List[str]],
+) -> Dict:
+    """
+    Run multimodal relevance evaluation on a batch of question-answer pairs.
+
+    Args:
+        questions: List of questions
+        answers: List of generated answers
+        text_contexts: List of text context lists
+        figure_urls_list: List of figure URL lists
+
+    Returns:
+        Dictionary with multimodal relevance scores
+    """
+    import asyncio
+
+    logger.info(
+        f"Running MultiModal Relevance evaluation on {len(questions)} questions..."
+    )
+
+    async def evaluate_all():
+        scores = []
+        for i, (q, a, texts, figs) in enumerate(
+            zip(questions, answers, text_contexts, figure_urls_list)
+        ):
+            try:
+                score = await evaluate_multimodal_relevance(q, a, texts, figs)
+                scores.append(score)
+                logger.debug(f"Question {i+1}: multimodal_relevance = {score}")
+            except Exception as e:
+                logger.error(f"Error evaluating question {i+1}: {e}")
+                scores.append(0.0)
+        return scores
+
+    # Run async evaluation
+    scores = asyncio.run(evaluate_all())
+
+    avg_score = sum(scores) / len(scores) if scores else 0.0
+
+    logger.info(f"MultiModal Relevance: {avg_score:.3f}")
+
+    return {
+        "multimodal_relevance": avg_score,
+        "individual_scores": scores,
+        "questions_with_figures": sum(1 for f in figure_urls_list if f),
+    }
+
+
 def evaluate_single_question(
     question: str,
     ground_truth: Optional[str] = None,
@@ -122,6 +279,7 @@ def evaluate_single_question(
         Dictionary with answer, contexts, and optional RAGAS scores
     """
     from src.generation.rag_chain import AskChuckRAG
+    from src.retrieval.retrieval_pipeline import get_retrieval_pipeline
 
     logger.info(f"Evaluating: {question[:50]}...")
 
@@ -136,16 +294,32 @@ def evaluate_single_question(
         top_k=5,
     )
 
-    # Extract contexts
+    # Get raw chunks with full content for RAGAS
+    # The RAG response sources are display-formatted and don't include full content
+    retrieval = get_retrieval_pipeline()
+    raw_chunks = retrieval.retrieve(query=question, top_k=5, include_figures=False)
+
+    # Extract full contexts from raw chunks
     contexts = [
-        source.get("content", source.get("text", ""))
-        for source in response.get("sources", [])
+        chunk.get("content", "") for chunk in raw_chunks if chunk.get("content")
     ]
+
+    # Fallback: if no contexts, use highlight_text from sources
+    if not contexts:
+        contexts = [
+            source.get("highlight_text", "")
+            for source in response.get("sources", [])
+            if source.get("highlight_text")
+        ]
+
+    # Extract figure URLs for multimodal evaluation
+    figure_urls = extract_figure_urls(response)
 
     result = {
         "question": question,
         "answer": response["answer"],
         "contexts": contexts,
+        "figure_urls": figure_urls,
         "sources": response.get("sources", []),
         "chunks_used": response.get("chunks_used", 0),
     }
@@ -326,7 +500,7 @@ def evaluate_from_dataset(sample_size: Optional[int] = None) -> Dict:
     }
 
 
-def quick_test() -> Dict:
+def quick_test(include_multimodal: bool = False) -> Dict:
     """Run a quick test with a single question."""
     setup_environment()
 
@@ -345,6 +519,7 @@ def quick_test() -> Dict:
     logger.info(f"Question: {question}")
     logger.info(f"Answer: {result['answer'][:200]}...")
     logger.info(f"Contexts retrieved: {len(result['contexts'])}")
+    logger.info(f"Figures retrieved: {len(result.get('figure_urls', []))}")
 
     if result.get("ground_truth"):
         # Run RAGAS on single question
@@ -355,6 +530,58 @@ def quick_test() -> Dict:
             ground_truths=[ground_truth],
         )
         result["ragas_scores"] = scores
+
+    # Run multimodal evaluation if requested
+    if include_multimodal:
+        logger.info("\nRunning MultiModal Relevance evaluation...")
+        mm_results = run_multimodal_evaluation(
+            questions=[question],
+            answers=[result["answer"]],
+            text_contexts=[result["contexts"] or []],
+            figure_urls_list=[result.get("figure_urls", [])],
+        )
+        result["multimodal_scores"] = mm_results
+
+    return result
+
+
+def quick_multimodal_test() -> Dict:
+    """Run a quick test specifically for multimodal evaluation with figures."""
+    setup_environment()
+
+    # Use a question that should retrieve figures
+    question = "Show me an Action Analysis form and explain how it works"
+
+    logger.info(f"Testing multimodal with: {question}")
+
+    result = evaluate_single_question(question)
+
+    logger.info("\n" + "=" * 60)
+    logger.info("MultiModal Quick Test Results")
+    logger.info("=" * 60)
+    logger.info(f"Question: {question}")
+    logger.info(f"Answer: {result['answer'][:200]}...")
+    logger.info(f"Text contexts: {len(result['contexts'])}")
+    logger.info(f"Figure URLs: {len(result.get('figure_urls', []))}")
+
+    for i, url in enumerate(result.get("figure_urls", [])[:3]):
+        logger.info(f"  Figure {i+1}: {url}")
+
+    # Run multimodal evaluation
+    if result.get("figure_urls"):
+        mm_results = run_multimodal_evaluation(
+            questions=[question],
+            answers=[result["answer"]],
+            text_contexts=[result["contexts"] or []],
+            figure_urls_list=[result.get("figure_urls", [])],
+        )
+        result["multimodal_scores"] = mm_results
+    else:
+        logger.warning("No figures retrieved - multimodal evaluation skipped")
+        result["multimodal_scores"] = {
+            "multimodal_relevance": None,
+            "note": "No figures retrieved",
+        }
 
     return result
 
@@ -384,6 +611,16 @@ def main():
         help="Run full evaluation on entire golden dataset",
     )
     parser.add_argument(
+        "--multimodal",
+        action="store_true",
+        help="Include MultiModal Relevance evaluation (requires figures)",
+    )
+    parser.add_argument(
+        "--multimodal-test",
+        action="store_true",
+        help="Run quick test specifically for multimodal evaluation with figures",
+    )
+    parser.add_argument(
         "--output",
         type=str,
         help="Output file for results (JSON)",
@@ -395,8 +632,11 @@ def main():
 
     results = {}
 
-    if args.quick:
-        results = quick_test()
+    if args.multimodal_test:
+        results = quick_multimodal_test()
+
+    elif args.quick:
+        results = quick_test(include_multimodal=args.multimodal)
 
     elif args.questions:
         # Evaluate custom questions

@@ -82,6 +82,11 @@ def run_rag_evaluation(
 
     logger.info(f"Evaluating {len(eval_questions)} questions with RAGAS...")
 
+    # Get retrieval pipeline for raw chunk content
+    from src.retrieval.retrieval_pipeline import get_retrieval_pipeline
+
+    retrieval = get_retrieval_pipeline()
+
     for q in tqdm(eval_questions, desc="Querying RAG system"):
         try:
             # Get RAG response
@@ -92,10 +97,15 @@ def run_rag_evaluation(
                 top_k=5,
             )
 
-            # Extract contexts from sources
+            # Get raw chunks with full content for RAGAS
+            # The RAG response sources are display-formatted without full content
+            raw_chunks = retrieval.retrieve(
+                query=q["question"], top_k=5, include_figures=False
+            )
+
+            # Extract full contexts from raw chunks
             contexts = [
-                source.get("content", source.get("text", ""))
-                for source in response.get("sources", [])
+                chunk.get("content", "") for chunk in raw_chunks if chunk.get("content")
             ]
 
             if not contexts:
