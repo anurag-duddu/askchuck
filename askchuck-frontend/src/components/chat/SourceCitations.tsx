@@ -22,6 +22,48 @@ function isValidUrl(url: string): boolean {
   }
 }
 
+/**
+ * Clean up document title, removing technical artifacts
+ */
+function cleanDocumentTitle(title: string, section?: string): string {
+  if (!title) {
+    return section ? `Owen: ${section}` : "Owen's Paper";
+  }
+
+  const lower = title.toLowerCase();
+
+  // Check for PostScript/technical artifacts
+  const isInvalid = (
+    (lower.includes("pmu") && lower.includes(".out")) ||
+    (title.startsWith("(") && lower.includes("composite")) ||
+    (title.startsWith("[") && lower.includes("pmu")) ||
+    title.length < 5
+  );
+
+  if (isInvalid) {
+    // Use section as the title if available
+    if (section && section.length > 3) {
+      return section;
+    }
+    return "Owen's Paper";
+  }
+
+  // Clean up the display format like "[Document, Section]"
+  let cleaned = title;
+  if (cleaned.startsWith("[") && cleaned.endsWith("]")) {
+    cleaned = cleaned.slice(1, -1);
+    // If the bracket content still has pmu, try to extract just the section part
+    if (cleaned.toLowerCase().includes("pmu")) {
+      const parts = cleaned.split(",").map(p => p.trim());
+      if (parts.length > 1) {
+        cleaned = parts[parts.length - 1]; // Use the section part
+      }
+    }
+  }
+
+  return cleaned;
+}
+
 export function SourceCitations({ sources }: SourceCitationsProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const sourcesListId = useId();
@@ -31,7 +73,11 @@ export function SourceCitations({ sources }: SourceCitationsProps) {
     return null;
   }
 
-  const handleSourceClick = useCallback((source: Source) => {
+  const handleSourceClick = useCallback((source: Source, event?: React.MouseEvent) => {
+    // Prevent event bubbling
+    event?.stopPropagation();
+    event?.preventDefault();
+
     // Validate URL before opening
     if (!source.pdf_url || !isValidUrl(source.pdf_url)) {
       console.warn("Invalid or missing PDF URL:", source.pdf_url);
@@ -39,12 +85,25 @@ export function SourceCitations({ sources }: SourceCitationsProps) {
     }
 
     try {
-      const newWindow = window.open(source.pdf_url, "_blank", "noopener,noreferrer");
-      if (!newWindow) {
-        // Popup was blocked
-        console.warn("Popup blocked for:", source.pdf_url);
-        // Could show a toast notification here
+      // Extract base URL (remove #page=N fragment)
+      const baseUrl = source.pdf_url.split("#")[0];
+      const pageNumber = source.page_start ?? 1;
+
+      // Build viewer URL with highlight parameter
+      const viewerParams = new URLSearchParams({
+        url: baseUrl,
+        page: String(pageNumber),
+      });
+
+      // Add highlight text if available
+      if (source.highlight_text) {
+        viewerParams.set("highlight", source.highlight_text);
       }
+
+      const viewerUrl = `/pdf?${viewerParams.toString()}`;
+
+      // Open our custom PDF viewer (only one tab)
+      window.open(viewerUrl, "_blank", "noopener,noreferrer");
     } catch (error) {
       console.error("Failed to open PDF:", error);
     }
@@ -91,21 +150,23 @@ export function SourceCitations({ sources }: SourceCitationsProps) {
         >
           {sources.map((source, index) => {
             const hasValidPdfUrl = source.pdf_url && isValidUrl(source.pdf_url);
-            const displayText = source.display || "Unknown Source";
-            const documentText = source.document || "Unknown Document";
             const sectionText = source.section || "";
+            const displayText = cleanDocumentTitle(source.display || source.document || "Unknown Source", sectionText);
+            const documentText = cleanDocumentTitle(source.document || "Unknown Document", sectionText);
             const pageNumber = source.page_start ?? 1;
             const chunkLevel = source.chunk_level || "unknown";
+            // Use source_number from backend if available (matches LLM citations), fallback to index+1
+            const sourceNumber = source.source_number ?? (index + 1);
 
             return (
               <Card
                 key={source.chunk_id || `source-${index}`}
-                onClick={() => hasValidPdfUrl && handleSourceClick(source)}
+                onClick={(e) => hasValidPdfUrl && handleSourceClick(source, e)}
                 onKeyDown={(e) => hasValidPdfUrl && handleKeyDown(e, source)}
                 tabIndex={hasValidPdfUrl ? 0 : undefined}
                 role={hasValidPdfUrl ? "button" : "article"}
                 aria-label={hasValidPdfUrl
-                  ? `Open ${displayText} PDF at page ${pageNumber}`
+                  ? `Open ${displayText} PDF at page ${pageNumber}${source.highlight_text ? " with highlighted text" : ""}`
                   : displayText
                 }
                 className={`p-4 border border-border bg-card transition-all duration-300 animate-in fade-in slide-in-from-left-2 ${
@@ -119,7 +180,7 @@ export function SourceCitations({ sources }: SourceCitationsProps) {
                 <div className="flex items-start justify-between gap-4 mb-3">
                   <div className="flex items-center gap-2">
                     <Badge variant="outline" className="font-mono text-xs border-primary/50 text-primary">
-                      [{index + 1}]
+                      [{sourceNumber}]
                     </Badge>
                     <span className="text-sm font-serif font-medium text-foreground">
                       {displayText}
@@ -152,7 +213,10 @@ export function SourceCitations({ sources }: SourceCitationsProps) {
                 {hasValidPdfUrl && (
                   <div className="text-xs text-primary/70 flex items-center gap-1">
                     <ExternalLink className="w-3 h-3" aria-hidden="true" />
-                    <span>Click to open PDF at page {pageNumber}</span>
+                    <span>
+                      Click to open PDF at page {pageNumber}
+                      {source.highlight_text && " with highlighted text"}
+                    </span>
                   </div>
                 )}
               </Card>

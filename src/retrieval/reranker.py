@@ -35,9 +35,7 @@ class CohereReranker:
 
         logger.info(f"CohereReranker initialized with model: {self.model}")
 
-    def rerank(
-        self, query: str, results: List[Dict], top_k: int = 5
-    ) -> List[Dict]:
+    def rerank(self, query: str, results: List[Dict], top_k: int = 5) -> List[Dict]:
         """
         Rerank retrieval results using cross-encoder scoring.
 

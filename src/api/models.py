@@ -12,7 +12,9 @@ class QueryRequest(BaseModel):
     """Request model for query endpoints."""
 
     question: str = Field(..., description="User's question", min_length=1)
-    session_id: Optional[str] = Field(None, description="Optional session ID for tracking")
+    session_id: Optional[str] = Field(
+        None, description="Optional session ID for tracking"
+    )
     conversation_history: List[dict] = Field(
         default_factory=list,
         description="Previous conversation messages",
@@ -30,6 +32,12 @@ class Source(BaseModel):
     section: str = Field(..., description="Section name")
     chunk_id: str = Field(..., description="Chunk ID for debugging")
     chunk_level: str = Field(..., description="Chunk level (parent/child)")
+    # Navigation fields for PDF linking
+    page_start: int = Field(1, description="Page number in source PDF")
+    pdf_url: Optional[str] = Field(None, description="URL to open PDF at specific page")
+    highlight_text: Optional[str] = Field(
+        None, description="Text snippet to highlight in PDF viewer"
+    )
 
 
 class Figure(BaseModel):

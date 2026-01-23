@@ -119,7 +119,9 @@ def test_parent_child_expansion() -> bool:
         if has_expanded_parent:
             logger.info("  ✓ Parent expansion working")
         else:
-            logger.info("  ⚠ No parents expanded (may be expected if no high-scoring children)")
+            logger.info(
+                "  ⚠ No parents expanded (may be expected if no high-scoring children)"
+            )
 
         return True
 
@@ -149,9 +151,7 @@ def test_reranking() -> bool:
         logger.info(f"  With rerank: {len(results_with_rerank)} results")
 
         # Check for rerank scores
-        has_rerank_scores = any(
-            "rerank_score" in r for r in results_with_rerank
-        )
+        has_rerank_scores = any("rerank_score" in r for r in results_with_rerank)
 
         if has_rerank_scores:
             logger.info("  ✓ Reranking working (rerank_score present)")
@@ -228,8 +228,7 @@ def test_document_filtering() -> bool:
 
         # Verify all results are from the same document
         all_from_doc = all(
-            r.get("metadata", {}).get("document_id") == doc_id
-            for r in doc_results
+            r.get("metadata", {}).get("document_id") == doc_id for r in doc_results
         )
 
         if all_from_doc:

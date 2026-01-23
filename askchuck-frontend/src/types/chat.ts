@@ -17,6 +17,9 @@ export interface Source {
   // Navigation fields for PDF linking
   page_start?: number;
   pdf_url?: string;
+  highlight_text?: string;
+  // Source number matching LLM citation [1], [2], etc.
+  source_number?: number;
 }
 
 export interface ChatMessage {

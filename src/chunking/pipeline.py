@@ -38,9 +38,7 @@ class ChunkingPipeline:
         """
         self.semantic_chunker = SemanticChunker()
         self.figure_chunker = FigureChunker() if not skip_figures else None
-        self.contextual_enricher = (
-            ContextualEnricher() if not skip_enrichment else None
-        )
+        self.contextual_enricher = ContextualEnricher() if not skip_enrichment else None
 
         self.skip_enrichment = skip_enrichment
         self.skip_figures = skip_figures
@@ -105,14 +103,14 @@ class ChunkingPipeline:
 
         logger.info(f"✓ Saved: {output_path.name}")
         logger.info(f"  Total chunks: {len(all_chunks)}")
-        logger.info(
-            f"  Text chunks: {len(text_chunks)} (parents + children)"
-        )
+        logger.info(f"  Text chunks: {len(text_chunks)} (parents + children)")
         logger.info(f"  Figure chunks: {len(figure_chunks)}")
 
         return all_chunks
 
-    def process_all_documents(self, limit: Optional[int] = None) -> Dict[str, List[dict]]:
+    def process_all_documents(
+        self, limit: Optional[int] = None
+    ) -> Dict[str, List[dict]]:
         """
         Process all documents through chunking pipeline.
 

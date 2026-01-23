@@ -106,9 +106,7 @@ def test_single_query(
     # Initialize pipeline with custom alpha
     from src.retrieval.pinecone_retriever import PineconeHybridRetriever
 
-    retriever = PineconeHybridRetriever(
-        alpha=alpha, expand_to_parents=expand_parents
-    )
+    retriever = PineconeHybridRetriever(alpha=alpha, expand_to_parents=expand_parents)
     pipeline = RetrievalPipeline(retriever=retriever)
 
     logger.info(f"\nTesting query with alpha={alpha}, top_k={top_k}")
@@ -160,7 +158,9 @@ def test_alpha_comparison(query: str, top_k: int = 5) -> None:
 
     for alpha in alphas:
         print(f"\n{'=' * 80}")
-        print(f"Alpha = {alpha} ({'pure BM25' if alpha == 0.0 else 'pure semantic' if alpha == 1.0 else 'balanced hybrid'})")
+        print(
+            f"Alpha = {alpha} ({'pure BM25' if alpha == 0.0 else 'pure semantic' if alpha == 1.0 else 'balanced hybrid'})"
+        )
         print(f"{'=' * 80}")
 
         from src.retrieval.pinecone_retriever import PineconeHybridRetriever

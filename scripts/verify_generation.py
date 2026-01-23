@@ -174,7 +174,9 @@ def test_conversation_history() -> bool:
         ]
 
         # Follow-up query
-        result2 = rag.query("How does it relate to Design Factors?", conversation_history=history)
+        result2 = rag.query(
+            "How does it relate to Design Factors?", conversation_history=history
+        )
         answer2 = result2.get("answer", "")
 
         if answer2:
@@ -206,7 +208,12 @@ def test_no_context_fallback() -> bool:
         # Should acknowledge not finding information
         acknowledges_limitation = any(
             phrase in answer.lower()
-            for phrase in ["couldn't find", "don't have", "not covered", "not available"]
+            for phrase in [
+                "couldn't find",
+                "don't have",
+                "not covered",
+                "not available",
+            ]
         )
 
         if acknowledges_limitation or chunks_used == 0:
@@ -290,7 +297,9 @@ def test_prompt_construction() -> bool:
         has_glossary = "Function" in system_prompt and "Design Factor" in system_prompt
 
         # Check that context is formatted
-        has_context = "Test Document" in system_prompt and "test content" in system_prompt
+        has_context = (
+            "Test Document" in system_prompt and "test content" in system_prompt
+        )
 
         if has_glossary:
             logger.info("  ✓ Glossary included in system prompt")
@@ -309,9 +318,7 @@ def test_prompt_construction() -> bool:
 
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Verify RAG generation functionality"
-    )
+    parser = argparse.ArgumentParser(description="Verify RAG generation functionality")
 
     parser.add_argument(
         "--quick",

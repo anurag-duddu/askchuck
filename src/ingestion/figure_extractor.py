@@ -96,7 +96,9 @@ class FigureExtractor:
                     )
 
                 except Exception as e:
-                    logger.error(f"Failed to extract figure from page {page_num + 1}: {e}")
+                    logger.error(
+                        f"Failed to extract figure from page {page_num + 1}: {e}"
+                    )
                     continue
 
         doc.close()
@@ -204,8 +206,9 @@ class FigureExtractor:
         pix = page.get_pixmap(matrix=mat, clip=clip)
 
         # Convert to PIL Image
-        from PIL import Image
         import io
+
+        from PIL import Image
 
         img_data = pix.tobytes("png")
         img = Image.open(io.BytesIO(img_data))

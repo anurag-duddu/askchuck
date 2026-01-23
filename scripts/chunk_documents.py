@@ -80,8 +80,12 @@ def main():
 
         else:
             # Default: process first 2 for testing
-            logger.info("No arguments specified. Processing first 2 documents (test mode)")
-            logger.info("Use --all to process all documents, or --doc <path> for one document")
+            logger.info(
+                "No arguments specified. Processing first 2 documents (test mode)"
+            )
+            logger.info(
+                "Use --all to process all documents, or --doc <path> for one document"
+            )
             pipeline.process_all_documents(limit=2)
 
         logger.info("\n✓ Chunking complete!")

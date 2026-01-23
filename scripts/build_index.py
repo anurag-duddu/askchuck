@@ -28,9 +28,7 @@ def main():
         description="Build Pinecone hybrid search index from chunks"
     )
 
-    parser.add_argument(
-        "--all", action="store_true", help="Index all chunks"
-    )
+    parser.add_argument("--all", action="store_true", help="Index all chunks")
 
     parser.add_argument(
         "--limit",
@@ -57,7 +55,9 @@ def main():
 
         else:
             # Default: index first 2 documents for testing
-            logger.info("No arguments specified. Indexing first 2 documents (test mode)")
+            logger.info(
+                "No arguments specified. Indexing first 2 documents (test mode)"
+            )
             logger.info("Use --all to index all chunks, or --limit N for N documents")
             stats = pipeline.index_all_chunks(limit=2)
 

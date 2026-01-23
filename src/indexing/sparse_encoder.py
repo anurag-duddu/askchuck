@@ -19,9 +19,7 @@ try:
 
     PINECONE_TEXT_AVAILABLE = True
 except ImportError:
-    logger.warning(
-        "pinecone-text not available, using simple sparse encoding fallback"
-    )
+    logger.warning("pinecone-text not available, using simple sparse encoding fallback")
     PINECONE_TEXT_AVAILABLE = False
 
 

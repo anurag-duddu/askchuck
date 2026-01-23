@@ -214,9 +214,15 @@ def test_all_queries() -> None:
             result = rag.query(query, top_k=3)
 
             print(f"\nQuery: {query}")
-            answer_preview = result["answer"][:150] + "..." if len(result["answer"]) > 150 else result["answer"]
+            answer_preview = (
+                result["answer"][:150] + "..."
+                if len(result["answer"]) > 150
+                else result["answer"]
+            )
             print(f"Answer: {answer_preview}")
-            print(f"Sources: {len(result['sources'])}, Figures: {len(result['figures'])}")
+            print(
+                f"Sources: {len(result['sources'])}, Figures: {len(result['figures'])}"
+            )
 
 
 def main():

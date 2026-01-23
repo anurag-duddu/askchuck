@@ -22,9 +22,15 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from datasets import Dataset
 from ragas import evaluate
-from ragas.metrics import (answer_relevancy, context_precision, context_recall,
-                           faithfulness)
+from ragas.metrics import (AnswerRelevancy, ContextPrecision, ContextRecall,
+                           Faithfulness)
 from tqdm import tqdm
+
+# Create metric instances
+faithfulness = Faithfulness()
+answer_relevancy = AnswerRelevancy()
+context_precision = ContextPrecision()
+context_recall = ContextRecall()
 
 from src.generation.rag_chain import AskChuckRAG
 from src.retrieval.retrieval_pipeline import RetrievalPipeline
@@ -122,13 +128,26 @@ def run_rag_evaluation(
         )
 
         logger.info("RAGAS evaluation complete!")
+
+        # Access scores via to_pandas() and compute mean
+        df = result.to_pandas()
+        numeric_cols = df.select_dtypes(include=["float64", "float32", "int64"]).columns
+        mean_scores = df[numeric_cols].mean()
+
+        ragas_scores = {}
+        for metric_name in [
+            "faithfulness",
+            "answer_relevancy",
+            "context_precision",
+            "context_recall",
+        ]:
+            if metric_name in mean_scores:
+                ragas_scores[metric_name] = float(mean_scores[metric_name])
+            else:
+                ragas_scores[metric_name] = 0.0
+
         return {
-            "ragas_scores": {
-                "faithfulness": float(result.get("faithfulness", 0)),
-                "answer_relevancy": float(result.get("answer_relevancy", 0)),
-                "context_precision": float(result.get("context_precision", 0)),
-                "context_recall": float(result.get("context_recall", 0)),
-            },
+            "ragas_scores": ragas_scores,
             "num_questions": len(eval_data["question"]),
             "timestamp": datetime.now().isoformat(),
         }

@@ -79,7 +79,7 @@ class OwenPDFParser:
 
         # Extract from document
         metadata = {
-            "title": self._extract_title(doc, pdf_metadata),
+            "title": self._extract_title(doc, pdf_metadata, pdf_path),
             "author": pdf_metadata.get("author", "Charles L. Owen"),
             "publication_date": self._extract_date(doc),
             "source": self._extract_source(doc),
@@ -90,24 +90,62 @@ class OwenPDFParser:
 
         return metadata
 
-    def _extract_title(self, doc: fitz.Document, pdf_metadata: dict) -> str:
+    def _extract_title(
+        self, doc: fitz.Document, pdf_metadata: dict, pdf_path: Path = None
+    ) -> str:
         """Extract document title."""
         # Try PDF metadata first
-        if pdf_metadata.get("title"):
-            return pdf_metadata["title"]
+        pdf_title = pdf_metadata.get("title", "")
+
+        # Check if title is valid (not a PostScript artifact like "pmu1435.out")
+        if pdf_title and not self._is_invalid_title(pdf_title):
+            return pdf_title
 
         # Fallback: Extract from first page (largest text or first line)
         page = doc[0]
         text = page.get_text()
         lines = text.split("\n")
 
-        # Get first non-empty line
+        # Get first substantial non-empty line (skip headers like "Institute of Design")
         for line in lines:
             line = line.strip()
-            if len(line) > 5:  # Minimum reasonable title length
+            if len(line) > 10 and not self._is_invalid_title(line):
+                # Skip common header lines
+                if "institute of design" in line.lower():
+                    continue
+                if "illinois institute" in line.lower():
+                    continue
                 return line
 
+        # Final fallback: Use cleaned filename
+        if pdf_path:
+            return self._title_from_filename(pdf_path.name)
+
         return "Untitled Document"
+
+    def _is_invalid_title(self, title: str) -> bool:
+        """Check if a title is a technical artifact rather than a real title."""
+        if not title:
+            return True
+        title_lower = title.lower()
+        # PostScript artifacts
+        if "pmu" in title_lower and ".out" in title_lower:
+            return True
+        if title_lower.startswith("(") and "composite" in title_lower:
+            return True
+        # Too short
+        if len(title.strip()) < 5:
+            return True
+        return False
+
+    def _title_from_filename(self, filename: str) -> str:
+        """Generate a readable title from a filename."""
+        # Remove extension
+        name = filename.rsplit(".", 1)[0]
+        # Replace separators with spaces
+        name = name.replace("-", " ").replace("_", " ")
+        # Title case
+        return name.title()
 
     def _extract_date(self, doc: fitz.Document) -> Optional[str]:
         """Extract publication date if present."""

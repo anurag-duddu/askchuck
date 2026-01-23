@@ -4,13 +4,34 @@ This is the main entry point for retrieval operations.
 """
 
 import logging
+import os
 from typing import Dict, List, Optional
 
-from src.retrieval.pinecone_retriever import PineconeHybridRetriever, get_retriever
+from src.retrieval.pinecone_retriever import (PineconeHybridRetriever,
+                                              get_retriever)
 from src.retrieval.query_expansion import QueryExpander, get_query_expander
 from src.retrieval.reranker import CohereReranker, get_reranker
+from src.utils.config import settings
 
 logger = logging.getLogger(__name__)
+
+# LangSmith tracing setup
+try:
+    from langsmith import traceable
+
+    LANGSMITH_ENABLED = bool(settings.langchain_api_key)
+    if LANGSMITH_ENABLED:
+        os.environ["LANGCHAIN_TRACING_V2"] = "true"
+        os.environ["LANGCHAIN_PROJECT"] = settings.langchain_project
+        os.environ["LANGCHAIN_API_KEY"] = settings.langchain_api_key
+except ImportError:
+    LANGSMITH_ENABLED = False
+
+    def traceable(*args, **kwargs):
+        def decorator(func):
+            return func
+
+        return decorator if not args else args[0]
 
 
 class RetrievalPipeline:
@@ -53,6 +74,7 @@ class RetrievalPipeline:
 
         logger.info("RetrievalPipeline initialized")
 
+    @traceable(name="retrieval_pipeline", run_type="retriever")
     def retrieve(
         self,
         query: str,
@@ -220,9 +242,7 @@ class RetrievalPipeline:
             # Owen terms for display
             owen_terms = metadata.get("owen_terms", [])
             if isinstance(owen_terms, str):
-                result["owen_terms"] = (
-                    owen_terms.split(",") if owen_terms else []
-                )
+                result["owen_terms"] = owen_terms.split(",") if owen_terms else []
             else:
                 result["owen_terms"] = owen_terms or []
 
@@ -246,9 +266,7 @@ def get_retrieval_pipeline() -> RetrievalPipeline:
     return _pipeline
 
 
-def retrieve(
-    query: str, top_k: int = 5, expand_query: bool = False
-) -> List[Dict]:
+def retrieve(query: str, top_k: int = 5, expand_query: bool = False) -> List[Dict]:
     """Convenience function to run retrieval."""
     return get_retrieval_pipeline().retrieve(
         query, top_k=top_k, expand_query=expand_query

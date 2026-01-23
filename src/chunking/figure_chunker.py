@@ -60,7 +60,9 @@ class FigureChunker:
         description = figure.get("description", "")
 
         # Figure text = caption + description
-        figure_text = f"Figure {figure.get('figure_number', '')}: {caption}\n\n{description}"
+        figure_text = (
+            f"Figure {figure.get('figure_number', '')}: {caption}\n\n{description}"
+        )
 
         # Extract Owen terms from figure content
         owen_terms = tag_chunk_with_terms(figure_text)
@@ -81,8 +83,7 @@ class FigureChunker:
                 "figure_page": figure.get("page"),
                 "figure_caption": caption,
                 "figure_description": description,
-                "figure_url": figure.get("cloudflare_url")
-                or figure.get("local_path"),
+                "figure_url": figure.get("cloudflare_url") or figure.get("local_path"),
                 "owen_terms": owen_terms,
                 "char_count": len(figure_text),
                 "approx_tokens": len(figure_text) // 4,

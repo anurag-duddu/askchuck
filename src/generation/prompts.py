@@ -3,9 +3,46 @@ Prompt templates for AskChuck RAG generation.
 Includes system prompts, context formatting, and response guidelines.
 """
 
+import re
 from typing import List
 
 from src.utils.owen_glossary import format_glossary_for_prompt
+
+
+def _clean_document_title(title: str, metadata: dict = None) -> str:
+    """
+    Clean up document titles, removing technical artifacts.
+    Falls back to filename-derived title if needed.
+    """
+    if not title:
+        title = "Unknown Document"
+
+    # Check for PostScript/technical artifacts
+    title_lower = title.lower()
+    is_invalid = (
+        ("pmu" in title_lower and ".out" in title_lower)
+        or (title.startswith("(") and "composite" in title_lower)
+        or len(title.strip()) < 5
+    )
+
+    if is_invalid:
+        # Try to get clean title from metadata
+        if metadata:
+            # Try pdf_filename
+            pdf_filename = metadata.get("pdf_filename", "")
+            if pdf_filename:
+                # Convert filename to title: "Design-thinking-what-it-is.pdf" -> "Design Thinking What It Is"
+                name = pdf_filename.rsplit(".", 1)[0]  # Remove extension
+                name = re.sub(r"[_-]", " ", name)  # Replace separators
+                name = re.sub(
+                    r"owen\s*", "", name, flags=re.IGNORECASE
+                )  # Remove "owen" prefix
+                return name.strip().title()
+
+        return "Owen's Paper"
+
+    return title
+
 
 # Core system prompt establishing AskChuck's identity and behavior
 SYSTEM_PROMPT_TEMPLATE = """You are AskChuck, an expert assistant specializing in Charles Owen's Structured Planning methodology from IIT Institute of Design.
@@ -24,7 +61,7 @@ Use these terms precisely as Owen defined them:
 
 2. **Use Owen's terminology correctly.** When discussing Structured Planning concepts, use the specific terms Owen uses (Function, Design Factor, Speculation, etc.) rather than paraphrasing with general language.
 
-3. **Cite your sources.** Include citations in the format [Document Title, Section] when making specific claims. Place citations inline, near the relevant statement.
+3. **Cite your sources.** Use numbered citations like [1], [2], [3] that correspond to the source numbers in the context below. Place citations inline, near the relevant statement. Do NOT include document filenames or technical IDs in your response.
 
 4. **Explain figures when relevant.** If a figure is provided in the context, describe what it shows and how it relates to the question. Figures are marked with [FIGURE] in the context and have Cloudflare R2 URLs for display.
 
@@ -57,9 +94,9 @@ The following passages are from Owen's literature and are relevant to the user's
 # Template for formatting individual text chunks
 CONTEXT_CHUNK_TEMPLATE = """
 ---
-**Source:** {document_title}
+**[Source {source_number}]** {document_title}
 **Section:** {section}
-**Chunk Level:** {chunk_level}{figure_marker}
+**Level:** {chunk_level}{figure_marker}
 
 {content}
 ---
@@ -85,7 +122,7 @@ USER_PROMPT_TEMPLATE = """Based on the context from Owen's literature provided a
 
 {question}
 
-Remember to cite specific sources in the format [Document Title, Section] and reference relevant figures if applicable."""
+Remember to cite sources using numbered references like [1], [2], [3] that match the source numbers above. Reference relevant figures if applicable."""
 
 
 # Prompt for handling insufficient context
@@ -98,10 +135,52 @@ The retrieved context may not fully address this question. In your response:
 """
 
 
+def _get_source_key(chunk: dict) -> tuple:
+    """
+    Get the grouping key for a chunk.
+    Chunks with same (document_title, section) are considered the same source.
+    """
+    metadata = chunk.get("metadata", {})
+    doc_title = (
+        chunk.get("document_title") or metadata.get("document_title") or "Unknown"
+    )
+    section = chunk.get("section") or metadata.get("source_section") or ""
+    return (doc_title, section)
+
+
+def group_chunks_by_source(chunks: List[dict]) -> List[tuple]:
+    """
+    Group chunks by (document_title, section) and assign source numbers.
+
+    Returns list of tuples: (source_number, source_key, list_of_chunks)
+    This ensures LLM citation numbers match the deduplicated sources list.
+    """
+    from collections import OrderedDict
+
+    # Group chunks by source key, preserving order of first occurrence
+    grouped = OrderedDict()
+    for chunk in chunks:
+        key = _get_source_key(chunk)
+        if key not in grouped:
+            grouped[key] = []
+        grouped[key].append(chunk)
+
+    # Convert to list with source numbers (1-indexed)
+    result = []
+    for idx, (key, chunk_list) in enumerate(grouped.items(), start=1):
+        result.append((idx, key, chunk_list))
+
+    return result
+
+
 def format_context_chunks(chunks: List[dict]) -> str:
     """
     Format retrieved chunks for inclusion in the prompt.
     Handles both text chunks (parent/child) and figure chunks.
+
+    IMPORTANT: Groups chunks by (document, section) BEFORE assigning numbers.
+    This ensures citation numbers [1], [2], [3] match the deduplicated sources
+    shown in the UI. Multiple chunks from the same source share one number.
 
     Args:
         chunks: List of chunk dictionaries from retrieval pipeline
@@ -111,48 +190,74 @@ def format_context_chunks(chunks: List[dict]) -> str:
     """
     formatted_parts = []
 
-    for chunk in chunks:
-        chunk_type = chunk.get("chunk_type", "text")
-        metadata = chunk.get("metadata", {})
+    # Separate text chunks and figure chunks
+    text_chunks = [c for c in chunks if c.get("chunk_type") != "figure"]
+    figure_chunks = [c for c in chunks if c.get("chunk_type") == "figure"]
 
-        if chunk_type == "figure":
-            # Format as figure chunk
-            formatted = FIGURE_CHUNK_TEMPLATE.format(
-                document_title=chunk.get("document_title", "Unknown Document"),
-                figure_number=metadata.get("figure_number", "?"),
-                caption=metadata.get("caption", ""),
-                description=chunk.get("content", ""),
-                figure_url=metadata.get("figure_url", ""),  # Cloudflare R2 URL
-            )
-        else:
-            # Format as text chunk (parent or child)
-            chunk_level = chunk.get("chunk_level", "unknown")
+    # Group text chunks by source and format with consistent source numbers
+    grouped_sources = group_chunks_by_source(text_chunks)
 
-            # Mark if chunk references figures
-            figure_marker = ""
+    for source_num, (doc_title, section), chunk_list in grouped_sources:
+        # Clean document title
+        clean_title = _clean_document_title(
+            doc_title, chunk_list[0].get("metadata", {})
+        )
+
+        # Combine content from all chunks in this source group
+        combined_content = []
+        figure_refs = set()
+        chunk_levels = set()
+
+        for chunk in chunk_list:
+            metadata = chunk.get("metadata", {})
+            chunk_levels.add(chunk.get("chunk_level", "unknown"))
+
+            # Collect figure references
             explicit_figures = metadata.get("explicit_figures", [])
             if explicit_figures:
                 if isinstance(explicit_figures, list):
-                    figure_marker = f"\n*[References: {', '.join(explicit_figures)}]*"
+                    figure_refs.update(explicit_figures)
                 elif isinstance(explicit_figures, str):
-                    figure_marker = f"\n*[References: {explicit_figures}]*"
+                    figure_refs.add(explicit_figures)
 
-            formatted = CONTEXT_CHUNK_TEMPLATE.format(
-                document_title=chunk.get("document_title", "Unknown Document"),
-                section=chunk.get("section", ""),
-                chunk_level=chunk_level.capitalize(),
-                figure_marker=figure_marker,
-                content=chunk.get("content", ""),
-            )
+            content = chunk.get("content", "")
+            if content:
+                combined_content.append(content)
 
+        # Build figure marker
+        figure_marker = ""
+        if figure_refs:
+            figure_marker = f"\n*[References: {', '.join(sorted(figure_refs))}]*"
+
+        # Determine chunk level display (combine if multiple)
+        level_display = ", ".join(sorted(l.capitalize() for l in chunk_levels))
+
+        formatted = CONTEXT_CHUNK_TEMPLATE.format(
+            source_number=source_num,
+            document_title=clean_title,
+            section=section,
+            chunk_level=level_display,
+            figure_marker=figure_marker,
+            content="\n\n".join(combined_content),
+        )
+        formatted_parts.append(formatted)
+
+    # Format figure chunks (not grouped, each figure is unique)
+    for chunk in figure_chunks:
+        metadata = chunk.get("metadata", {})
+        formatted = FIGURE_CHUNK_TEMPLATE.format(
+            document_title=chunk.get("document_title", "Unknown Document"),
+            figure_number=metadata.get("figure_number", "?"),
+            caption=metadata.get("caption", ""),
+            description=chunk.get("content", ""),
+            figure_url=metadata.get("figure_url", ""),
+        )
         formatted_parts.append(formatted)
 
     return "\n".join(formatted_parts)
 
 
-def format_conversation_history(
-    messages: List[dict], max_turns: int = 5
-) -> str:
+def format_conversation_history(messages: List[dict], max_turns: int = 5) -> str:
     """
     Format conversation history for inclusion in prompt.
 

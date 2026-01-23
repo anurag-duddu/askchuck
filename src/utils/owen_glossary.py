@@ -62,7 +62,9 @@ OWEN_GLOSSARY = {
     },
     "Means/Ends Analysis": {
         "definition": "Process of naming unnamed nodes in an Information Structure by establishing what end the elements below are means to.",
-        "examples": ["Advise students and Network alumni are means to Building Professional Networks"],
+        "examples": [
+            "Advise students and Network alumni are means to Building Professional Networks"
+        ],
         "related": ["Information Structure", "Abstraction Ladder"],
     },
     "Structured Planning": {

@@ -110,7 +110,9 @@ Be concise but comprehensive. The description should enable someone to understan
 
             except Exception as e:
                 logger.error(f"Failed to describe figure {i + 1}/{len(figures)}: {e}")
-                figure["description"] = f"Figure {figure.get('figure_number', '')} - {figure.get('caption', '')}"
+                figure["description"] = (
+                    f"Figure {figure.get('figure_number', '')} - {figure.get('caption', '')}"
+                )
                 continue
 
         return figures

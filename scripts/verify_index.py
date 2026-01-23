@@ -156,7 +156,9 @@ def test_metadata_filtering(
 
         for match in matches[:2]:
             metadata = match.get("metadata", {})
-            logger.info(f"    - {metadata.get('chunk_id')} (level={metadata.get('level')})")
+            logger.info(
+                f"    - {metadata.get('chunk_id')} (level={metadata.get('level')})"
+            )
 
     except Exception as e:
         logger.error(f"  Filter test failed: {e}")

@@ -4,18 +4,44 @@ Orchestrates retrieval, prompt construction, and generation.
 """
 
 import logging
+import os
+import re
 import threading
 from difflib import SequenceMatcher
 from typing import Dict, Generator, List, Optional
 
 from groq import Groq
 
-from src.generation.prompts import build_full_prompt
+from src.generation.prompts import build_full_prompt, group_chunks_by_source
 from src.retrieval.retrieval_pipeline import (RetrievalPipeline,
                                               get_retrieval_pipeline)
 from src.utils.config import RAW_DIR, settings
 
 logger = logging.getLogger(__name__)
+
+# LangSmith tracing setup
+try:
+    from langsmith import traceable
+    from langsmith.run_helpers import get_current_run_tree
+
+    LANGSMITH_ENABLED = bool(settings.langchain_api_key)
+    if LANGSMITH_ENABLED:
+        # Ensure environment variables are set for LangSmith
+        os.environ["LANGCHAIN_TRACING_V2"] = "true"
+        os.environ["LANGCHAIN_PROJECT"] = settings.langchain_project
+        os.environ["LANGCHAIN_API_KEY"] = settings.langchain_api_key
+        logger.info("LangSmith tracing enabled for AskChuckRAG")
+except ImportError:
+    LANGSMITH_ENABLED = False
+
+    # Create no-op decorator if langsmith not installed
+    def traceable(*args, **kwargs):
+        def decorator(func):
+            return func
+
+        return decorator if not args else args[0]
+
+    logger.info("LangSmith not installed - tracing disabled")
 
 # Thread-safe singleton lock
 _rag_chain_lock = threading.Lock()
@@ -80,6 +106,7 @@ class AskChuckRAG:
             self._refresh_pdf_cache()
         return self._pdf_file_cache or []
 
+    @traceable(name="askchuck_query", run_type="chain")
     def query(
         self,
         question: str,
@@ -106,13 +133,24 @@ class AskChuckRAG:
         logger.info(f"Processing query: {question[:100]}...")
 
         # Step 1: Retrieve relevant chunks via PRD-05 pipeline
-        # Includes Pinecone hybrid search, parent-child expansion, Cohere reranking
-        all_chunks = self.retrieval.retrieve(
-            query=question,
-            top_k=top_k,
-            include_figures=include_figures,
-            expand_parents=True,  # Use hierarchical expansion from PRD-05
-        )
+        # Use retrieve_with_figures to get both text and figures separately
+        if include_figures:
+            retrieval_results = self.retrieval.retrieve_with_figures(
+                query=question,
+                text_k=top_k,
+                figure_k=3,  # Get up to 3 relevant figures
+            )
+            all_chunks = retrieval_results.get("text_chunks", [])
+            figure_chunks = retrieval_results.get("figure_chunks", [])
+            # Combine for context (figures added at end)
+            all_chunks = all_chunks + figure_chunks
+        else:
+            all_chunks = self.retrieval.retrieve(
+                query=question,
+                top_k=top_k,
+                include_figures=False,
+                expand_parents=True,
+            )
 
         if not all_chunks:
             logger.warning("No relevant chunks found")
@@ -143,24 +181,73 @@ class AskChuckRAG:
             "chunks_used": len(all_chunks),
         }
 
+    # Fallback models in order of preference (for rate limit handling)
+    # Note: Avoid Qwen for streaming as it outputs <think> tags
+    FALLBACK_MODELS = [
+        "llama-3.3-70b-versatile",  # Primary: best quality
+        "meta-llama/llama-4-scout-17b-16e-instruct",  # Fallback 1: newer Llama
+        "llama-3.1-8b-instant",  # Fallback 2: fast, high limits
+        "qwen/qwen3-32b",  # Fallback 3: good but has thinking tags
+    ]
+
+    def _clean_model_output(self, content: str) -> str:
+        """Clean up model output - remove thinking tags, artifacts, etc."""
+        if not content:
+            return content
+
+        # Remove <think>...</think> tags (used by Qwen and some other models)
+        content = re.sub(r"<think>.*?</think>", "", content, flags=re.DOTALL)
+
+        # Remove other common artifacts
+        content = re.sub(r"<\|.*?\|>", "", content)  # Special tokens
+
+        return content.strip()
+
+    @traceable(name="llm_generate", run_type="llm")
     def _generate(self, system_prompt: str, user_prompt: str) -> str:
-        """Generate response using Groq Llama 3.3 70B."""
-        try:
-            response = self.client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-                temperature=self.temperature,
-                max_tokens=self.max_tokens,
-            )
+        """Generate response with automatic model fallback on rate limits."""
+        # Build list of models to try (current model first, then fallbacks)
+        models_to_try = [self.model]
+        for fallback in self.FALLBACK_MODELS:
+            if fallback not in models_to_try:
+                models_to_try.append(fallback)
 
-            return response.choices[0].message.content
+        last_error = None
+        for model in models_to_try:
+            try:
+                logger.debug(f"Attempting generation with model: {model}")
+                response = self.client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                    temperature=self.temperature,
+                    max_tokens=self.max_tokens,
+                )
 
-        except Exception as e:
-            logger.error(f"Generation failed: {e}")
-            return f"I encountered an error generating a response. Please try again. (Error: {str(e)[:100]})"
+                if model != self.model:
+                    logger.info(f"Successfully used fallback model: {model}")
+
+                content = response.choices[0].message.content
+                # Clean up thinking tags from some models (e.g., Qwen)
+                content = self._clean_model_output(content)
+                return content
+
+            except Exception as e:
+                last_error = e
+                error_str = str(e).lower()
+                # Check if it's a rate limit error
+                if "429" in str(e) or "rate limit" in error_str:
+                    logger.warning(f"Rate limited on {model}, trying next fallback...")
+                    continue
+                else:
+                    # Non-rate-limit error, don't try fallbacks
+                    logger.error(f"Generation failed with {model}: {e}")
+                    break
+
+        logger.error(f"All models failed. Last error: {last_error}")
+        return f"I encountered an error generating a response. Please try again. (Error: {str(last_error)[:100]})"
 
     def stream_query(
         self,
@@ -204,26 +291,58 @@ class AskChuckRAG:
             conversation_history=conversation_history,
         )
 
-        # Stream generation
-        try:
-            stream = self.client.chat.completions.create(
-                model=self.model,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt},
-                ],
-                temperature=self.temperature,
-                max_tokens=self.max_tokens,
-                stream=True,
-            )
+        # Stream generation with fallback
+        models_to_try = [self.model]
+        for fallback in self.FALLBACK_MODELS:
+            if fallback not in models_to_try:
+                models_to_try.append(fallback)
 
-            for chunk in stream:
-                if chunk.choices[0].delta.content:
-                    yield {"type": "token", "content": chunk.choices[0].delta.content}
+        stream_success = False
+        for model in models_to_try:
+            try:
+                logger.debug(f"Attempting streaming with model: {model}")
+                stream = self.client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                    temperature=self.temperature,
+                    max_tokens=self.max_tokens,
+                    stream=True,
+                )
 
-        except Exception as e:
-            logger.error(f"Streaming failed: {e}")
-            yield {"type": "token", "content": f"\n\n[Error: {str(e)[:100]}]"}
+                if model != self.model:
+                    logger.info(f"Using fallback model for streaming: {model}")
+
+                for chunk in stream:
+                    if chunk.choices[0].delta.content:
+                        yield {
+                            "type": "token",
+                            "content": chunk.choices[0].delta.content,
+                        }
+
+                stream_success = True
+                break  # Success, exit the model loop
+
+            except Exception as e:
+                error_str = str(e).lower()
+                if "429" in str(e) or "rate limit" in error_str:
+                    logger.warning(f"Rate limited on {model}, trying next fallback...")
+                    continue
+                else:
+                    logger.error(f"Streaming failed with {model}: {e}")
+                    yield {"type": "token", "content": f"\n\n[Error: {str(e)[:100]}]"}
+                    stream_success = (
+                        True  # Don't try more models for non-rate-limit errors
+                    )
+                    break
+
+        if not stream_success:
+            yield {
+                "type": "token",
+                "content": "\n\n[Error: All models rate limited. Please try again later.]",
+            }
 
         # Yield metadata at the end
         figures = self._extract_display_figures(all_chunks)
@@ -258,19 +377,22 @@ class AskChuckRAG:
 
     def _extract_display_figures(self, all_chunks: List[dict]) -> List[dict]:
         """
-        Extract figures for display in the response (Cloudflare R2 URLs).
+        Extract figures for display in the response.
         Maximum 3 figures to prevent UI clutter.
         """
         figures = []
-        seen_urls = set()
+        seen_ids = set()
 
         for chunk in all_chunks:
             try:
                 if chunk.get("chunk_type") == "figure":
                     metadata = chunk.get("metadata") or {}
-                    url = metadata.get("figure_url", "")  # Cloudflare R2 URL
+                    chunk_id = chunk.get("chunk_id", "")
 
-                    if url and url not in seen_urls:
+                    if chunk_id and chunk_id not in seen_ids:
+                        # Build Supabase URL from chunk_id
+                        url = self._get_figure_url(chunk_id)
+
                         figures.append(
                             {
                                 "url": url,
@@ -280,7 +402,7 @@ class AskChuckRAG:
                                 "description": chunk.get("content", ""),
                             }
                         )
-                        seen_urls.add(url)
+                        seen_ids.add(chunk_id)
 
                         # Limit to 3 figures
                         if len(figures) >= 3:
@@ -290,6 +412,11 @@ class AskChuckRAG:
                 continue
 
         return figures
+
+    def _get_figure_url(self, figure_id: str) -> str:
+        """Build Supabase Storage URL for a figure."""
+        bucket = settings.supabase_storage_bucket
+        return f"{settings.supabase_url}/storage/v1/object/public/{bucket}/figures/{figure_id}.png"
 
     def _infer_pdf_filename(self, document_id: str, chunk_id: str) -> Optional[str]:
         """
@@ -351,6 +478,9 @@ class AskChuckRAG:
         """
         Build deduplicated list of sources in [Document, Section] format.
         Includes page number and PDF URL for navigation.
+
+        IMPORTANT: Uses the same grouping logic as format_context_chunks()
+        to ensure source numbers [1], [2], [3] match the LLM's citations.
         """
         try:
             from src.ingestion.pdf_uploader import get_pdf_uploader
@@ -361,50 +491,53 @@ class AskChuckRAG:
             pdf_uploader = None
 
         sources = []
-        seen = set()
 
-        for chunk in chunks:
+        # Filter to text chunks only (same as format_context_chunks)
+        text_chunks = [
+            c for c in chunks if isinstance(c, dict) and c.get("chunk_type") != "figure"
+        ]
+
+        # Use the same grouping function as prompts.py for consistency
+        grouped_sources = group_chunks_by_source(text_chunks)
+
+        for source_num, (doc_title, section), chunk_list in grouped_sources:
             try:
-                # Validate chunk is a dict
-                if not isinstance(chunk, dict):
-                    logger.warning(f"Skipping non-dict chunk: {type(chunk)}")
-                    continue
-
-                metadata = chunk.get("metadata")
+                # Use the first chunk for metadata (they share the same source)
+                first_chunk = chunk_list[0]
+                metadata = first_chunk.get("metadata")
                 if not isinstance(metadata, dict):
                     metadata = {}
 
-                doc_title = (
-                    chunk.get("document_title")
-                    or metadata.get("document_title")
-                    or "Unknown"
-                )
-                section = chunk.get("section") or metadata.get("source_section") or ""
-
-                # Handle page_start properly (0 is a valid page number)
-                page_start = metadata.get("page_start")
-                if page_start is None:
-                    page_start = chunk.get("page_start")
+                # Find the best page_start among all chunks in group (prefer earliest)
+                page_start = None
+                for chunk in chunk_list:
+                    chunk_meta = chunk.get("metadata", {})
+                    p = chunk_meta.get("page_start") or chunk.get("page_start")
+                    if p is not None:
+                        try:
+                            p = int(p)
+                            if page_start is None or p < page_start:
+                                page_start = p
+                        except (ValueError, TypeError):
+                            pass
                 if page_start is None:
                     page_start = 1
 
-                # Ensure page_start is an integer
-                try:
-                    page_start = int(page_start)
-                except (ValueError, TypeError):
-                    logger.warning(f"Invalid page_start value: {page_start}, using 1")
-                    page_start = 1
-
+                # Get PDF filename from first chunk
                 pdf_filename = (
-                    metadata.get("pdf_filename") or chunk.get("pdf_filename") or ""
+                    metadata.get("pdf_filename")
+                    or first_chunk.get("pdf_filename")
+                    or ""
                 )
 
                 # Fallback: try to infer PDF filename from document_id
                 if not pdf_filename:
                     document_id = (
-                        chunk.get("document_id") or metadata.get("document_id") or ""
+                        first_chunk.get("document_id")
+                        or metadata.get("document_id")
+                        or ""
                     )
-                    chunk_id = chunk.get("chunk_id", "")
+                    chunk_id = first_chunk.get("chunk_id", "")
                     try:
                         pdf_filename = (
                             self._infer_pdf_filename(document_id, chunk_id) or ""
@@ -415,46 +548,68 @@ class AskChuckRAG:
                         )
                         pdf_filename = ""
 
-                key = (doc_title, section)
+                # Build PDF URL with page anchor
+                pdf_url = ""
+                if pdf_filename and pdf_uploader:
+                    try:
+                        base_url = pdf_uploader.get_pdf_url(pdf_filename)
+                        if base_url:
+                            pdf_url = f"{base_url}#page={page_start}"
+                    except Exception as e:
+                        logger.warning(f"Failed to get PDF URL for {pdf_filename}: {e}")
 
-                if key not in seen:
-                    # Build PDF URL with page anchor
-                    pdf_url = ""
-                    if pdf_filename and pdf_uploader:
-                        try:
-                            base_url = pdf_uploader.get_pdf_url(pdf_filename)
-                            if base_url:
-                                pdf_url = f"{base_url}#page={page_start}"
-                        except Exception as e:
-                            logger.warning(
-                                f"Failed to get PDF URL for {pdf_filename}: {e}"
-                            )
+                # Clean up display string
+                section_clean = section.strip() if section else ""
+                if section_clean:
+                    display = f"[{doc_title}, {section_clean}]"
+                else:
+                    display = f"[{doc_title}]"
 
-                    # Clean up display string
-                    section_clean = section.strip() if section else ""
-                    if section_clean:
-                        display = f"[{doc_title}, {section_clean}]"
-                    else:
-                        display = f"[{doc_title}]"
+                # Extract highlight text from first chunk (best representative)
+                content = first_chunk.get("content", "") or ""
+                # Remove page markers and metadata artifacts
+                clean_content = re.sub(r"===\s*Page\s*\d+\s*===", "", content)
+                clean_content = re.sub(
+                    r"^\s*Institute of Design.*?TECHNOLOGY\s*",
+                    "",
+                    clean_content,
+                    flags=re.IGNORECASE,
+                )
+                clean_content = clean_content.strip()
+                # Get first ~15 meaningful words
+                words = clean_content.split()[:15]
+                highlight_text = " ".join(words)
+                if len(highlight_text) > 80:
+                    highlight_text = highlight_text[:80]
 
-                    sources.append(
-                        {
-                            "display": display,
-                            "document": doc_title,
-                            "section": section_clean,
-                            "chunk_id": chunk.get("chunk_id", ""),
-                            "chunk_level": chunk.get("chunk_level")
-                            or metadata.get("level")
-                            or "unknown",
-                            # Navigation fields
-                            "page_start": page_start,
-                            "pdf_url": pdf_url,
-                        }
+                # Collect chunk levels from all chunks in group
+                chunk_levels = set()
+                for chunk in chunk_list:
+                    level = (
+                        chunk.get("chunk_level")
+                        or chunk.get("metadata", {}).get("level")
+                        or "unknown"
                     )
-                    seen.add(key)
+                    chunk_levels.add(level)
+
+                sources.append(
+                    {
+                        "display": display,
+                        "document": doc_title,
+                        "section": section_clean,
+                        "chunk_id": first_chunk.get("chunk_id", ""),
+                        "chunk_level": ", ".join(sorted(chunk_levels)),
+                        # Navigation fields
+                        "page_start": page_start,
+                        "pdf_url": pdf_url,
+                        "highlight_text": highlight_text if highlight_text else None,
+                        # Source number for debugging (matches LLM citation)
+                        "source_number": source_num,
+                    }
+                )
 
             except Exception as e:
-                logger.error(f"Error processing chunk for sources: {e}")
+                logger.error(f"Error processing source group: {e}")
                 continue
 
         return sources

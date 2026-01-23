@@ -50,9 +50,7 @@ class DocumentIngestionPipeline:
 
         logger.info("Document ingestion pipeline initialized")
         logger.info(f"  Figures: {'disabled' if skip_figures else 'enabled'}")
-        logger.info(
-            f"  Descriptions: {'disabled' if skip_descriptions else 'enabled'}"
-        )
+        logger.info(f"  Descriptions: {'disabled' if skip_descriptions else 'enabled'}")
         logger.info(f"  R2 Upload: {'disabled' if skip_upload else 'enabled'}")
 
     def process_document(self, pdf_path: Path) -> dict:
