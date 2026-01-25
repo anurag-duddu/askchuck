@@ -15,6 +15,7 @@ pinecone>=5.0.0
 
 # Embeddings
 voyageai>=0.2.0
+langchain-voyageai>=0.1.0
 
 # Retrieval & Reranking
 cohere>=5.0.0

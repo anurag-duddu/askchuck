@@ -576,11 +576,10 @@ class AskChuckRAG:
                     flags=re.IGNORECASE,
                 )
                 clean_content = clean_content.strip()
-                # Get first ~15 meaningful words
-                words = clean_content.split()[:15]
-                highlight_text = " ".join(words)
-                if len(highlight_text) > 80:
-                    highlight_text = highlight_text[:80]
+                # Pass substantial chunk content for contiguous block highlighting
+                # Frontend will find this text block on the page and highlight it
+                # Limit to 500 chars to keep URL reasonable but enough for unique match
+                highlight_text = clean_content[:500].strip() if clean_content else ""
 
                 # Collect chunk levels from all chunks in group
                 chunk_levels = set()

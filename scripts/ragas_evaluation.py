@@ -73,21 +73,34 @@ def get_vision_llm_for_ragas():
     Get vision-capable LLM for multimodal RAGAS evaluation.
 
     Uses Groq's Llama 4 Scout model which supports vision.
+    Tries llm_factory first (better structured output), falls back to LangchainLLMWrapper.
     """
-    from langchain_groq import ChatGroq
-    from ragas.llms import LangchainLLMWrapper
-
     from src.utils.config import settings
 
-    # Use vision-capable model
-    vision_llm = ChatGroq(
-        model=settings.groq_vision_model,  # meta-llama/llama-4-scout-17b-16e-instruct
-        api_key=settings.groq_api_key,
-        temperature=0,
-    )
+    try:
+        # Try using llm_factory with Groq for better structured output handling
+        from groq import Groq
+        from ragas.llms import llm_factory
 
-    # Wrap for RAGAS compatibility
-    return LangchainLLMWrapper(vision_llm)
+        client = Groq(api_key=settings.groq_api_key)
+        return llm_factory(
+            settings.groq_vision_model,
+            provider="groq",
+            client=client,
+        )
+    except Exception as e:
+        logger.warning(f"llm_factory failed, falling back to LangchainLLMWrapper: {e}")
+
+        # Fallback to LangchainLLMWrapper
+        from langchain_groq import ChatGroq
+        from ragas.llms import LangchainLLMWrapper
+
+        vision_llm = ChatGroq(
+            model=settings.groq_vision_model,
+            api_key=settings.groq_api_key,
+            temperature=0,
+        )
+        return LangchainLLMWrapper(vision_llm)
 
 
 def get_embeddings_for_ragas():
@@ -205,10 +218,108 @@ async def evaluate_multimodal_relevance(
         result = await metric.single_turn_ascore(sample)
         return float(result)
     except Exception as e:
+        error_msg = str(e)
+
+        # Check if this is the known parsing error with Groq
+        if "StringIO" in error_msg or "parse" in error_msg.lower():
+            logger.warning(
+                "RAGAS parsing error with Groq vision model, using custom fallback evaluation"
+            )
+            return await _custom_multimodal_relevance(
+                question, answer, text_contexts, figure_urls
+            )
+
         logger.error(f"Multimodal relevance evaluation failed: {e}")
         import traceback
 
         traceback.print_exc()
+        return 0.0
+
+
+async def _custom_multimodal_relevance(
+    question: str,
+    answer: str,
+    text_contexts: List[str],
+    figure_urls: List[str],
+) -> float:
+    """
+    Custom multimodal relevance evaluation when RAGAS parsing fails.
+
+    Uses Groq's vision model directly with a structured prompt to evaluate
+    whether the answer aligns with the provided contexts and images.
+
+    Returns:
+        Relevance score (0.0 or 1.0)
+    """
+    from langchain_core.messages import HumanMessage
+    from langchain_groq import ChatGroq
+
+    from src.utils.config import settings
+
+    # Build the prompt with contexts
+    context_text = "\n\n".join(text_contexts[:3])  # Limit to avoid token overflow
+
+    prompt_content = []
+
+    # Add text instruction
+    prompt_content.append(
+        {
+            "type": "text",
+            "text": f"""Evaluate whether the following answer is relevant to the question and aligns with the provided context.
+
+Question: {question}
+
+Answer: {answer}
+
+Text Context:
+{context_text}
+
+The following images are also part of the context:
+""",
+        }
+    )
+
+    # Add figure URLs as images (up to 2 to avoid token limits)
+    for url in figure_urls[:2]:
+        if url.startswith("http"):
+            prompt_content.append(
+                {
+                    "type": "image_url",
+                    "image_url": {"url": url},
+                }
+            )
+
+    # Add final instruction
+    prompt_content.append(
+        {
+            "type": "text",
+            "text": """
+Based on the question, context, and images above, is the answer relevant and aligned with the provided materials?
+
+Respond with ONLY "relevant" or "not_relevant" (nothing else).""",
+        }
+    )
+
+    try:
+        # Use Groq's vision model directly
+        llm = ChatGroq(
+            model=settings.groq_vision_model,
+            api_key=settings.groq_api_key,
+            temperature=0,
+        )
+
+        message = HumanMessage(content=prompt_content)
+        response = await llm.ainvoke([message])
+
+        result_text = response.content.lower().strip()
+
+        if "relevant" in result_text and "not" not in result_text:
+            return 1.0
+        else:
+            return 0.0
+
+    except Exception as e:
+        logger.error(f"Custom multimodal evaluation failed: {e}")
         return 0.0
 
 
@@ -231,6 +342,7 @@ def run_multimodal_evaluation(
         Dictionary with multimodal relevance scores
     """
     import asyncio
+    import time
 
     logger.info(
         f"Running MultiModal Relevance evaluation on {len(questions)} questions..."
@@ -244,7 +356,15 @@ def run_multimodal_evaluation(
             try:
                 score = await evaluate_multimodal_relevance(q, a, texts, figs)
                 scores.append(score)
-                logger.debug(f"Question {i+1}: multimodal_relevance = {score}")
+                logger.info(
+                    f"Question {i+1}/{len(questions)}: multimodal_relevance = {score}"
+                )
+
+                # Add delay between evaluations to avoid Groq rate limits
+                # Groq free tier: 12K tokens/min
+                if i < len(questions) - 1:
+                    await asyncio.sleep(3)  # 3 second delay between requests
+
             except Exception as e:
                 logger.error(f"Error evaluating question {i+1}: {e}")
                 scores.append(0.0)
@@ -255,7 +375,7 @@ def run_multimodal_evaluation(
 
     avg_score = sum(scores) / len(scores) if scores else 0.0
 
-    logger.info(f"MultiModal Relevance: {avg_score:.3f}")
+    logger.info(f"MultiModal Relevance Average: {avg_score:.3f}")
 
     return {
         "multimodal_relevance": avg_score,
@@ -419,12 +539,16 @@ def load_golden_dataset() -> Dict:
         return json.load(f)
 
 
-def evaluate_from_dataset(sample_size: Optional[int] = None) -> Dict:
+def evaluate_from_dataset(
+    sample_size: Optional[int] = None,
+    include_multimodal: bool = False,
+) -> Dict:
     """
     Run evaluation using questions from the golden dataset.
 
     Args:
         sample_size: Number of questions to evaluate (None for all)
+        include_multimodal: Whether to run multimodal relevance evaluation
 
     Returns:
         Evaluation results
@@ -432,6 +556,7 @@ def evaluate_from_dataset(sample_size: Optional[int] = None) -> Dict:
     from tqdm import tqdm
 
     from src.generation.rag_chain import AskChuckRAG
+    from src.retrieval.retrieval_pipeline import get_retrieval_pipeline
 
     # Load dataset
     dataset = load_golden_dataset()
@@ -446,8 +571,9 @@ def evaluate_from_dataset(sample_size: Optional[int] = None) -> Dict:
 
     logger.info(f"Evaluating {len(questions)} questions from golden dataset")
 
-    # Initialize RAG chain
+    # Initialize RAG chain and retrieval
     rag = AskChuckRAG()
+    retrieval = get_retrieval_pipeline()
 
     # Collect data
     eval_data = {
@@ -455,6 +581,7 @@ def evaluate_from_dataset(sample_size: Optional[int] = None) -> Dict:
         "answer": [],
         "contexts": [],
         "ground_truth": [],
+        "figure_urls": [],
     }
 
     for q in tqdm(questions, desc="Querying RAG system"):
@@ -466,18 +593,27 @@ def evaluate_from_dataset(sample_size: Optional[int] = None) -> Dict:
                 top_k=5,
             )
 
+            # Get raw chunks with full content for RAGAS
+            raw_chunks = retrieval.retrieve(
+                query=q["question"], top_k=5, include_figures=False
+            )
+
+            # Extract full contexts from raw chunks
             contexts = [
-                source.get("content", source.get("text", ""))
-                for source in response.get("sources", [])
+                chunk.get("content", "") for chunk in raw_chunks if chunk.get("content")
             ]
 
             if not contexts:
                 contexts = ["No context retrieved"]
 
+            # Extract figure URLs for multimodal
+            figure_urls = extract_figure_urls(response)
+
             eval_data["question"].append(q["question"])
             eval_data["answer"].append(response["answer"])
             eval_data["contexts"].append(contexts)
             eval_data["ground_truth"].append(q["expected_answer"])
+            eval_data["figure_urls"].append(figure_urls)
 
         except Exception as e:
             logger.error(f"Error evaluating '{q['question'][:30]}...': {e}")
@@ -494,10 +630,27 @@ def evaluate_from_dataset(sample_size: Optional[int] = None) -> Dict:
         ground_truths=eval_data["ground_truth"],
     )
 
-    return {
+    result = {
         "num_questions": len(eval_data["question"]),
         "ragas_scores": scores,
     }
+
+    # Run multimodal evaluation if requested
+    if include_multimodal:
+        questions_with_figures = sum(1 for f in eval_data["figure_urls"] if f)
+        logger.info(
+            f"\nRunning MultiModal Relevance on {questions_with_figures} questions with figures..."
+        )
+
+        mm_results = run_multimodal_evaluation(
+            questions=eval_data["question"],
+            answers=eval_data["answer"],
+            text_contexts=eval_data["contexts"],
+            figure_urls_list=eval_data["figure_urls"],
+        )
+        result["multimodal_scores"] = mm_results
+
+    return result
 
 
 def quick_test(include_multimodal: bool = False) -> Dict:
@@ -658,10 +811,16 @@ def main():
             }
 
     elif args.sample:
-        results = evaluate_from_dataset(sample_size=args.sample)
+        results = evaluate_from_dataset(
+            sample_size=args.sample,
+            include_multimodal=args.multimodal,
+        )
 
     elif args.full:
-        results = evaluate_from_dataset(sample_size=None)
+        results = evaluate_from_dataset(
+            sample_size=None,
+            include_multimodal=args.multimodal,
+        )
 
     else:
         # Default: quick test
