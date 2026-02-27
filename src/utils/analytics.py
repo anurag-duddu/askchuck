@@ -38,6 +38,23 @@ def log_query(
         logger.warning(f"Failed to log query analytics: {e}")
 
 
+def upsert_user_stats(uid: str) -> None:
+    """Increment user total query count and update lastActiveAt (best-effort)."""
+    try:
+        from google.cloud.firestore import Increment
+
+        db = get_firestore_client()
+        db.collection("users").document(uid).set(
+            {
+                "totalQueryCount": Increment(1),
+                "lastActiveAt": datetime.now(timezone.utc),
+            },
+            merge=True,
+        )
+    except Exception as e:
+        logger.warning(f"Failed to update user stats: {e}")
+
+
 def log_daily_metrics(latency_ms: int, is_error: bool = False) -> None:
     """Increment daily system metrics (best-effort)."""
     try:

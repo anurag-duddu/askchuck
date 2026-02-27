@@ -17,7 +17,7 @@ from sse_starlette.sse import EventSourceResponse
 from src.api.auth import get_current_user
 from src.api.models import HealthResponse, QueryRequest, QueryResponse
 from src.generation.rag_chain import AskChuckRAG
-from src.utils.analytics import log_query
+from src.utils.analytics import log_daily_metrics, log_query, upsert_user_stats
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -124,6 +124,11 @@ async def query(
                 len(result.get("figures", [])),
             )
         )
+        asyncio.create_task(asyncio.to_thread(log_daily_metrics, latency_ms))
+        if current_user:
+            asyncio.create_task(
+                asyncio.to_thread(upsert_user_stats, current_user["uid"])
+            )
 
         return QueryResponse(**result)
 
@@ -194,6 +199,15 @@ async def stream_query(
                                 figures_count,
                             )
                         )
+                        asyncio.create_task(
+                            asyncio.to_thread(log_daily_metrics, latency_ms)
+                        )
+                        if current_user:
+                            asyncio.create_task(
+                                asyncio.to_thread(
+                                    upsert_user_stats, current_user["uid"]
+                                )
+                            )
 
             except Exception as e:
                 logger.error(f"Streaming error: {e}", exc_info=True)
