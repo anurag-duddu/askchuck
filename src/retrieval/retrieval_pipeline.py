@@ -7,8 +7,7 @@ import logging
 import os
 from typing import Dict, List, Optional
 
-from src.retrieval.pinecone_retriever import (PineconeHybridRetriever,
-                                              get_retriever)
+from src.retrieval.pinecone_retriever import PineconeHybridRetriever, get_retriever
 from src.retrieval.query_expansion import QueryExpander, get_query_expander
 from src.retrieval.reranker import CohereReranker, get_reranker
 from src.utils.config import settings
@@ -71,6 +70,7 @@ class RetrievalPipeline:
         self.query_expander = query_expander or get_query_expander()
         self.initial_k = initial_k
         self.final_k = final_k
+        self.relevance_threshold = 0.3  # Minimum Cohere rerank score for relevance
 
         logger.info("RetrievalPipeline initialized")
 
@@ -147,8 +147,23 @@ class RetrievalPipeline:
             results = candidates[:top_k]
             logger.info(f"Skipping rerank, returning top {len(results)}")
         else:
-            results = self.reranker.rerank(query, candidates, top_k)
-            logger.info(f"Reranked to top {len(results)} results")
+            reranked = self.reranker.rerank(query, candidates, top_k)
+
+            # Filter by relevance threshold to remove low-quality chunks
+            results = [
+                r
+                for r in reranked
+                if r.get("rerank_score", 0) >= self.relevance_threshold
+            ]
+
+            # Ensure at least 2 chunks for minimum context
+            if len(results) < 2 and len(reranked) >= 2:
+                results = reranked[:2]
+                logger.warning(f"Relevance threshold too strict, keeping top 2 results")
+
+            logger.info(
+                f"Reranked to {len(results)} results (after threshold filter, threshold={self.relevance_threshold})"
+            )
 
         # Enrich results with display-friendly format
         enriched_results = self._enrich_results(results)

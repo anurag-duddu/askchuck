@@ -13,8 +13,7 @@ from typing import Dict, Generator, List, Optional
 from groq import Groq
 
 from src.generation.prompts import build_full_prompt, group_chunks_by_source
-from src.retrieval.retrieval_pipeline import (RetrievalPipeline,
-                                              get_retrieval_pipeline)
+from src.retrieval.retrieval_pipeline import RetrievalPipeline, get_retrieval_pipeline
 from src.utils.config import RAW_DIR, settings
 
 logger = logging.getLogger(__name__)
@@ -139,6 +138,7 @@ class AskChuckRAG:
                 query=question,
                 text_k=top_k,
                 figure_k=3,  # Get up to 3 relevant figures
+                expand_query=True,  # Enable Owen terminology expansion
             )
             all_chunks = retrieval_results.get("text_chunks", [])
             figure_chunks = retrieval_results.get("figure_chunks", [])
@@ -150,6 +150,7 @@ class AskChuckRAG:
                 top_k=top_k,
                 include_figures=False,
                 expand_parents=True,
+                expand_query=True,  # Enable Owen terminology expansion
             )
 
         if not all_chunks:

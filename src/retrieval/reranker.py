@@ -54,9 +54,14 @@ class CohereReranker:
         documents = []
         for r in results:
             content = r.get("content", "")
-            # Truncate very long documents (Cohere has limits)
-            if len(content) > 4000:
-                content = content[:4000] + "..."
+            # Intelligent truncation: preserve beginning and end for context
+            if len(content) > 6000:  # Increased from 4000
+                # Take first 4000 chars + last 2000 chars with separator
+                content = (
+                    content[:4000]
+                    + "\n\n[...middle section truncated...]\n\n"
+                    + content[-2000:]
+                )
             documents.append(content)
 
         try:
