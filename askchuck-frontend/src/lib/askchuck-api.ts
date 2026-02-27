@@ -13,18 +13,26 @@ export interface StreamCallbacks {
   onError: (error: string) => void;
 }
 
+export interface StreamOptions {
+  authToken?: string;
+}
+
 /**
  * Stream a query to the FastAPI backend using Server-Sent Events
  */
 export async function streamQuery(
   request: QueryRequest,
-  callbacks: StreamCallbacks
+  callbacks: StreamCallbacks,
+  options?: StreamOptions
 ): Promise<void> {
   try {
     const response = await fetch(`${API_URL}/stream_query`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        ...(options?.authToken
+          ? { Authorization: `Bearer ${options.authToken}` }
+          : {}),
       },
       body: JSON.stringify(request),
     });

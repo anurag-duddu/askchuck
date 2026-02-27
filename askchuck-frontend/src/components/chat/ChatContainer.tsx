@@ -5,12 +5,27 @@ import { ChatMessage as ChatMessageType, Figure, Source } from "@/types/chat";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
 import { streamQuery } from "@/lib/askchuck-api";
+import { useAuth } from "@/contexts/AuthContext";
+import { useQueryLimit } from "@/hooks/useQueryLimit";
+import { LoginModal } from "@/components/auth/LoginModal";
 
 export function ChatContainer() {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [limitHit, setLimitHit] = useState(false);
+
+  const { user } = useAuth();
+  const { canQuery, increment } = useQueryLimit(user);
 
   const handleSendMessage = async (content: string) => {
+    // Gate anonymous users at the free query limit
+    if (!user && !canQuery) {
+      setLimitHit(true);
+      setShowLoginModal(true);
+      return;
+    }
+
     // Add user message immediately
     const userMessage: ChatMessageType = {
       id: Date.now().toString(),
@@ -36,8 +51,9 @@ export function ChatContainer() {
 
     setMessages((prev) => [...prev, assistantMessage]);
 
-    // Generate random session ID (will be replaced with Supabase session later)
-    const sessionId = localStorage.getItem("askchuck_session_id") ||
+    // Generate random session ID (will be replaced with Firestore session later)
+    const sessionId =
+      localStorage.getItem("askchuck_session_id") ||
       `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
     localStorage.setItem("askchuck_session_id", sessionId);
 
@@ -46,6 +62,14 @@ export function ChatContainer() {
       role: msg.role,
       content: msg.content,
     }));
+
+    // Increment anonymous query counter before streaming
+    if (!user) {
+      increment();
+    }
+
+    // Get auth token for authenticated users
+    const authToken = user ? await user.getIdToken() : undefined;
 
     // Stream response from backend
     try {
@@ -104,7 +128,8 @@ export function ChatContainer() {
             );
             setIsLoading(false);
           },
-        }
+        },
+        { authToken }
       );
     } catch (error) {
       console.error("Failed to send message:", error);
@@ -159,7 +184,7 @@ export function ChatContainer() {
                       className="px-6 py-4 text-left border border-border rounded-sm hover:border-primary hover:bg-accent/10 transition-all duration-300 group"
                     >
                       <span className="text-foreground group-hover:text-primary transition-colors">
-                        "{question}"
+                        &ldquo;{question}&rdquo;
                       </span>
                     </button>
                   ))}
@@ -178,6 +203,13 @@ export function ChatContainer() {
           </div>
         </div>
       </div>
+
+      {/* Login modal */}
+      <LoginModal
+        open={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        limitHit={limitHit}
+      />
     </div>
   );
 }
