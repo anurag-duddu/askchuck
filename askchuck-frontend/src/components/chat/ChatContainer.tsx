@@ -96,7 +96,7 @@ export function ChatContainer() {
                 msg.id === assistantId
                   ? {
                       ...msg,
-                      content: `Error: ${error}. Please make sure the FastAPI backend is running on localhost:8000.`,
+                      content: `Error: ${error}. The service may be temporarily unavailable — please try again in a moment.`,
                       isStreaming: false,
                     }
                   : msg
