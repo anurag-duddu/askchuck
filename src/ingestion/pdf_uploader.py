@@ -214,11 +214,6 @@ class FirebaseStoragePDFUploader:
         return url_mapping
 
 
-# Backwards compatibility alias — callers that imported SupabasePDFUploader
-# will continue to work without modification.
-SupabasePDFUploader = FirebaseStoragePDFUploader
-
-
 def get_pdf_uploader() -> FirebaseStoragePDFUploader:
     """
     Get or create the global PDF uploader instance (thread-safe).

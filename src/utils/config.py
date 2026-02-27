@@ -51,14 +51,6 @@ class Settings(BaseSettings):
     # Auth uses Application Default Credentials (ADC) — no key file needed on Cloud Run.
     firebase_storage_bucket: str = ""
 
-    # Supabase (DEPRECATED - retained only for storage migration script compatibility)
-    # These are no longer used by the figure/PDF uploaders.
-    supabase_url: str = ""
-    supabase_key: str = ""
-    supabase_anon_key: str = ""
-    supabase_storage_bucket: str = "askchuck-figures"  # DEPRECATED
-    supabase_pdf_bucket: str = "askchuck-pdfs"  # DEPRECATED
-
     # Cloudflare R2 (DEPRECATED - superseded by Firebase Storage)
     cloudflare_account_id: str = ""
     cloudflare_r2_access_key_id: str = ""
@@ -168,9 +160,6 @@ def verify_api_connections() -> dict:
         results["firebase_storage"] = (
             "⊘ Not configured (FIREBASE_STORAGE_BUCKET needed for figure/PDF storage)"
         )
-
-    # Supabase (DEPRECATED - no longer used for storage)
-    results["supabase"] = "⊘ DEPRECATED: Storage migrated to Firebase Storage"
 
     # Test Cloudflare R2 (DEPRECATED - kept for backwards compatibility)
     if settings.cloudflare_account_id and settings.cloudflare_r2_access_key_id:

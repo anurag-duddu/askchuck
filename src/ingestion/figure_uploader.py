@@ -101,7 +101,7 @@ class FirebaseStorageFigureUploader:
             figures: List of figure metadata dicts
 
         Returns:
-            Updated list with cloudflare_url and firebase_url populated
+            Updated list with firebase_url populated
         """
         if not self.enabled:
             logger.info(
@@ -118,23 +118,14 @@ class FirebaseStorageFigureUploader:
 
                 url = self.upload_figure(figure_path, figure_id)
 
-                # Keep cloudflare_url key for backwards compatibility with existing callers
-                figure["cloudflare_url"] = url
                 figure["firebase_url"] = url
 
             except Exception as e:
                 logger.error(f"Failed to upload figure {figure.get('figure_id')}: {e}")
-                figure["cloudflare_url"] = None
                 figure["firebase_url"] = None
                 continue
 
         return figures
-
-
-# Backwards compatibility aliases — callers that imported SupabaseFigureUploader
-# or R2Uploader will continue to work without modification.
-SupabaseFigureUploader = FirebaseStorageFigureUploader
-R2Uploader = FirebaseStorageFigureUploader
 
 
 def upload_figure(figure_path: str, figure_id: str) -> Optional[str]:
