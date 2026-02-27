@@ -22,21 +22,28 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Authenticate to Google Cloud
+        id: auth
         uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
 
-      - name: Build and Push to Artifact Registry
+      - name: Configure Docker for Artifact Registry
         run: |
-          gcloud builds submit \
-            --tag us-central1-docker.pkg.dev/askchuck/askchuck-backend/api:${{ github.sha }} \
-            --project=askchuck \
-            --timeout=20m \
-            --suppress-logs
+          gcloud auth configure-docker us-central1-docker.pkg.dev --quiet
+
+      - name: Build and Push Docker Image
+        run: |
+          docker build \
+            -t us-central1-docker.pkg.dev/askchuck/askchuck-backend/api:${{ github.sha }} \
+            -t us-central1-docker.pkg.dev/askchuck/askchuck-backend/api:latest \
+            .
+          docker push us-central1-docker.pkg.dev/askchuck/askchuck-backend/api:${{ github.sha }}
+          docker push us-central1-docker.pkg.dev/askchuck/askchuck-backend/api:latest
 
       - name: Deploy to Cloud Run
         run: |
