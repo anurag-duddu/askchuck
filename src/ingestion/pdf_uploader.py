@@ -1,5 +1,5 @@
 """
-PDF upload to Supabase Storage.
+PDF upload to Firebase Storage.
 Provides public URLs for source PDFs to enable citation navigation.
 """
 
@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Dict, Optional
 from urllib.parse import quote
 
-from supabase import Client, create_client
+from google.cloud import storage as gcs
 
 from src.utils.config import RAW_DIR, settings
 
@@ -18,54 +18,88 @@ logger = logging.getLogger(__name__)
 
 # Thread-safe singleton lock
 _pdf_uploader_lock = threading.Lock()
-_pdf_uploader: Optional["SupabasePDFUploader"] = None
+_pdf_uploader: Optional["FirebaseStoragePDFUploader"] = None
 
 # Maximum file size for upload (100MB)
 MAX_PDF_SIZE_MB = 100
 
 
-class SupabasePDFUploader:
+class FirebaseStoragePDFUploader:
     """
-    Uploads PDF documents to Supabase Storage for web access.
+    Uploads PDF documents to Firebase Storage for web access.
+    Uses Application Default Credentials (ADC) — works automatically on Cloud Run.
     Thread-safe singleton with retry logic and proper error handling.
     """
 
     def __init__(self):
-        """Initialize Supabase Storage client for PDFs."""
-        if not settings.supabase_url or not settings.supabase_key:
+        """Initialize Firebase Storage client for PDFs."""
+        if not settings.firebase_storage_bucket:
             logger.warning(
-                "Supabase credentials not configured - PDF uploader disabled"
+                "FIREBASE_STORAGE_BUCKET not configured - PDF uploader disabled"
             )
-            self.client = None
+            self.gcs_client = None
+            self.bucket = None
             self.enabled = False
             self.bucket_name = ""
             return
 
         try:
-            self.client: Client = create_client(
-                settings.supabase_url, settings.supabase_key
-            )
-            self.bucket_name = settings.supabase_pdf_bucket
+            # Uses Application Default Credentials automatically
+            self.gcs_client = gcs.Client()
+            self.bucket_name = settings.firebase_storage_bucket
+            self.bucket = self.gcs_client.bucket(self.bucket_name)
             self.enabled = True
             logger.info(
-                f"Supabase PDF uploader initialized for bucket: {self.bucket_name}"
+                f"Firebase Storage PDF uploader initialized for bucket: {self.bucket_name}"
             )
         except Exception as e:
             logger.error(
-                f"Failed to initialize Supabase client: {type(e).__name__}: {e}",
+                f"Failed to initialize Firebase Storage client: {type(e).__name__}: {e}",
                 exc_info=True,
             )
-            self.client = None
+            self.gcs_client = None
+            self.bucket = None
             self.enabled = False
             self.bucket_name = ""
 
     def _build_public_url(self, object_path: str) -> str:
-        """Build a properly encoded public URL for an object."""
-        return f"{settings.supabase_url}/storage/v1/object/public/{self.bucket_name}/{object_path}"
+        """Build a properly encoded public URL for an object in Firebase Storage."""
+        return f"https://storage.googleapis.com/{self.bucket_name}/{object_path}"
+
+    def get_pdf_url(self, filename: str) -> Optional[str]:
+        """
+        Get the public URL for a PDF by filename.
+
+        Args:
+            filename: PDF filename (e.g., "document.pdf")
+
+        Returns:
+            Public URL for the PDF, or None if uploader is not properly configured
+        """
+        if not self.enabled:
+            logger.debug(
+                f"PDF uploader not enabled, cannot generate URL for {filename}"
+            )
+            return None
+
+        if not self.bucket_name:
+            logger.error(
+                f"Missing Firebase Storage configuration: bucket={self.bucket_name}"
+            )
+            return None
+
+        if not filename or not filename.strip():
+            logger.warning("Empty filename provided to get_pdf_url")
+            return None
+
+        # URL-encode the filename for safe path construction
+        encoded_filename = quote(filename.strip(), safe="")
+        object_path = f"pdfs/{encoded_filename}"
+        return self._build_public_url(object_path)
 
     def upload_pdf(self, pdf_path: Path, max_retries: int = 3) -> Optional[str]:
         """
-        Upload a PDF to Supabase Storage and return its public URL.
+        Upload a PDF to Firebase Storage and return its public URL.
 
         Args:
             pdf_path: Path to the PDF file
@@ -75,7 +109,9 @@ class SupabasePDFUploader:
             Public URL if successful, None otherwise
         """
         if not self.enabled:
-            logger.debug(f"Supabase PDF uploader not enabled, skipping {pdf_path.name}")
+            logger.debug(
+                f"Firebase Storage PDF uploader not enabled, skipping {pdf_path.name}"
+            )
             return None
 
         # Validate file exists
@@ -102,27 +138,19 @@ class SupabasePDFUploader:
 
         # URL-encode the filename for safe path construction
         encoded_filename = quote(pdf_path.name, safe="")
-        object_path = f"documents/{encoded_filename}"
+        object_path = f"pdfs/{encoded_filename}"
 
         logger.debug(f"Starting upload of {pdf_path.name} ({file_size_mb:.2f}MB)")
         start_time = time.time()
-
-        try:
-            with open(pdf_path, "rb") as f:
-                file_content = f.read()
-        except (FileNotFoundError, PermissionError, OSError) as e:
-            logger.error(f"Failed to read PDF file {pdf_path}: {type(e).__name__}: {e}")
-            return None
 
         # Retry logic with exponential backoff
         last_error = None
         for attempt in range(max_retries):
             try:
-                self.client.storage.from_(self.bucket_name).upload(
-                    path=object_path,
-                    file=file_content,
-                    file_options={"content-type": "application/pdf", "upsert": "true"},
-                )
+                blob = self.bucket.blob(object_path)
+                blob.upload_from_filename(str(pdf_path), content_type="application/pdf")
+                # Make the object publicly readable
+                blob.make_public()
 
                 elapsed = time.time() - start_time
                 public_url = self._build_public_url(object_path)
@@ -185,39 +213,13 @@ class SupabasePDFUploader:
         )
         return url_mapping
 
-    def get_pdf_url(self, filename: str) -> Optional[str]:
-        """
-        Get the public URL for a PDF by filename.
 
-        Args:
-            filename: PDF filename (e.g., "document.pdf")
-
-        Returns:
-            Public URL for the PDF, or None if uploader is not properly configured
-        """
-        if not self.enabled:
-            logger.debug(
-                f"PDF uploader not enabled, cannot generate URL for {filename}"
-            )
-            return None
-
-        if not self.bucket_name or not settings.supabase_url:
-            logger.error(
-                f"Missing Supabase configuration: bucket={self.bucket_name}, url={settings.supabase_url}"
-            )
-            return None
-
-        if not filename or not filename.strip():
-            logger.warning("Empty filename provided to get_pdf_url")
-            return None
-
-        # URL encode the filename
-        encoded_filename = quote(filename.strip(), safe="")
-        object_path = f"documents/{encoded_filename}"
-        return self._build_public_url(object_path)
+# Backwards compatibility alias — callers that imported SupabasePDFUploader
+# will continue to work without modification.
+SupabasePDFUploader = FirebaseStoragePDFUploader
 
 
-def get_pdf_uploader() -> SupabasePDFUploader:
+def get_pdf_uploader() -> FirebaseStoragePDFUploader:
     """
     Get or create the global PDF uploader instance (thread-safe).
 
@@ -227,7 +229,7 @@ def get_pdf_uploader() -> SupabasePDFUploader:
     if _pdf_uploader is None:
         with _pdf_uploader_lock:
             if _pdf_uploader is None:
-                _pdf_uploader = SupabasePDFUploader()
+                _pdf_uploader = FirebaseStoragePDFUploader()
     return _pdf_uploader
 
 

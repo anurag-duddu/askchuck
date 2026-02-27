@@ -46,14 +46,20 @@ class Settings(BaseSettings):
     cohere_api_key: str
     cohere_rerank_model: str = "rerank-v3.0"
 
-    # Supabase (Storage for figures + future database)
+    # Firebase Storage (primary storage for figures and PDFs)
+    # Set FIREBASE_STORAGE_BUCKET to your bucket name, e.g. "askchuck.firebasestorage.app"
+    # Auth uses Application Default Credentials (ADC) — no key file needed on Cloud Run.
+    firebase_storage_bucket: str = ""
+
+    # Supabase (DEPRECATED - retained only for storage migration script compatibility)
+    # These are no longer used by the figure/PDF uploaders.
     supabase_url: str = ""
     supabase_key: str = ""
     supabase_anon_key: str = ""
-    supabase_storage_bucket: str = "askchuck-figures"
-    supabase_pdf_bucket: str = "askchuck-pdfs"
+    supabase_storage_bucket: str = "askchuck-figures"  # DEPRECATED
+    supabase_pdf_bucket: str = "askchuck-pdfs"  # DEPRECATED
 
-    # Cloudflare R2 (DEPRECATED - Using Supabase Storage instead)
+    # Cloudflare R2 (DEPRECATED - superseded by Firebase Storage)
     cloudflare_account_id: str = ""
     cloudflare_r2_access_key_id: str = ""
     cloudflare_r2_secret_access_key: str = ""
@@ -146,23 +152,29 @@ def verify_api_connections() -> dict:
     except Exception as e:
         results["cohere"] = f"✗ Error: {str(e)[:50]}"
 
-    # Test Supabase Storage - only if credentials are set
-    if settings.supabase_url and settings.supabase_key:
+    # Test Firebase Storage - only if bucket is configured
+    if settings.firebase_storage_bucket:
         try:
-            from supabase import create_client
+            from google.cloud import storage as gcs
 
-            client = create_client(settings.supabase_url, settings.supabase_key)
-            # List buckets to verify connection
-            client.storage.list_buckets()
-            results["supabase"] = "✓ Connected"
+            client = gcs.Client()
+            bucket = client.bucket(settings.firebase_storage_bucket)
+            # List a small number of blobs to verify access
+            next(iter(bucket.list_blobs(max_results=1)), None)
+            results["firebase_storage"] = "✓ Connected"
         except Exception as e:
-            results["supabase"] = f"✗ Error: {str(e)[:50]}"
+            results["firebase_storage"] = f"✗ Error: {str(e)[:50]}"
     else:
-        results["supabase"] = "⊘ Not configured (needed for figure storage)"
+        results["firebase_storage"] = (
+            "⊘ Not configured (FIREBASE_STORAGE_BUCKET needed for figure/PDF storage)"
+        )
+
+    # Supabase (DEPRECATED - no longer used for storage)
+    results["supabase"] = "⊘ DEPRECATED: Storage migrated to Firebase Storage"
 
     # Test Cloudflare R2 (DEPRECATED - kept for backwards compatibility)
     if settings.cloudflare_account_id and settings.cloudflare_r2_access_key_id:
-        results["cloudflare_r2"] = "⊘ DEPRECATED: Using Supabase Storage instead"
+        results["cloudflare_r2"] = "⊘ DEPRECATED: Using Firebase Storage instead"
     else:
         results["cloudflare_r2"] = "⊘ Not used (deprecated)"
 

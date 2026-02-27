@@ -415,9 +415,9 @@ class AskChuckRAG:
         return figures
 
     def _get_figure_url(self, figure_id: str) -> str:
-        """Build Supabase Storage URL for a figure."""
-        bucket = settings.supabase_storage_bucket
-        return f"{settings.supabase_url}/storage/v1/object/public/{bucket}/figures/{figure_id}.png"
+        """Build Firebase Storage public URL for a figure."""
+        bucket = settings.firebase_storage_bucket
+        return f"https://storage.googleapis.com/{bucket}/figures/{figure_id}.png"
 
     def _infer_pdf_filename(self, document_id: str, chunk_id: str) -> Optional[str]:
         """
