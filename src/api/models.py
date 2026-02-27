@@ -21,6 +21,7 @@ class QueryRequest(BaseModel):
     )
     include_figures: bool = Field(True, description="Whether to retrieve figures")
     top_k: int = Field(5, description="Number of chunks to retrieve", ge=1, le=20)
+    user_id: Optional[str] = None
 
 
 # Response models

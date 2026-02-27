@@ -63,10 +63,6 @@ class Settings(BaseSettings):
     langchain_project: str = "askchuck"
     langchain_endpoint: str = "https://api.smith.langchain.com"
 
-    # Clerk
-    clerk_publishable_key: str = ""
-    clerk_secret_key: str = ""
-
     # Application
     app_env: str = "development"
     debug: bool = True

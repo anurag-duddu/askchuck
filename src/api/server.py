@@ -3,17 +3,21 @@ FastAPI server for AskChuck RAG system.
 Exposes RAG chain via HTTP API with streaming support.
 """
 
+import asyncio
 import json
 import logging
-from typing import AsyncGenerator
+import time
+from typing import AsyncGenerator, Optional
 
-from fastapi import FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from sse_starlette.sse import EventSourceResponse
 
+from src.api.auth import get_current_user
 from src.api.models import HealthResponse, QueryRequest, QueryResponse
 from src.generation.rag_chain import AskChuckRAG
+from src.utils.analytics import log_query
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -82,12 +86,16 @@ async def health_check():
 
 
 @app.post("/query", response_model=QueryResponse)
-async def query(request: QueryRequest):
+async def query(
+    request: QueryRequest,
+    current_user: Optional[dict] = Depends(get_current_user),
+):
     """
     Non-streaming query endpoint.
 
     Processes a question and returns the complete response with sources and figures.
     """
+    start_time = time.time()
     try:
         logger.info(f"Processing query: {request.question[:100]}...")
 
@@ -102,6 +110,21 @@ async def query(request: QueryRequest):
             top_k=request.top_k,
         )
 
+        # Fire analytics (best-effort, non-blocking)
+        latency_ms = int((time.time() - start_time) * 1000)
+        asyncio.create_task(
+            asyncio.to_thread(
+                log_query,
+                current_user["uid"] if current_user else None,
+                request.session_id,
+                request.question,
+                latency_ms,
+                result.get("chunks_used", 0),
+                len(result.get("sources", [])),
+                len(result.get("figures", [])),
+            )
+        )
+
         return QueryResponse(**result)
 
     except Exception as e:
@@ -110,7 +133,10 @@ async def query(request: QueryRequest):
 
 
 @app.post("/stream_query")
-async def stream_query(request: QueryRequest):
+async def stream_query(
+    request: QueryRequest,
+    current_user: Optional[dict] = Depends(get_current_user),
+):
     """
     Streaming query endpoint using Server-Sent Events (SSE).
 
@@ -122,8 +148,14 @@ async def stream_query(request: QueryRequest):
         # Get RAG chain
         rag = get_rag_chain()
 
+        start_time = time.time()
+
         async def event_generator() -> AsyncGenerator[dict, None]:
             """Generate SSE events from RAG chain stream."""
+            chunks_used = 0
+            sources_count = 0
+            figures_count = 0
+
             try:
                 # Stream from RAG chain
                 for chunk in rag.stream_query(
@@ -132,11 +164,36 @@ async def stream_query(request: QueryRequest):
                     include_figures=request.include_figures,
                     top_k=request.top_k,
                 ):
+                    # Capture metadata counts from stream events
+                    chunk_type = chunk.get("type", "")
+                    if chunk_type == "sources":
+                        sources_count = len(chunk.get("sources", []))
+                    elif chunk_type == "chunk_ids":
+                        chunks_used = len(chunk.get("chunk_ids", []))
+                    elif chunk_type == "figures":
+                        figures_count = len(chunk.get("figures", []))
+
                     # Yield SSE event
                     yield {
-                        "event": chunk.get("type", "message"),
+                        "event": chunk_type or "message",
                         "data": json.dumps(chunk),
                     }
+
+                    # After the "done" event, fire analytics asynchronously
+                    if chunk_type == "done":
+                        latency_ms = int((time.time() - start_time) * 1000)
+                        asyncio.create_task(
+                            asyncio.to_thread(
+                                log_query,
+                                current_user["uid"] if current_user else None,
+                                request.session_id,
+                                request.question,
+                                latency_ms,
+                                chunks_used,
+                                sources_count,
+                                figures_count,
+                            )
+                        )
 
             except Exception as e:
                 logger.error(f"Streaming error: {e}", exc_info=True)
