@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { EB_Garamond, Crimson_Pro, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { SessionProvider } from "@/contexts/SessionContext";
 
 // Display font for headings - elegant serif
 const garamond = EB_Garamond({
@@ -39,7 +40,9 @@ export default function RootLayout({
       <body
         className={`${garamond.variable} ${crimson.variable} ${jetbrains.variable} antialiased`}
       >
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <SessionProvider>{children}</SessionProvider>
+        </AuthProvider>
       </body>
     </html>
   );

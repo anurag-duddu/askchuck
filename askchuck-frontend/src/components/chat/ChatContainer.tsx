@@ -1,12 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ChatMessage as ChatMessageType, Figure, Source } from "@/types/chat";
 import { MessageList } from "./MessageList";
 import { ChatInput } from "./ChatInput";
 import { streamQuery } from "@/lib/askchuck-api";
 import { useAuth } from "@/contexts/AuthContext";
 import { useQueryLimit } from "@/hooks/useQueryLimit";
+import { useSession } from "@/hooks/useSession";
 import { LoginModal } from "@/components/auth/LoginModal";
 
 export function ChatContainer() {
@@ -14,9 +15,45 @@ export function ChatContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [limitHit, setLimitHit] = useState(false);
+  const [activeSessionId, setActiveSessionId] = useState<string | null>(null);
+  const [showResumePrompt, setShowResumePrompt] = useState(false);
 
   const { user } = useAuth();
   const { canQuery, increment } = useQueryLimit(user);
+  const { sessions, createSession, saveMessage, loadSessionMessages } =
+    useSession();
+
+  // Track the previous user uid so we can detect login/logout transitions
+  const prevUserUid = useRef<string | null | undefined>(undefined);
+
+  useEffect(() => {
+    const previousUid = prevUserUid.current;
+    prevUserUid.current = user?.uid ?? null;
+
+    if (user) {
+      // User just logged in (was previously null/anonymous)
+      if (previousUid === null && sessions.length > 0 && messages.length === 0) {
+        setShowResumePrompt(true);
+      }
+    } else {
+      // User signed out — clear session state and messages
+      if (previousUid !== null && previousUid !== undefined) {
+        setActiveSessionId(null);
+        setMessages([]);
+        setShowResumePrompt(false);
+      }
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, sessions]);
+
+  const handleResumeSession = async () => {
+    if (!sessions[0]) return;
+    const sessionId = sessions[0].id;
+    const loaded = await loadSessionMessages(sessionId);
+    setMessages(loaded);
+    setActiveSessionId(sessionId);
+    setShowResumePrompt(false);
+  };
 
   const handleSendMessage = async (content: string) => {
     // Gate anonymous users at the free query limit
@@ -51,11 +88,26 @@ export function ChatContainer() {
 
     setMessages((prev) => [...prev, assistantMessage]);
 
-    // Generate random session ID (will be replaced with Firestore session later)
-    const sessionId =
-      localStorage.getItem("askchuck_session_id") ||
-      `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
-    localStorage.setItem("askchuck_session_id", sessionId);
+    // Resolve or create a session ID
+    let sessionId = activeSessionId;
+    if (user && !sessionId) {
+      // First message in a new session — create a Firestore session
+      sessionId = await createSession(content);
+      setActiveSessionId(sessionId);
+    } else if (!user) {
+      // Anonymous fallback: use localStorage-backed ephemeral session ID
+      sessionId =
+        localStorage.getItem("askchuck_session_id") ||
+        `session_${Date.now()}_${Math.random().toString(36).substring(7)}`;
+      localStorage.setItem("askchuck_session_id", sessionId);
+    }
+
+    // Persist user message for logged-in users
+    if (user && sessionId) {
+      saveMessage(sessionId, userMessage).catch((err) =>
+        console.error("Failed to save user message:", err)
+      );
+    }
 
     // Build conversation history from previous messages
     const conversationHistory = messages.map((msg) => ({
@@ -71,18 +123,24 @@ export function ChatContainer() {
     // Get auth token for authenticated users
     const authToken = user ? await user.getIdToken() : undefined;
 
+    // Capture the final assistant message after streaming so we can persist it
+    let finalContent = "";
+    let finalFigures: Figure[] = [];
+    let finalSources: Source[] = [];
+
     // Stream response from backend
     try {
       await streamQuery(
         {
           question: content,
-          session_id: sessionId,
+          session_id: sessionId ?? "",
           conversation_history: conversationHistory,
           include_figures: true,
           top_k: 5,
         },
         {
           onToken: (token: string) => {
+            finalContent += token;
             setMessages((prev) =>
               prev.map((msg) =>
                 msg.id === assistantId
@@ -92,6 +150,7 @@ export function ChatContainer() {
             );
           },
           onFigures: (figures: Figure[]) => {
+            finalFigures = figures;
             setMessages((prev) =>
               prev.map((msg) =>
                 msg.id === assistantId ? { ...msg, figures } : msg
@@ -99,6 +158,7 @@ export function ChatContainer() {
             );
           },
           onSources: (sources: Source[]) => {
+            finalSources = sources;
             setMessages((prev) =>
               prev.map((msg) =>
                 msg.id === assistantId ? { ...msg, sources } : msg
@@ -112,6 +172,22 @@ export function ChatContainer() {
               )
             );
             setIsLoading(false);
+
+            // Persist the completed assistant message for logged-in users
+            if (user && sessionId) {
+              const completedAssistantMessage: ChatMessageType = {
+                id: assistantId,
+                role: "assistant",
+                content: finalContent,
+                created_at: new Date().toISOString(),
+                figures: finalFigures,
+                sources: finalSources,
+                isStreaming: false,
+              };
+              saveMessage(sessionId, completedAssistantMessage).catch((err) =>
+                console.error("Failed to save assistant message:", err)
+              );
+            }
           },
           onError: (error: string) => {
             console.error("Streaming error:", error);
@@ -199,6 +275,31 @@ export function ChatContainer() {
         {/* Input area - Fixed at bottom */}
         <div className="border-t border-border bg-card">
           <div className="max-w-5xl mx-auto px-8 py-6">
+            {/* Resume conversation banner */}
+            {showResumePrompt && sessions[0] && (
+              <div className="mb-4 flex items-center justify-between px-4 py-3 bg-accent/20 border border-border rounded-sm text-sm">
+                <span className="text-muted-foreground">
+                  Resume your last conversation?{" "}
+                  <span className="text-foreground font-medium">
+                    &ldquo;{sessions[0].title}&rdquo;
+                  </span>
+                </span>
+                <div className="flex gap-3 ml-4 shrink-0">
+                  <button
+                    onClick={handleResumeSession}
+                    className="text-primary hover:underline"
+                  >
+                    Resume
+                  </button>
+                  <button
+                    onClick={() => setShowResumePrompt(false)}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            )}
             <ChatInput onSend={handleSendMessage} isLoading={isLoading} />
           </div>
         </div>
