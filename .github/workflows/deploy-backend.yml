@@ -8,6 +8,7 @@ on:
       - 'Dockerfile'
       - 'requirements.txt'
       - 'pyproject.toml'
+  workflow_dispatch:
 
 jobs:
   deploy:
