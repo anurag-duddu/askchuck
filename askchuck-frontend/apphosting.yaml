@@ -7,7 +7,7 @@ runConfig:
 
 env:
   - variable: NEXT_PUBLIC_API_URL
-    value: CLOUD_RUN_URL_PLACEHOLDER
+    value: https://askchuck-api-rj3nriizfq-uc.a.run.app
     availability:
       - BUILD
       - RUNTIME
