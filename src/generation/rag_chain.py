@@ -570,12 +570,30 @@ class AskChuckRAG:
                 content = first_chunk.get("content", "") or ""
                 # Remove page markers and metadata artifacts
                 clean_content = re.sub(r"===\s*Page\s*\d+\s*===", "", content)
+                # Remove standalone page numbers (e.g. "\n4\n" between page marker and header)
+                clean_content = re.sub(r"\n\d{1,3}\n", "\n", clean_content)
+                # Remove running page headers like "Charles L. Owen  Insight and Ideas"
+                # (lines that are very short or look like "Author  Title" patterns)
                 clean_content = re.sub(
-                    r"^\s*Institute of Design.*?TECHNOLOGY\s*",
+                    r"\nCharles L\. Owen\s+.*?\n", "\n", clean_content
+                )
+                # Remove Institute of Design footer anywhere in the text (not just at start)
+                clean_content = re.sub(
+                    r"\s*Institute of Design.*?(?:TECHNOLOGY|iit\.edu)[^\n]*",
                     "",
                     clean_content,
                     flags=re.IGNORECASE,
                 )
+                # Remove date artifacts like "February, 2008" or "March, 2005" etc.
+                clean_content = re.sub(
+                    r"\b(?:January|February|March|April|May|June|July|August|September|October|November|December),?\s+\d{4}\b",
+                    "",
+                    clean_content,
+                )
+                # Join soft-hyphenated line breaks so pdfjs text matches chunk text.
+                # PyMuPDF preserves "De-\nsign" as-is; pdfjs reconstructs to "Design".
+                # Joining them here makes highlight matching work correctly.
+                clean_content = re.sub(r"-\n", "", clean_content)
                 clean_content = clean_content.strip()
                 # Pass substantial chunk content for contiguous block highlighting
                 # Frontend will find this text block on the page and highlight it
