@@ -14,7 +14,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "*.supabase.co",
+        hostname: "storage.googleapis.com",
       },
     ],
     unoptimized: true, // For development - can be removed in production
