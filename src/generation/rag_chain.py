@@ -250,6 +250,7 @@ class AskChuckRAG:
         logger.error(f"All models failed. Last error: {last_error}")
         return f"I encountered an error generating a response. Please try again. (Error: {str(last_error)[:100]})"
 
+    @traceable(name="askchuck_stream_query", run_type="chain")
     def stream_query(
         self,
         question: str,
