@@ -5,6 +5,7 @@ import { Source } from "@/types/chat";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ChevronDown, ChevronUp, FileText, ExternalLink } from "lucide-react";
+import { logEvent } from "@/lib/analytics";
 
 interface SourceCitationsProps {
   sources: Source[];
@@ -85,6 +86,13 @@ export function SourceCitations({ sources }: SourceCitationsProps) {
     }
 
     try {
+      // Log citation click analytics (best-effort)
+      logEvent(null, null, 'citation_clicked', {
+        document: source.document,
+        page: source.page_start,
+        chunkId: source.chunk_id,
+      });
+
       // Extract base URL (remove #page=N fragment)
       const baseUrl = source.pdf_url.split("#")[0];
       const pageNumber = source.page_start ?? 1;

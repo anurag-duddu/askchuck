@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import * as pdfjsLib from "pdfjs-dist";
 import type { TextItem as PDFTextItem } from "pdfjs-dist/types/src/display/api";
+import { logEvent } from "@/lib/analytics";
 
 // Configure PDF.js worker from CDN
 pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
@@ -43,6 +44,11 @@ function PDFViewerContent() {
   const pageParam = searchParams.get("page");
   const highlightText = searchParams.get("highlight");
   const targetPage = pageParam ? parseInt(pageParam, 10) : 1;
+
+  // Log PDF open event on mount (best-effort)
+  useEffect(() => {
+    logEvent(null, null, 'pdf_opened', { url: pdfUrl, page: pageParam });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Load PDF
   useEffect(() => {

@@ -9,6 +9,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useQueryLimit } from "@/hooks/useQueryLimit";
 import { useSession } from "@/hooks/useSession";
 import { LoginModal } from "@/components/auth/LoginModal";
+import { logQuery, logEvent } from "@/lib/analytics";
 
 export function ChatContainer() {
   const [messages, setMessages] = useState<ChatMessageType[]>([]);
@@ -25,6 +26,7 @@ export function ChatContainer() {
 
   // Track the previous user uid so we can detect login/logout transitions
   const prevUserUid = useRef<string | null | undefined>(undefined);
+  const queryStartTime = useRef<number>(0);
 
   useEffect(() => {
     const previousUid = prevUserUid.current;
@@ -32,8 +34,11 @@ export function ChatContainer() {
 
     if (user) {
       // User just logged in (was previously null/anonymous)
-      if (previousUid === null && sessions.length > 0 && messages.length === 0) {
-        setShowResumePrompt(true);
+      if (previousUid === null) {
+        logEvent(user.uid, null, 'login');
+        if (sessions.length > 0 && messages.length === 0) {
+          setShowResumePrompt(true);
+        }
       }
     } else {
       // User signed out — clear session state and messages
@@ -62,6 +67,9 @@ export function ChatContainer() {
       setShowLoginModal(true);
       return;
     }
+
+    // Record query start time for latency tracking
+    queryStartTime.current = Date.now();
 
     // Add user message immediately
     const userMessage: ChatMessageType = {
@@ -172,6 +180,16 @@ export function ChatContainer() {
               )
             );
             setIsLoading(false);
+
+            // Log query analytics (best-effort)
+            logQuery(
+              user?.uid ?? null,
+              sessionId,
+              content,
+              Date.now() - queryStartTime.current,
+              finalSources.length,
+              finalFigures.length
+            );
 
             // Persist the completed assistant message for logged-in users
             if (user && sessionId) {
