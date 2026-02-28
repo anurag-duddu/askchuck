@@ -86,3 +86,6 @@ data/figures_test/
 .coverage
 htmlcov/
 .pytest_cache/
+
+# Worktrees
+.worktrees/
