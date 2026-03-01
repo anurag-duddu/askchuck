@@ -58,7 +58,7 @@ repos:
     hooks:
       - id: detect-secrets
         name: Detect secrets
-        args: []
+        args: ['--baseline', '.secrets.baseline']
         exclude: package.lock.json
         description: Scans for secrets, API keys, tokens, and credentials
 
