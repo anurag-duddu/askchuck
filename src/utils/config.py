@@ -66,6 +66,7 @@ class Settings(BaseSettings):
     # Application
     app_env: str = "development"
     debug: bool = True
+    allowed_origins: str = "*"
 
     # RAG Configuration (defaults, tunable in PRD-05)
     retrieval_top_k: int = 50

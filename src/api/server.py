@@ -18,6 +18,7 @@ from src.api.auth import get_current_user
 from src.api.models import HealthResponse, QueryRequest, QueryResponse
 from src.generation.rag_chain import AskChuckRAG
 from src.utils.analytics import log_daily_metrics, log_query, upsert_user_stats
+from src.utils.config import settings
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -31,9 +32,10 @@ app = FastAPI(
 )
 
 # Add CORS middleware
+_origins = [o.strip() for o in settings.allowed_origins.split(",") if o.strip()]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, specify frontend domain
+    allow_origins=_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

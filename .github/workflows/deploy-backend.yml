@@ -53,4 +53,4 @@ jobs:
             --region=us-central1 \
             --project=askchuck \
             --set-secrets="GROQ_API_KEY=GROQ_API_KEY:latest,VOYAGE_API_KEY=VOYAGE_API_KEY:latest,PINECONE_API_KEY=PINECONE_API_KEY:latest,COHERE_API_KEY=COHERE_API_KEY:latest,LANGCHAIN_API_KEY=LANGCHAIN_API_KEY:latest,LLAMACLOUD_API_KEY=LLAMACLOUD_API_KEY:latest" `# pragma: allowlist secret` \
-            --update-env-vars="PINECONE_ENVIRONMENT=us-east-1,PINECONE_INDEX_NAME=askchuck,FIREBASE_STORAGE_BUCKET=askchuck.appspot.com,LANGCHAIN_TRACING_V2=true,LANGCHAIN_PROJECT=askchuck,LANGCHAIN_ENDPOINT=https://api.smith.langchain.com,APP_ENV=production,DEBUG=false,ALLOWED_ORIGINS=*"
+            --update-env-vars="PINECONE_ENVIRONMENT=us-east-1,PINECONE_INDEX_NAME=askchuck,FIREBASE_STORAGE_BUCKET=askchuck.appspot.com,LANGCHAIN_TRACING_V2=true,LANGCHAIN_PROJECT=askchuck,LANGCHAIN_ENDPOINT=https://api.smith.langchain.com,APP_ENV=production,DEBUG=false,ALLOWED_ORIGINS=https://askchuck.web.app"
