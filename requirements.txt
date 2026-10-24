@@ -46,4 +46,4 @@ black>=24.0.0
 isort>=5.13.0
 
 # Additional dependencies
-groq>=0.4.0
+groq>=0.37.0  # reasoning_effort (gpt-oss models) needs a recent SDK

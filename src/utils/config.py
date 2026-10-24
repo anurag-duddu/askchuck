@@ -26,8 +26,13 @@ class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     # Groq
+    # Model IDs are retired by Groq from time to time (a retired ID returns 404
+    # model_not_found). Check https://console.groq.com/docs/models, and override
+    # via GROQ_MODEL / GROQ_FALLBACK_MODELS instead of editing code.
     groq_api_key: str
-    groq_model: str = "llama-3.3-70b-versatile"
+    groq_model: str = "openai/gpt-oss-120b"
+    # Comma-separated, tried in order when groq_model is rate limited or unavailable
+    groq_fallback_models: str = "openai/gpt-oss-20b,qwen/qwen3.8-27b"
     groq_vision_model: str = (
         "meta-llama/llama-4-scout-17b-16e-instruct"  # Updated from deprecated llama-3.2-90b-vision-preview
     )
@@ -79,10 +84,26 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = False
+        # .env carries keys for other tools/legacy services (e.g. SUPABASE_*, CLERK_*);
+        # without this, pydantic-settings refuses to start on any undeclared key.
+        extra = "ignore"
 
 
 # Global settings instance
 settings = Settings()
+
+
+def groq_chat_kwargs(model: str) -> dict:
+    """
+    Extra chat-completion parameters a given Groq model needs.
+
+    gpt-oss models reason before answering and the reasoning tokens count against
+    max_tokens, so a small budget can come back with empty content. "low" effort
+    keeps reasoning short enough for our token budgets.
+    """
+    if model.startswith("openai/gpt-oss"):
+        return {"reasoning_effort": "low"}
+    return {}
 
 
 def verify_api_connections() -> dict:
