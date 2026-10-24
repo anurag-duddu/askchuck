@@ -9,7 +9,7 @@ from typing import List
 
 from groq import Groq
 
-from src.utils.config import settings
+from src.utils.config import groq_chat_kwargs, settings
 
 logger = logging.getLogger(__name__)
 
@@ -137,11 +137,12 @@ Format: Just output the context sentences, no preamble."""
                 {"role": "system", "content": self.SYSTEM_PROMPT},
                 {"role": "user", "content": user_prompt},
             ],
-            max_tokens=150,
+            max_tokens=400,  # headroom for reasoning tokens on gpt-oss models
             temperature=0.3,
+            **groq_chat_kwargs(self.model),
         )
 
-        context = response.choices[0].message.content.strip()
+        context = (response.choices[0].message.content or "").strip()
 
         return context
 

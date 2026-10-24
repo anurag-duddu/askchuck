@@ -14,7 +14,7 @@ from groq import Groq
 
 from src.generation.prompts import build_full_prompt, group_chunks_by_source
 from src.retrieval.retrieval_pipeline import RetrievalPipeline, get_retrieval_pipeline
-from src.utils.config import RAW_DIR, settings
+from src.utils.config import RAW_DIR, groq_chat_kwargs, settings
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +46,52 @@ except ImportError:
 _rag_chain_lock = threading.Lock()
 _rag_chain: Optional["AskChuckRAG"] = None
 
+# gpt-oss models sometimes emit their native citation syntax (【1†L1-L9】, 【2】)
+# instead of the [1] format our prompt asks for, and the UI can't render it.
+_NATIVE_CITATION_RE = re.compile(r"【\s*(\d+)[^】]*】")
+
+
+class _CitationStreamFilter:
+    """
+    Rewrites native 【n†...】 citations to [n] in a token stream.
+
+    A citation can be split across tokens, so an unterminated 【... is held back
+    until its closing 】 arrives. Everything else passes straight through.
+    """
+
+    # Longer than any real citation: past this, a stray 【 isn't one, stop holding it
+    MAX_PENDING = 40
+
+    def __init__(self) -> None:
+        self._pending = ""
+
+    def feed(self, text: str) -> str:
+        buf = self._pending + text
+        self._pending = ""
+        out: List[str] = []
+        while buf:
+            start = buf.find("【")
+            if start == -1:
+                out.append(buf)
+                break
+            out.append(buf[:start])
+            end = buf.find("】", start)
+            if end == -1:
+                tail = buf[start:]
+                if len(tail) > self.MAX_PENDING:
+                    out.append(tail)
+                else:
+                    self._pending = tail
+                break
+            out.append(_NATIVE_CITATION_RE.sub(r"[\1]", buf[start : end + 1]))
+            buf = buf[end + 1 :]
+        return "".join(out)
+
+    def flush(self) -> str:
+        """Return anything still held back (call once the stream ends)."""
+        tail, self._pending = self._pending, ""
+        return tail
+
 
 class AskChuckRAG:
     """
@@ -54,29 +100,30 @@ class AskChuckRAG:
     Orchestrates the complete flow from question to answer:
     1. Retrieve relevant chunks using Pinecone hybrid search + reranking (PRD-05)
     2. Construct optimized prompt with context and history
-    3. Generate response using Groq Llama 3.3 70B
+    3. Generate response using the configured Groq model (settings.groq_model)
     4. Extract figures (Cloudflare R2 URLs) and format final response with chunk IDs
     """
 
     def __init__(
         self,
         retrieval_pipeline: Optional[RetrievalPipeline] = None,
-        model: str = "llama-3.3-70b-versatile",  # Llama 3.3 70B (128K context)
+        model: Optional[str] = None,
         temperature: float = 0.2,
-        max_tokens: int = 1500,
+        # gpt-oss reasoning tokens count against this budget, so leave headroom
+        max_tokens: int = 2048,
     ):
         """
         Initialize the RAG chain.
 
         Args:
             retrieval_pipeline: Pipeline for retrieving relevant chunks (PRD-05)
-            model: Groq model name (default: Llama 3.3 70B)
+            model: Groq model name (default: settings.groq_model / GROQ_MODEL)
             temperature: Generation temperature (lower = more focused)
             max_tokens: Maximum tokens in response
         """
         self.retrieval = retrieval_pipeline or get_retrieval_pipeline()
         self.client = Groq(api_key=settings.groq_api_key)
-        self.model = model
+        self.model = model or settings.groq_model
         self.temperature = temperature
         self.max_tokens = max_tokens
 
@@ -164,7 +211,7 @@ class AskChuckRAG:
             conversation_history=conversation_history,
         )
 
-        # Step 3: Generate response using Llama 3.3 70B
+        # Step 3: Generate response (with model fallback)
         answer = self._generate(system_prompt, user_prompt)
 
         # Step 4: Extract figures for display (Cloudflare R2 URLs)
@@ -182,14 +229,36 @@ class AskChuckRAG:
             "chunks_used": len(all_chunks),
         }
 
-    # Fallback models in order of preference (for rate limit handling)
-    # Note: Avoid Qwen for streaming as it outputs <think> tags
-    FALLBACK_MODELS = [
-        "llama-3.3-70b-versatile",  # Primary: best quality
-        "meta-llama/llama-4-scout-17b-16e-instruct",  # Fallback 1: newer Llama
-        "llama-3.1-8b-instant",  # Fallback 2: fast, high limits
-        "qwen/qwen3-32b",  # Fallback 3: good but has thinking tags
-    ]
+    def _models_to_try(self) -> List[str]:
+        """Primary model first, then settings.groq_fallback_models (deduplicated)."""
+        fallbacks = [
+            m.strip() for m in settings.groq_fallback_models.split(",") if m.strip()
+        ]
+        models = [self.model]
+        models.extend(m for m in fallbacks if m not in models)
+        return models
+
+    @staticmethod
+    def _should_try_next_model(error: Exception) -> bool:
+        """
+        Whether an error means "this model can't serve us right now".
+
+        Covers transient rate limits (429) and permanent unavailability (404
+        model_not_found / decommissioned), so retiring a model on Groq's side
+        degrades to a fallback instead of failing every request.
+        """
+        text = str(error).lower()
+        return any(
+            marker in text
+            for marker in (
+                "429",
+                "rate limit",
+                "404",
+                "model_not_found",
+                "does not exist",
+                "decommissioned",
+            )
+        )
 
     def _clean_model_output(self, content: str) -> str:
         """Clean up model output - remove thinking tags, artifacts, etc."""
@@ -202,19 +271,16 @@ class AskChuckRAG:
         # Remove other common artifacts
         content = re.sub(r"<\|.*?\|>", "", content)  # Special tokens
 
+        # Normalize gpt-oss native citations to the [n] format
+        content = _NATIVE_CITATION_RE.sub(r"[\1]", content)
+
         return content.strip()
 
     @traceable(name="llm_generate", run_type="llm")
     def _generate(self, system_prompt: str, user_prompt: str) -> str:
-        """Generate response with automatic model fallback on rate limits."""
-        # Build list of models to try (current model first, then fallbacks)
-        models_to_try = [self.model]
-        for fallback in self.FALLBACK_MODELS:
-            if fallback not in models_to_try:
-                models_to_try.append(fallback)
-
+        """Generate response with automatic model fallback (rate limit / model gone)."""
         last_error = None
-        for model in models_to_try:
+        for model in self._models_to_try():
             try:
                 logger.debug(f"Attempting generation with model: {model}")
                 response = self.client.chat.completions.create(
@@ -225,25 +291,33 @@ class AskChuckRAG:
                     ],
                     temperature=self.temperature,
                     max_tokens=self.max_tokens,
+                    **groq_chat_kwargs(model),
                 )
+
+                # Clean up thinking tags from some models (e.g., Qwen)
+                content = self._clean_model_output(response.choices[0].message.content)
+                if not content:
+                    # Reasoning models can exhaust max_tokens before emitting any answer
+                    last_error = RuntimeError(
+                        f"{model} returned empty content "
+                        f"(finish_reason={response.choices[0].finish_reason})"
+                    )
+                    logger.warning(f"{last_error}, trying next fallback...")
+                    continue
 
                 if model != self.model:
                     logger.info(f"Successfully used fallback model: {model}")
-
-                content = response.choices[0].message.content
-                # Clean up thinking tags from some models (e.g., Qwen)
-                content = self._clean_model_output(content)
                 return content
 
             except Exception as e:
                 last_error = e
-                error_str = str(e).lower()
-                # Check if it's a rate limit error
-                if "429" in str(e) or "rate limit" in error_str:
-                    logger.warning(f"Rate limited on {model}, trying next fallback...")
+                if self._should_try_next_model(e):
+                    logger.warning(
+                        f"{model} unavailable ({str(e)[:120]}), trying next fallback..."
+                    )
                     continue
                 else:
-                    # Non-rate-limit error, don't try fallbacks
+                    # Other errors (bad key, malformed request) won't be fixed by another model
                     logger.error(f"Generation failed with {model}: {e}")
                     break
 
@@ -294,13 +368,8 @@ class AskChuckRAG:
         )
 
         # Stream generation with fallback
-        models_to_try = [self.model]
-        for fallback in self.FALLBACK_MODELS:
-            if fallback not in models_to_try:
-                models_to_try.append(fallback)
-
         stream_success = False
-        for model in models_to_try:
+        for model in self._models_to_try():
             try:
                 logger.debug(f"Attempting streaming with model: {model}")
                 stream = self.client.chat.completions.create(
@@ -312,25 +381,41 @@ class AskChuckRAG:
                     temperature=self.temperature,
                     max_tokens=self.max_tokens,
                     stream=True,
+                    **groq_chat_kwargs(model),
                 )
 
                 if model != self.model:
                     logger.info(f"Using fallback model for streaming: {model}")
 
+                tokens_yielded = False
+                citations = _CitationStreamFilter()
                 for chunk in stream:
-                    if chunk.choices[0].delta.content:
-                        yield {
-                            "type": "token",
-                            "content": chunk.choices[0].delta.content,
-                        }
+                    # Some chunks (e.g. usage-only) carry no choices
+                    if chunk.choices and chunk.choices[0].delta.content:
+                        tokens_yielded = True
+                        text = citations.feed(chunk.choices[0].delta.content)
+                        if text:  # empty while a citation is still being assembled
+                            yield {"type": "token", "content": text}
+
+                leftover = citations.flush()
+                if leftover:
+                    yield {"type": "token", "content": leftover}
+
+                if not tokens_yielded:
+                    # Reasoning models can exhaust max_tokens before emitting any answer
+                    logger.warning(
+                        f"{model} streamed no content, trying next fallback..."
+                    )
+                    continue
 
                 stream_success = True
                 break  # Success, exit the model loop
 
             except Exception as e:
-                error_str = str(e).lower()
-                if "429" in str(e) or "rate limit" in error_str:
-                    logger.warning(f"Rate limited on {model}, trying next fallback...")
+                if self._should_try_next_model(e):
+                    logger.warning(
+                        f"{model} unavailable ({str(e)[:120]}), trying next fallback..."
+                    )
                     continue
                 else:
                     logger.error(f"Streaming failed with {model}: {e}")
@@ -343,7 +428,7 @@ class AskChuckRAG:
         if not stream_success:
             yield {
                 "type": "token",
-                "content": "\n\n[Error: All models rate limited. Please try again later.]",
+                "content": "\n\n[Error: No language model is available right now. Please try again later.]",
             }
 
         # Yield metadata at the end

@@ -8,7 +8,7 @@ from typing import Optional
 
 from groq import Groq
 
-from src.utils.config import settings
+from src.utils.config import groq_chat_kwargs, settings
 from src.utils.owen_glossary import OWEN_GLOSSARY
 
 logger = logging.getLogger(__name__)
@@ -25,7 +25,7 @@ class QueryExpander:
     def __init__(self):
         """Initialize the query expander."""
         self.client = Groq(api_key=settings.groq_api_key)
-        self.model = settings.groq_model  # llama-3.3-70b-versatile
+        self.model = settings.groq_model
 
     def expand_query(self, query: str, max_expansions: int = 3) -> str:
         """
@@ -65,10 +65,11 @@ Related terms:"""
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.0,
-                max_tokens=50,
+                max_tokens=200,  # headroom for reasoning tokens on gpt-oss models
+                **groq_chat_kwargs(self.model),
             )
 
-            expansion_text = response.choices[0].message.content.strip()
+            expansion_text = (response.choices[0].message.content or "").strip()
 
             if expansion_text == "NONE" or not expansion_text:
                 logger.debug(f"No expansion terms found for: {query}")
