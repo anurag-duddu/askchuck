@@ -46,6 +46,16 @@ except ImportError:
 _rag_chain_lock = threading.Lock()
 _rag_chain: Optional["AskChuckRAG"] = None
 
+# Sent to visitors when no model could answer. They travel as an SSE "error"
+# event rather than answer text so the UI shows a failure (not a fake answer
+# with sources) and can give the visitor their free question back.
+RATE_LIMITED_MESSAGE = (
+    "AskChuck is getting a lot of questions right now. Please try again in a minute."
+)
+GENERATION_FAILED_MESSAGE = (
+    "AskChuck couldn't generate an answer right now. Please try again in a moment."
+)
+
 # gpt-oss models sometimes emit their native citation syntax (【1†L1-L9】, 【2】,
 # 【Figure 3】) instead of the plain [1] format our prompt asks for, and the UI
 # can't render it.
@@ -281,6 +291,15 @@ class AskChuckRAG:
             )
         )
 
+    @staticmethod
+    def _is_rate_limit(error: Exception) -> bool:
+        """Whether an error is Groq's per-model rate limit (HTTP 429)."""
+        status = getattr(error, "status_code", None)
+        if status is not None:
+            return status == 429
+        text = str(error).lower()
+        return "429" in text or "rate limit" in text
+
     def _clean_model_output(self, content: str) -> str:
         """Clean up model output - remove thinking tags, artifacts, etc."""
         if not content:
@@ -362,6 +381,8 @@ class AskChuckRAG:
         - {"type": "sources", "sources": [...]} at the end
         - {"type": "chunk_ids", "chunk_ids": [...]} at the end
         - {"type": "done"} when complete
+        - {"type": "error", "error": "..."} instead of the above when no model
+          could answer (visitor-safe message; the stream ends there)
         """
         logger.info(f"Streaming query: {question[:100]}...")
 
@@ -390,6 +411,7 @@ class AskChuckRAG:
 
         # Stream generation with fallback
         stream_success = False
+        all_rate_limited = True  # stays True only while every failure is a 429
         for model in self._models_to_try():
             try:
                 logger.debug(f"Attempting streaming with model: {model}")
@@ -424,6 +446,7 @@ class AskChuckRAG:
 
                 if not tokens_yielded:
                     # Reasoning models can exhaust max_tokens before emitting any answer
+                    all_rate_limited = False
                     logger.warning(
                         f"{model} streamed no content, trying next fallback..."
                     )
@@ -434,23 +457,29 @@ class AskChuckRAG:
 
             except Exception as e:
                 if self._should_try_next_model(e):
+                    all_rate_limited = all_rate_limited and self._is_rate_limit(e)
                     logger.warning(
                         f"{model} unavailable ({str(e)[:120]}), trying next fallback..."
                     )
                     continue
                 else:
+                    # Other errors (bad key, malformed request) won't be fixed by another model
                     logger.error(f"Streaming failed with {model}: {e}")
-                    yield {"type": "token", "content": f"\n\n[Error: {str(e)[:100]}]"}
-                    stream_success = (
-                        True  # Don't try more models for non-rate-limit errors
-                    )
+                    all_rate_limited = False
                     break
 
         if not stream_success:
-            yield {
-                "type": "token",
-                "content": "\n\n[Error: No language model is available right now. Please try again later.]",
-            }
+            # The HTTP response is still 200, so this ERROR line is the only
+            # server-side signal that a visitor got no answer.
+            logger.error(
+                "No model could stream an answer "
+                f"({'all rate limited' if all_rate_limited else 'see warnings above'})"
+            )
+            message = (
+                RATE_LIMITED_MESSAGE if all_rate_limited else GENERATION_FAILED_MESSAGE
+            )
+            yield {"type": "error", "error": message}
+            return
 
         # Yield metadata at the end
         figures = self._extract_display_figures(all_chunks)

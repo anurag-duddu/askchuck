@@ -156,6 +156,99 @@ def test_stream_query_falls_back_when_model_is_retired(rag, monkeypatch):
     assert rag.client.models_called == ["primary", "backup1"]
 
 
+def _prepare_stream(rag, monkeypatch, script):
+    monkeypatch.setattr(
+        rag_chain_module, "build_full_prompt", lambda **_: ("sys", "user")
+    )
+    rag.retrieval = SimpleNamespace(retrieve=lambda **_: [{"chunk_id": "c1"}])
+    rag._build_sources_list = lambda chunks: []
+    rag._extract_display_figures = lambda chunks: []
+    rag.client = FakeGroq(script)
+
+
+def test_stream_query_errors_instead_of_faking_an_answer_when_all_rate_limited(
+    rag, monkeypatch
+):
+    _prepare_stream(
+        rag,
+        monkeypatch,
+        {"primary": RATE_LIMITED, "backup1": StatusError(429), "backup2": RATE_LIMITED},
+    )
+
+    events = list(rag.stream_query("q"))
+
+    # One terminal error event: no answer text, sources or "done" that the UI
+    # could mistake for a real answer (and charge the visitor a question for)
+    assert events == [{"type": "error", "error": rag_chain_module.RATE_LIMITED_MESSAGE}]
+    assert rag.client.models_called == ["primary", "backup1", "backup2"]
+
+
+def test_stream_query_does_not_say_busy_when_models_are_gone(rag, monkeypatch):
+    # Waiting a minute won't bring back a retired model
+    _prepare_stream(
+        rag,
+        monkeypatch,
+        {"primary": NOT_FOUND, "backup1": RATE_LIMITED, "backup2": NOT_FOUND},
+    )
+
+    events = list(rag.stream_query("q"))
+
+    assert events == [
+        {"type": "error", "error": rag_chain_module.GENERATION_FAILED_MESSAGE}
+    ]
+
+
+def test_stream_query_hides_provider_details_on_auth_error(rag, monkeypatch):
+    _prepare_stream(rag, monkeypatch, {"primary": BAD_KEY})
+
+    events = list(rag.stream_query("q"))
+
+    assert events == [
+        {"type": "error", "error": rag_chain_module.GENERATION_FAILED_MESSAGE}
+    ]
+    assert "401" not in events[0]["error"]
+    assert rag.client.models_called == ["primary"]  # another model can't fix a bad key
+
+
+def test_stream_query_errors_when_every_model_streams_nothing(rag, monkeypatch):
+    _prepare_stream(
+        rag,
+        monkeypatch,
+        {"primary": _stream(), "backup1": _stream(), "backup2": _stream()},
+    )
+
+    events = list(rag.stream_query("q"))
+
+    assert events == [
+        {"type": "error", "error": rag_chain_module.GENERATION_FAILED_MESSAGE}
+    ]
+
+
+def test_stream_query_success_has_no_error_event(rag, monkeypatch):
+    _prepare_stream(
+        rag, monkeypatch, {"primary": RATE_LIMITED, "backup1": _stream("ok")}
+    )
+
+    events = list(rag.stream_query("q"))
+
+    assert all(e["type"] != "error" for e in events)
+    assert events[-1] == {"type": "done"}
+
+
+@pytest.mark.parametrize(
+    "error, expected",
+    [
+        (StatusError(429), True),
+        (RATE_LIMITED, True),
+        (StatusError(404), False),
+        (NOT_FOUND, False),
+        (BAD_KEY, False),
+    ],
+)
+def test_is_rate_limit(error, expected):
+    assert AskChuckRAG._is_rate_limit(error) is expected
+
+
 def test_clean_model_output_rewrites_native_citations(rag):
     raw = "Design Factors record insight 【1†L1-L9】 and speculation 【2】."
     assert rag._clean_model_output(raw) == (

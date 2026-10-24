@@ -12,6 +12,8 @@ interface QueryLimitResult {
   queriesUsed: number;
   queriesLeft: number;
   increment: () => void;
+  // Give back a question that produced no answer
+  refund: () => void;
   reset: () => void;
 }
 
@@ -35,6 +37,15 @@ export function useQueryLimit(user: User | null): QueryLimitResult {
     });
   }, []);
 
+  const refund = useCallback(() => {
+    if (typeof window === "undefined") return;
+    setQueriesUsed((prev) => {
+      const next = Math.max(0, prev - 1);
+      localStorage.setItem(STORAGE_KEY, String(next));
+      return next;
+    });
+  }, []);
+
   const reset = useCallback(() => {
     if (typeof window === "undefined") return;
     localStorage.removeItem(STORAGE_KEY);
@@ -48,6 +59,7 @@ export function useQueryLimit(user: User | null): QueryLimitResult {
       queriesUsed,
       queriesLeft: Infinity,
       increment,
+      refund,
       reset,
     };
   }
@@ -59,6 +71,7 @@ export function useQueryLimit(user: User | null): QueryLimitResult {
     queriesUsed,
     queriesLeft,
     increment,
+    refund,
     reset,
   };
 }
