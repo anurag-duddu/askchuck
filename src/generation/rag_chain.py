@@ -14,7 +14,12 @@ from groq import APIConnectionError, Groq
 
 from src.generation.prompts import build_full_prompt, group_chunks_by_source
 from src.retrieval.retrieval_pipeline import RetrievalPipeline, get_retrieval_pipeline
-from src.utils.config import RAW_DIR, groq_chat_kwargs, settings
+from src.utils.config import (
+    RAW_DIR,
+    configured_groq_chat_models,
+    groq_chat_kwargs,
+    settings,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -255,12 +260,7 @@ class AskChuckRAG:
 
     def _models_to_try(self) -> List[str]:
         """Primary model first, then settings.groq_fallback_models (deduplicated)."""
-        fallbacks = [
-            m.strip() for m in settings.groq_fallback_models.split(",") if m.strip()
-        ]
-        models = [self.model]
-        models.extend(m for m in fallbacks if m not in models)
-        return models
+        return configured_groq_chat_models(self.model)
 
     @staticmethod
     def _should_try_next_model(error: Exception) -> bool:
