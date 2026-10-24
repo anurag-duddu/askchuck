@@ -5,11 +5,17 @@ import { Figure, Source } from "@/types/chat";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+// Shown when the request itself fails (network down, non-2xx). Technical detail
+// goes to the console, not the visitor.
+const SERVICE_UNAVAILABLE_MESSAGE =
+  "AskChuck couldn't be reached right now. Please try again in a moment.";
+
 export interface StreamCallbacks {
   onToken: (token: string) => void;
   onFigures: (figures: Figure[]) => void;
   onSources: (sources: Source[]) => void;
   onDone: () => void;
+  // Always receives a message that is safe to show the visitor as-is
   onError: (error: string) => void;
 }
 
@@ -98,7 +104,7 @@ export async function streamQuery(
                 return; // Exit the loop
 
               case "error":
-                callbacks.onError(data.error || "Unknown error");
+                callbacks.onError(data.error || SERVICE_UNAVAILABLE_MESSAGE);
                 return; // Exit on error
             }
 
@@ -115,7 +121,7 @@ export async function streamQuery(
     callbacks.onDone();
   } catch (error) {
     console.error("Stream error:", error);
-    callbacks.onError(error instanceof Error ? error.message : "Unknown error");
+    callbacks.onError(SERVICE_UNAVAILABLE_MESSAGE);
   }
 }
 

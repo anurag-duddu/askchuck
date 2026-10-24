@@ -16,7 +16,7 @@ from sse_starlette.sse import EventSourceResponse
 
 from src.api.auth import get_current_user
 from src.api.models import HealthResponse, QueryRequest, QueryResponse
-from src.generation.rag_chain import AskChuckRAG
+from src.generation.rag_chain import GENERATION_FAILED_MESSAGE, AskChuckRAG
 from src.utils.analytics import log_daily_metrics, log_query, upsert_user_stats
 from src.utils.config import settings
 
@@ -212,10 +212,13 @@ async def stream_query(
                             )
 
             except Exception as e:
+                # The detail stays in the logs; visitors get text that is safe to show
                 logger.error(f"Streaming error: {e}", exc_info=True)
                 yield {
                     "event": "error",
-                    "data": json.dumps({"error": str(e)}),
+                    "data": json.dumps(
+                        {"type": "error", "error": GENERATION_FAILED_MESSAGE}
+                    ),
                 }
 
         return EventSourceResponse(event_generator())

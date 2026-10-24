@@ -20,7 +20,7 @@ export function ChatContainer() {
   const [showResumePrompt, setShowResumePrompt] = useState(false);
 
   const { user } = useAuth();
-  const { canQuery, increment } = useQueryLimit(user);
+  const { canQuery, increment, refund } = useQueryLimit(user);
   const { sessions, createSession, saveMessage, loadSessionMessages } =
     useSession();
 
@@ -212,15 +212,16 @@ export function ChatContainer() {
             setMessages((prev) =>
               prev.map((msg) =>
                 msg.id === assistantId
-                  ? {
-                      ...msg,
-                      content: `Error: ${error}. The service may be temporarily unavailable — please try again in a moment.`,
-                      isStreaming: false,
-                    }
+                  ? { ...msg, content: error, isStreaming: false }
                   : msg
               )
             );
             setIsLoading(false);
+
+            // A failed question shouldn't cost the visitor one of their free ones
+            if (!user) {
+              refund();
+            }
           },
         },
         { authToken }
@@ -228,6 +229,9 @@ export function ChatContainer() {
     } catch (error) {
       console.error("Failed to send message:", error);
       setIsLoading(false);
+      if (!user) {
+        refund();
+      }
     }
   };
 
