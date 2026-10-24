@@ -24,7 +24,9 @@ class QueryExpander:
 
     def __init__(self):
         """Initialize the query expander."""
-        self.client = Groq(api_key=settings.groq_api_key)
+        # Expansion is optional: fail fast on a 429 instead of stalling retrieval
+        # while the SDK sleeps and retries
+        self.client = Groq(api_key=settings.groq_api_key, max_retries=0)
         self.model = settings.groq_model
 
     def expand_query(self, query: str, max_expansions: int = 3) -> str:

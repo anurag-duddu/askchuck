@@ -19,7 +19,9 @@ for _var in (
 ):
     os.environ.setdefault(_var, "test")
 
+import httpx  # noqa: E402
 import pytest  # noqa: E402
+from groq import APIConnectionError  # noqa: E402
 
 from src.generation import rag_chain as rag_chain_module  # noqa: E402
 from src.generation.rag_chain import AskChuckRAG  # noqa: E402
@@ -31,6 +33,14 @@ NOT_FOUND = Exception(
 )
 RATE_LIMITED = Exception("Error code: 429 - rate limit reached")
 BAD_KEY = Exception("Error code: 401 - Invalid API Key")
+
+
+class StatusError(Exception):
+    """Mimics groq.APIStatusError, which carries the HTTP status as an attribute."""
+
+    def __init__(self, status_code):
+        super().__init__(f"Error code: {status_code}")
+        self.status_code = status_code
 
 
 def _completion(content, finish_reason="stop"):
@@ -193,6 +203,44 @@ def test_stream_query_normalizes_native_citations(rag, monkeypatch):
 
     text = "".join(e["content"] for e in events if e["type"] == "token")
     assert text == "A fact [1]. Another [2]"
+
+
+def test_clean_model_output_rewrites_figure_references(rag):
+    # gpt-oss puts a narrow no-break space (U+202F) inside these
+    raw = "As shown in 【Figure 3】 and 【Table 2】 here 【】."
+    assert rag._clean_model_output(raw) == "As shown in [Figure 3] and [Table 2] here ."
+
+
+def test_citation_filter_rewrites_figure_reference_split_across_tokens():
+    assert _filter_stream(["see 【Fig", "ure 3】 now"]) == "see [Figure 3] now"
+
+
+@pytest.mark.parametrize("status", [404, 408, 429, 500, 502, 503, 504])
+def test_falls_back_on_retryable_status_codes(rag, status):
+    rag.client = FakeGroq(
+        {"primary": StatusError(status), "backup1": _completion("ok")}
+    )
+    assert rag._generate("sys", "user") == "ok"
+    assert rag.client.models_called == ["primary", "backup1"]
+
+
+@pytest.mark.parametrize("status", [400, 401, 403])
+def test_does_not_fall_back_on_client_errors(rag, status):
+    rag.client = FakeGroq({"primary": StatusError(status)})
+    rag._generate("sys", "user")
+    assert rag.client.models_called == ["primary"]
+
+
+def test_falls_back_on_connection_error(rag):
+    connection_error = APIConnectionError(request=httpx.Request("POST", "https://x"))
+    rag.client = FakeGroq({"primary": connection_error, "backup1": _completion("ok")})
+    assert rag._generate("sys", "user") == "ok"
+
+
+def test_groq_client_does_not_sleep_and_retry_rate_limits(rag):
+    # Otherwise the SDK waits 7-15s retrying the same rate-limited model before
+    # our fallback chain ever sees the 429
+    assert rag.client.max_retries == 0
 
 
 def test_reasoning_effort_only_for_gpt_oss():

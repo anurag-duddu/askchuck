@@ -10,7 +10,7 @@ import threading
 from difflib import SequenceMatcher
 from typing import Dict, Generator, List, Optional
 
-from groq import Groq
+from groq import APIConnectionError, Groq
 
 from src.generation.prompts import build_full_prompt, group_chunks_by_source
 from src.retrieval.retrieval_pipeline import RetrievalPipeline, get_retrieval_pipeline
@@ -46,9 +46,19 @@ except ImportError:
 _rag_chain_lock = threading.Lock()
 _rag_chain: Optional["AskChuckRAG"] = None
 
-# gpt-oss models sometimes emit their native citation syntax (【1†L1-L9】, 【2】)
-# instead of the [1] format our prompt asks for, and the UI can't render it.
-_NATIVE_CITATION_RE = re.compile(r"【\s*(\d+)[^】]*】")
+# gpt-oss models sometimes emit their native citation syntax (【1†L1-L9】, 【2】,
+# 【Figure 3】) instead of the plain [1] format our prompt asks for, and the UI
+# can't render it.
+_NATIVE_CITATION_RE = re.compile(r"【([^】]*)】")
+
+
+def _rewrite_native_citation(match: "re.Match[str]") -> str:
+    """【1†L1-L9】 -> [1]; 【Figure 3】 -> [Figure 3]; empty 【】 is dropped."""
+    inner = re.sub(r"[  ]", " ", match.group(1)).strip()
+    if not inner:
+        return ""
+    number = re.match(r"\d+", inner)
+    return f"[{number.group(0) if number else inner}]"
 
 
 class _CitationStreamFilter:
@@ -83,7 +93,9 @@ class _CitationStreamFilter:
                 else:
                     self._pending = tail
                 break
-            out.append(_NATIVE_CITATION_RE.sub(r"[\1]", buf[start : end + 1]))
+            out.append(
+                _NATIVE_CITATION_RE.sub(_rewrite_native_citation, buf[start : end + 1])
+            )
             buf = buf[end + 1 :]
         return "".join(out)
 
@@ -122,7 +134,9 @@ class AskChuckRAG:
             max_tokens: Maximum tokens in response
         """
         self.retrieval = retrieval_pipeline or get_retrieval_pipeline()
-        self.client = Groq(api_key=settings.groq_api_key)
+        # max_retries=0: the SDK would otherwise sleep 7-15s and retry the *same*
+        # rate-limited model; our fallback chain moves to a model with budget left
+        self.client = Groq(api_key=settings.groq_api_key, max_retries=0)
         self.model = model or settings.groq_model
         self.temperature = temperature
         self.max_tokens = max_tokens
@@ -243,10 +257,17 @@ class AskChuckRAG:
         """
         Whether an error means "this model can't serve us right now".
 
-        Covers transient rate limits (429) and permanent unavailability (404
-        model_not_found / decommissioned), so retiring a model on Groq's side
-        degrades to a fallback instead of failing every request.
+        Covers rate limits (429), permanent unavailability (404 model_not_found /
+        decommissioned) and transient server/connection errors, so a retired or
+        busy model on Groq's side degrades to a fallback instead of failing
+        every request. Groq's limits are per model, so a fallback model usually
+        has budget left when the primary is rate limited.
         """
+        status = getattr(error, "status_code", None)
+        if status is not None:
+            return status in (404, 408, 429, 500, 502, 503, 504)
+        if isinstance(error, APIConnectionError):  # includes timeouts
+            return True
         text = str(error).lower()
         return any(
             marker in text
@@ -272,7 +293,7 @@ class AskChuckRAG:
         content = re.sub(r"<\|.*?\|>", "", content)  # Special tokens
 
         # Normalize gpt-oss native citations to the [n] format
-        content = _NATIVE_CITATION_RE.sub(r"[\1]", content)
+        content = _NATIVE_CITATION_RE.sub(_rewrite_native_citation, content)
 
         return content.strip()
 
