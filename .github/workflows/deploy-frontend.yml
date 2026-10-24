@@ -49,3 +49,9 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ASKCHUCK }}
           channelId: live
           projectId: askchuck
+          # Pinned to the firebase-tools release that was current at the last
+          # successful deploy (Feb 2026). With `latest` (15.34.1 in Oct 2026) the
+          # deploy fails with 403 on serviceusage.services.get, which the deploy
+          # service account (github-firebase-askchuck) doesn't have. Unpin once that
+          # account has roles/serviceusage.serviceUsageConsumer.
+          firebaseToolsVersion: 15.8.0
