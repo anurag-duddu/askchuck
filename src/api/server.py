@@ -12,13 +12,15 @@ from typing import AsyncGenerator, Optional
 from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
+from groq import Groq
 from sse_starlette.sse import EventSourceResponse
 
 from src.api.auth import get_current_user
 from src.api.models import HealthResponse, QueryRequest, QueryResponse
 from src.generation.rag_chain import GENERATION_FAILED_MESSAGE, AskChuckRAG
 from src.utils.analytics import log_daily_metrics, log_query, upsert_user_stats
-from src.utils.config import settings
+from src.utils.config import configured_groq_chat_models, settings
+from src.utils.groq_models import GroqModelCheck, check_groq_models
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -54,14 +56,45 @@ def get_rag_chain() -> AskChuckRAG:
     return rag_chain
 
 
+# Result of the startup Groq model check; /health reads it so it never calls Groq
+groq_model_check: GroqModelCheck | None = None
+
+# Hard cap on the startup model lookup: it is advisory and must not delay startup
+GROQ_MODEL_CHECK_TIMEOUT_SECONDS = 5.0
+
+
+async def _run_groq_model_check() -> None:
+    """Warn at startup about configured Groq models that Groq no longer lists."""
+    global groq_model_check
+    try:
+        client = Groq(
+            api_key=settings.groq_api_key,
+            timeout=GROQ_MODEL_CHECK_TIMEOUT_SECONDS,
+            max_retries=0,
+        )
+        # The SDK timeout bounds each socket wait; wait_for bounds the whole check
+        groq_model_check = await asyncio.wait_for(
+            asyncio.to_thread(
+                check_groq_models,
+                client,
+                configured_groq_chat_models(),
+                settings.groq_vision_model,
+            ),
+            timeout=GROQ_MODEL_CHECK_TIMEOUT_SECONDS,
+        )
+    except Exception as e:  # includes asyncio.TimeoutError
+        logger.warning(f"Groq model check skipped ({type(e).__name__}): {e}")
+
+
 @app.on_event("startup")
 async def startup_event():
-    """Initialize RAG chain on startup."""
+    """Initialize RAG chain on startup and check the configured Groq models."""
     try:
         get_rag_chain()
         logger.info("✓ AskChuck RAG chain initialized")
     except Exception as e:
         logger.error(f"✗ Failed to initialize RAG chain: {e}")
+    await _run_groq_model_check()
 
 
 @app.get("/health", response_model=HealthResponse)
@@ -69,12 +102,17 @@ async def health_check():
     """
     Health check endpoint.
 
-    Returns the status of the API and RAG chain availability.
+    Returns the status of the API and RAG chain availability. Status is
+    "degraded" when the RAG chain is missing or the startup check found that
+    Groq no longer lists any configured chat model (cached, no Groq call here).
     """
     try:
         rag_available = rag_chain is not None
+        models_available = not (
+            groq_model_check and groq_model_check.no_chat_model_available
+        )
         return HealthResponse(
-            status="healthy" if rag_available else "degraded",
+            status="healthy" if rag_available and models_available else "degraded",
             version="1.0.0",
             rag_available=rag_available,
         )

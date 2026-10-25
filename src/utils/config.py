@@ -93,6 +93,20 @@ class Settings(BaseSettings):
 settings = Settings()
 
 
+def configured_groq_chat_models(primary: Optional[str] = None) -> list[str]:
+    """
+    Chat models to try, in order: the primary (default settings.groq_model), then
+    settings.groq_fallback_models, deduplicated. Shared by the answer-generation
+    fallback chain and the startup model-availability check.
+    """
+    fallbacks = [
+        m.strip() for m in settings.groq_fallback_models.split(",") if m.strip()
+    ]
+    models = [primary or settings.groq_model]
+    models.extend(m for m in fallbacks if m not in models)
+    return models
+
+
 def groq_chat_kwargs(model: str) -> dict:
     """
     Extra chat-completion parameters a given Groq model needs.
